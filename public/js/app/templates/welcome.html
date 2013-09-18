@@ -1,0 +1,16 @@
+<div class="hero-unit">
+    <h1>Magazine Kiosque App</h1>
+    <p>Choose a magazine to read</p>
+
+    <p class="muted">
+        You are viewing this application on
+        {{#if mobile}}
+        {{!"mobile" key in i18n file}}
+        <strong>{{$ mobile}}</strong>
+        {{else}}
+        {{!"desktop" key in i18n file}}
+        <strong>{{$ desktop}}</strong>
+        {{/if}}.
+    </p>
+    <p>{{yeller "Yellow Pimento"}}</p>
+</div>
