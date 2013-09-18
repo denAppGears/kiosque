@@ -1,13 +1,20 @@
-define(["jquery", "backbone"],
-    function($, Backbone) {
-        // Creates a new Magazine Model class object
-        var Magazine = Backbone.Model.extend({
+define(["jquery", "models/Model"],
 
-        });
+function($, Model) {
+    // Creates a new Magazine Model class object
 
-        // Returns the Model class
-        return Magazine;
+    var Magazine = Model.extend({
+        // Default values for all of the Model attributes
+        defaults: {
+            title:'noTitleSetYet',
+            content :'no content'
+        },
 
-    }
+    });
+
+    // Returns the Model class
+    return Magazine;
+
+}
 
 );

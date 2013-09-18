@@ -1,15 +1,17 @@
-define( ['App', 'backbone', 'marionette', 'jquery', 'models/Model', 'hbs!templates/welcome'],
-    function(App, Backbone, Marionette, $, Model, template) {
-        //ItemView provides some default rendering logic
-        return Backbone.Marionette.ItemView.extend( {
-            template: template,
-            model: new Model({
-                mobile: App.mobile
-            }),
+define(['App', 'backbone', 'marionette', 'jquery', 'models/Model', 'collections/Magazines', 'hbs!templates/welcome'],
 
-            // View Event Handlers
-            events: {
+function(App, Backbone, Marionette, $, Model, Magazines, template) {
+    //ItemView provides some default rendering logic
+    return Backbone.Marionette.ItemView.extend({
+        template: template,
+        model: new Model({
+            mobile: App.mobile
+        }),
+        magazines: new Magazines(),
 
-            }
-        });
+        // View Event Handlers
+        events: {
+
+        }
     });
+});
