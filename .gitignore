@@ -1,2 +1,4 @@
+*.min.*
 node_modules
+dist/tmp
 .idea/

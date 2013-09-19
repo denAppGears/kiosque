@@ -16,13 +16,13 @@ module.exports = function(grunt) {
                     include: ["init/MobileInit"],
                     out: "public/js/app/init/MobileInit.min.js",
 
-                    /*********
+                    /**
                      * https://github.com/SlexAxton/require-handlebars-plugin
                      */
                     pragmasOnSave: {
                         //removes Handlebars.Parser code (used to compile template strings) set
                         //it to `false` if you need to parse template strings even after build
-                        excludeHbsParser : true,
+                        excludeHbsParser: true,
                         // kills the entire plugin set once it's built.
                         excludeHbs: true,
                         // removes i18n precompiler, handlebars and json2
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                     locale: "en_us",
 
                     // options object which is passed to Handlebars compiler
-                    hbs : {
+                    hbs: {
                         templateExtension: "html",
                         helperDirectory: "templates/helpers/",
                         i18nDirectory: "templates/i18n/",
@@ -79,12 +79,25 @@ module.exports = function(grunt) {
                     document: true
                 }
             }
+        },
+        copy: {
+            phonegap: {
+                files: [{
+                    expand: true,
+                    //cwd: 'public/',
+                    src: ['public/index.html','public/img/*','<%=requirejs.mobileJS.options.out%>','<%=requirejs.mobileCSS.options.out%>'],
+                    dest: 'dist/tmp',
+                    filter: 'isFile'
+                }]
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
+    grunt.registerTask('mobile', ['test','requirejs:mobileJS', 'requirejs:mobileCSS'],'copy:phonegap');
     grunt.registerTask('default', ['test', 'build']);
 };
