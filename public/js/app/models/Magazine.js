@@ -8,7 +8,7 @@ function($, Model) {
         defaults: {
             title:'noTitleSetYet',
             content :'no content'
-        },
+        }
 
     });
 

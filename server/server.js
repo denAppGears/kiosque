@@ -30,4 +30,4 @@ server.configure(function () {
 // Start Node.js Server
 http.createServer(server).listen(port);
 
-console.log('Welcome to Marionette-Require-Boilerplate!\n\nPlease go to http://localhost:' + port + ' to start using Require.js and Marionette');
+console.log('Welcome to appGears Marionette-Require-Boilerplate!\n\nPlease go to http://localhost:' + port + ' to start using Require.js and Marionette');

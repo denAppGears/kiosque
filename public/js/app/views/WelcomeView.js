@@ -1,4 +1,4 @@
-define(['App', 'backbone', 'marionette', 'jquery', 'models/Model', 'collections/Magazines', 'hbs!templates/welcome'],
+define(['App', 'backbone', 'marionette', 'jquery', 'models/Model', 'collections/WelcomeView', 'hbs!templates/welcome'],
 
 function(App, Backbone, Marionette, $, Model, Magazines, template) {
     //ItemView provides some default rendering logic
@@ -7,7 +7,6 @@ function(App, Backbone, Marionette, $, Model, Magazines, template) {
         model: new Model({
             mobile: App.mobile
         }),
-        magazines: new Magazines(),
 
         // View Event Handlers
         events: {
