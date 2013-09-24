@@ -6,7 +6,7 @@ require.config({
         // Core Libraries
         "jquery":"../libs/jquery",
         "jqueryui":"../libs/jqueryui",
-        "jquerymobile":"../libs/jquery.mobile",
+        //"jquerymobile":"../libs/jquery.mobile",
         "underscore":"../libs/lodash",
         "backbone":"../libs/backbone",
         "marionette":"../libs/backbone.marionette",
@@ -19,7 +19,7 @@ require.config({
 
         // Plugins
         "backbone.validateAll":"../libs/plugins/Backbone.validateAll",
-        "bootstrap":"../libs/plugins/bootstrap",
+        //"bootstrap":"../libs/plugins/bootstrap",
         "text":"../libs/plugins/text",
         "jasminejquery": "../libs/plugins/jasmine-jquery"
     },
@@ -27,7 +27,7 @@ require.config({
     shim:{
         // Twitter Bootstrap jQuery plugins
         "bootstrap":["jquery"],
-        // jQueryUI
+        //jQueryUI
         "jqueryui":["jquery"],
         // jQuery mobile
         "jquerymobile":["jqueryui"],

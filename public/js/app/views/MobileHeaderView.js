@@ -1,6 +1,6 @@
-define(['App','backbone', 'marionette', 'jquery', 'jquerymobile', 'hbs!templates/mobileHeader'],
-
-function(App,Backbone, Marionette, $, jqm, template) {
+define(['App','backbone', 'marionette', 'jquery', 'hbs!templates/mobileHeader'],
+//'jquerymobile'
+function(App,Backbone, Marionette, $, template) {
     return Backbone.Marionette.ItemView.extend({
         template: template,
         initialize: function() {
@@ -13,7 +13,7 @@ function(App,Backbone, Marionette, $, jqm, template) {
             'click': 'goto:index'
         },
         onRender: function() {
-            this.$el.navbar();
+            //this.$el.navbar();
         }
     });
 });

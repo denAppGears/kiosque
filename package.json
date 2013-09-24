@@ -38,5 +38,5 @@
         "uglify-js":"~2.2.5"
     },
     "main":"./server/server",
-    "keywords":["Marionette.js", "Backbone.js", "Require.js", "Marionette and Require Boilerplate"]
+    "keywords":["Marionette.js", "Backbone.js", "Require.js", "Kiosque"]
 }
