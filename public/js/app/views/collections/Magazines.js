@@ -1,7 +1,7 @@
 /**
  * Magazine  collection view 
  */
-define(['jquery', 'backbone', 'views/items/Magazine'],
+define(['jquery', 'backbone', 'views/items/MagazineThumb'],
 
 function($, Backbone, MagazineView) {
     return Backbone.Marionette.CollectionView.extend({

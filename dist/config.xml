@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
+id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
+    <name>Kiosque Phonegap</name>
+    <description>A HTML5 Magazine Kiosque</description>
+    <author href="http://yellowpimento.com"
+    email="denis@yellowpimento.com">Yellow Pimento</author>
+    
+    <preference name="phonegap-version" value="3.0.0" />
+    <access origin="*" />
+</widget>

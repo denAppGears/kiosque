@@ -1,25 +1,25 @@
 {
-    "name":"Marionette-Require-Boilerplate",
-    "title":"Marionette and Require Boilerplate",
-    "description":"A Marionette.js and Require.js Boilerplate that promotes decoupling your JavaScript into modules, separating business logic from application logic using Models and Views, organizing your application into Regions with default build-up/tear-down logic for you Views, reusing your JavaScript between Desktop and Mobile Web versions, including non-AMD Compatible Third Party Scripts in your project, and optimizing all of your JavaScript (minify, concatenate, etc).",
+    "name":"kiosque",
+    "title":"Kiosque",
+    "description":"A Marionette.js Require.js and Phonegap Kiosque application",
     "version":"1.1.0",
-    "homepage":"https://github.com/BoilerplateMVC/Marionette-Require-Boilerplate",
+    "homepage":"https://yellowpimento.com",
     "author":{
-        "name":"Brett Jones",
-        "email":"brettjonesdev@gmail.com",
-        "url":"http://www.brettjonesdev.com"
+        "name":"Schmitz Denis",
+        "email":"schmitzdenis@gmail.com",
+        "url":"http://www.yellowpimento.com"
     },
     "repository":{
         "type":"git",
-        "url":"git@github.com:BoilerplateMVC/Marionette-Require-Boilerplate.git"
+        "url":"git@github.com:denAppGears/kiosque.git"
     },
     "bugs":{
-        "url":"https://github.com/BoilerplateMVC/Marionette-Require-Boilerplate/issues"
+        "url":"https://github.com/denAppGears/kiosque/issues"
     },
     "licenses":[
         {
             "type":"MIT",
-            "url":"https://github.com/BoilerplateMVC/Marionette-Require-Boilerplate/blob/master/LICENSE-MIT"
+            "url":"https://github.com/denAppGears/kiosque-phonegap/blob/master/LICENSE-MIT"
         }
     ],
     "dependencies":{
@@ -30,7 +30,11 @@
         "grunt":"~0.4.1",
         "grunt-contrib-requirejs":"~0.4.0",
         "grunt-contrib-jshint":"~0.3.0",
-        "grunt-contrib-copy":"~0.4.0",
+        "grunt-contrib-copy":"~0.4.1",
+        "grunt-git":"~0.1.5",
+        "grunt-git-deploy":"~0.1.1",
+        "grunt-contrib-clean":"~0.5.0",
+        
         "uglify-js":"~2.2.5"
     },
     "main":"./server/server",
