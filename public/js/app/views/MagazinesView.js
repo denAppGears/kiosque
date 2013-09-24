@@ -10,6 +10,6 @@ function(App, Backbone, Marionette, $, Magazines, template) {
 
         initialize: function() {
             _.bindAll(this);
-        },
+        }
     });
 });

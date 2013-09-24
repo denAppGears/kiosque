@@ -88,11 +88,34 @@ module.exports = function(grunt) {
                 src: "dist/tmp/public"
             }
         },
+        template: {
+            'phonegap': {
+                'options': {
+                    'data': {
+                        'production': true
+                    }
+                },
+                'files': {
+                    'dist/tmp/index.html': ['dist/index.html']
+                }
+            },
+            'dev' : {
+                'options': {
+                    'data': {
+                        'production': false
+                    }
+                },
+                'files': {
+                    'public/index.html': ['dist/index.html']
+                }
+            }
+            
+        },
         copy: {
             phonegap: {
                 files: [{
                     expand: true,
-                    src: ['public/index.html','public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
+                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
                     dest: 'dist/tmp',
                     filter: 'isFile'
                 }, {
@@ -130,9 +153,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-git');
     grunt.loadNpmTasks('grunt-git-deploy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-template');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
-    grunt.registerTask('mobile', ['test', 'requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap', 'copy:phonegap', 'copy:root', 'clean:rmpublic', 'git_deploy:phonegap']);
+    grunt.registerTask('mobile', ['test', 'requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap', 'template:phonegap','copy:phonegap', 'copy:root', 'clean:rmpublic', 'git_deploy:phonegap']);
     grunt.registerTask('default', ['test', 'build']);
 };
