@@ -1,22 +1,18 @@
-define(['App', 'backbone', 'marionette', 'collections/Magazines', 'views/collections/Magazines', 'views/MobileHeaderView', 'views/MagazineView'],
+define(['App', 'backbone', 'marionette', 'collections/Magazines', 'views/composites/Magazines', 'views/MobileHeaderView', 'views/MagazineView'],
 
-function(App, Backbone, Marionette, MagazinesCollection, MagazinesCollectionView, MobileHeaderView, magazineView) {
+function(App, Backbone, Marionette, MagazinesCollection, MagazinesView, MobileHeaderView, magazineView) {
     return Backbone.Marionette.Controller.extend({
         initialize: function(options) {
             App.headerRegion.show( new MobileHeaderView());
             
             /**
-             * Got to pages Events
+             * Goto pages Events
              */
             var controller = this;
-
-            //Goto Magazine Reader
-            App.vent.on('goto:read', function(magazine) {
-                controller.read(magazine);
-            });
-            //Goto Magazine list
-            App.vent.on('goto:index', function() {
-                controller.index();
+            
+            //Goto Controller action
+            App.vent.on('goto', function(options) {
+                controller[options.action](options.model);
             });
 
         },
@@ -24,7 +20,7 @@ function(App, Backbone, Marionette, MagazinesCollection, MagazinesCollectionView
         //gets mapped to in AppRouter's appRoutes
         index: function() {
             
-            var MagazineListerView = new MagazinesCollectionView({
+            var MagazineListerView = new MagazinesView({
                 collection: new MagazinesCollection([{
                     id: 1,
                     title: 'mag1',

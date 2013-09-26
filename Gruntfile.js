@@ -5,15 +5,15 @@ module.exports = function(grunt) {
         requirejs: {
             mobileJS: {
                 options: {
-                    baseUrl: "public/js/app",
+                    baseUrl: "public/js/libs",
                     wrap: true,
                     // Don't use almond if your project needs to load modules dynamically
-                    name: "../libs/almond",
+                    name: "almond",
                     preserveLicenseComments: false,
                     optimize: "uglify",
                     optimizeCss: "standard",
                     mainConfigFile: "public/js/app/config/config.js",
-                    include: ["init/MobileInit"],
+                    include: ["../app/init/MobileInit"],
                     out: "public/js/app/init/MobileInit.min.js",
 
                     /**
@@ -50,14 +50,14 @@ module.exports = function(grunt) {
             },
             desktopJS: {
                 options: {
-                    baseUrl: "public/js/app",
+                    baseUrl: "public/js/libs/",
                     wrap: true,
                     // Cannot use almond since it does not currently appear to support requireJS's config-map
-                    name: "../libs/almond",
+                    name: "almond",
                     preserveLicenseComments: false,
                     optimize: "uglify",
                     mainConfigFile: "public/js/app/config/config.js",
-                    include: ["init/DesktopInit"],
+                    include: ["../app/init/DesktopInit"],
                     out: "public/js/app/init/DesktopInit.min.js"
                 }
             },

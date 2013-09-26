@@ -6,7 +6,7 @@ function(App,Backbone, Marionette, $, template) {
         initialize: function() {
             _.bindAll(this);
             this.on('goto:index', function(triggerArgs) {
-                App.vent.trigger('goto:index');
+                App.vent.trigger('goto',{action:'index', model:triggerArgs.model});
             });
         },
         triggers: {
