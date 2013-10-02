@@ -1,27 +1,32 @@
 define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
-    function ($, Backbone, Marionette, _, Handlebars) {
-        var App = new Backbone.Marionette.Application();
 
-        function isMobile() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            //force user agent
-            userAgent = 'iPad';
-            return ((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(userAgent));
-        }
+function($, Backbone, Marionette, _, Handlebars, MagazineDownloads) {
 
-        //Organize Application into regions corresponding to DOM elements
-        //Regions can contain views, Layouts, or subregions nested as necessary
-        App.addRegions({
-            headerRegion:"header",
-            mainRegion:"#main",
-            listRegion : "#list"
-        });
+    var App = new Backbone.Marionette.Application();
 
-        App.addInitializer(function () {
-            Backbone.history.start();
-        });
+    //collection pesistence key init
+    App.collections = {};
+    
+    function isMobile() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        //force user agent
+        userAgent = 'iPad';
+        return ((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(userAgent));
+    }
 
-        App.mobile = isMobile();
-
-        return App;
+    //Organize Application into regions corresponding to DOM elements
+    //Regions can contain views, Layouts, or subregions nested as necessary
+    App.addRegions({
+        headerRegion: "header",
+        mainRegion: "#main",
+        listRegion: "#list"
     });
+
+    App.addInitializer(function() {
+        Backbone.history.start();
+    });
+
+    App.mobile = isMobile();
+
+    return App;
+});

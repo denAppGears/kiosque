@@ -1,5 +1,5 @@
 // Include Mobile Specific JavaScript files here (or inside of your Mobile Controller, or differentiate based off App.mobile === false)
-require(["App", "jquery", "routers/AppRouter", "controllers/MobileController", "backbone", "marionette", "backbone.validation","bootstrap"],
+require(["App", "jquery", "routers/AppRouter", "controllers/MobileController", "backbone", "marionette", "backbone.validation","moment","bootstrap"],
 //"jquerymobile"
     function (App, $, AppRouter, AppController) {
         // Prevents all anchor click handling
