@@ -7,8 +7,8 @@ function($, Backbone, itemView,template) {
     return Backbone.Marionette.CompositeView.extend({
         template : template,
         itemView: itemView,
-        itemViewContainer:'#list',
-        //emptyView: NoItemsView,
+        itemViewContainer:'#list'
+        //emptyView: NoItemsView
         
     });
 });

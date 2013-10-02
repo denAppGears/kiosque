@@ -10,7 +10,7 @@ define(["jquery","collections/Magazines"],
         },
         onRemove : function(magazine){
             magazine.set({downloading:false});
-        },
+        }
     });
 
     return Downloads;

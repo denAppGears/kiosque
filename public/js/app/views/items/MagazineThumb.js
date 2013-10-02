@@ -18,7 +18,7 @@ function(App, $, template, Backbone) {
         ui: {
             'progress': '.progress',
             'btnDownload': 'button .download',
-            'btnCancel': 'button .cancel',
+            'btnCancel': 'button .cancel'
         },
 
         initialize: function(attributes) {

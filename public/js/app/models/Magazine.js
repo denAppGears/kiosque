@@ -11,7 +11,7 @@ function(App, $, Model) {
             uploadTime: null,
             downloadUrl: null,
             dlAvailable: false,
-            downloading: false, // idle, pending, downloading
+            downloading: false // idle, pending, downloading
         },
 
         initialize: function(attributes) {
