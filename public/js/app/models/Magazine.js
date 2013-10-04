@@ -11,6 +11,7 @@ function(App, $, Model) {
             uploadTime: null,
             downloadUrl: null,
             dlAvailable: false,
+            localData : false,
             downloading: false // idle, pending, downloading
         },
 

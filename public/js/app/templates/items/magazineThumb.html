@@ -1,27 +1,39 @@
-<div class="thumbnail clickable">
-    <img src="http://placehold.it/320x200" alt="ALT NAME">
-    <div class="caption">
+<div class="thumbnail row">
+    <div class="col-md-4">
+        
+        <img src="http://placehold.it/320x200" alt="ALT NAME">
+    </div>
+    <div class="caption col-md-4">
         <h3>{{title}}</h3>
         <h7>{{uploadTime}}</h7>
         <p>{{content}}</p>
-    </div>
-    
-    {{#if dlAvailable}}
+    </div>    
+    <div class="buttons col-md-4">    
+        {{#if isRepo}}
+            <button type="button" class="btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
+        {{/if}}
         {{#unless downloading}}
-            <button type="button" class="btn btn-warning download">Download</button>
+            {{#if localData}}
+                <button type="button" class="btn btn-primary open"><span class="glyphicon glyphicon-eye-open"></span> Read</button>
+                {{#if dlAvailable}}
+                    <button type="button" class="btn btn-primary update"><span class="glyphicon glyphicon-cloud-download"></span> Update</button>
+                {{/if}}
+            {{else}}
+                {{#if dlAvailable}}
+                    <button type="button" class="btn btn-primary download"><span class="glyphicon glyphicon-download"></span> Download</button>
+                {{/if}}
+            {{/if}}
         {{/unless}}
-    {{/if}}
-    
-    {{#if downloading}}
-    <div class="progress progress-striped active">
-        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-            <span class="sr-only">15% Complete</span>
-        </div>
+        {{#if downloading}}
+        <button type="button" class="btn btn-danger cancel">Cancel</button>    
+        {{/if}}
     </div>
-        
-    <button type="button" class="btn btn-danger cancel">Cancel</button>
-    
+      {{#if downloading}}
+        <div class="progress progress-striped active col-md-12">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                <span class="sr-only">15% Complete</span>
+            </div>
+        </div>
     {{/if}}
-        
-</div>
+  </div>
   

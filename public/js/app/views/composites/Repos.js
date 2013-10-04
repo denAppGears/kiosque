@@ -3,11 +3,11 @@
  */
 define(['jquery', 'backbone', 'views/items/RepoThumb', 'hbs!templates/magazines'],
 
-function($, Backbone, itemView,template) {
+function($, Backbone, itemView, template) {
     return Backbone.Marionette.CompositeView.extend({
-        template : template,
+        template: template,
         itemView: itemView,
-        itemViewContainer:'#list'
+        itemViewContainer: '#list',
         //emptyView: NoItemsView,
     });
 });

@@ -2,6 +2,20 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        recess: {
+          options: {
+            compile: true
+          },
+          bootstrap: {
+            src: ['public/css/less/bootstrap/bootstrap.less'],
+            dest: 'public/css/bootstrap.css'
+          },
+          theme: {
+            src: ['public/css/less/bootstrap/theme.less'],
+            dest: 'public/css/bootstrap-theme.css'
+          }
+        },
+
         requirejs: {
             mobileJS: {
                 options: {
@@ -92,7 +106,8 @@ module.exports = function(grunt) {
             'phonegap': {
                 'options': {
                     'data': {
-                        'production': true
+                        'production': true,
+                        'phonegap' : true
                     }
                 },
                 'files': {
@@ -102,7 +117,8 @@ module.exports = function(grunt) {
             'dev' : {
                 'options': {
                     'data': {
-                        'production': false
+                        'production': false,
+                        'phonegap' : false
                     }
                 },
                 'files': {
@@ -144,7 +160,14 @@ module.exports = function(grunt) {
                 },
                 src: 'dist/tmp'
             }
+        },
+        watch: {
+          recess: {
+            files: 'public/css/less/bootstrap/*.less',
+            tasks: ['recess']
+          }
         }
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
@@ -154,9 +177,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-git-deploy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-template');
+    grunt.loadNpmTasks('grunt-recess');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
-    grunt.registerTask('mobile', ['test', 'requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap', 'template:phonegap','copy:phonegap', 'copy:root', 'clean:rmpublic', 'git_deploy:phonegap']);
+    grunt.registerTask('mobile', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap', 'template:phonegap','copy:phonegap', 'copy:root', 'clean:rmpublic', 'git_deploy:phonegap']);
     grunt.registerTask('default', ['test', 'build']);
+    grunt.registerTask('template', ['template']);
 };

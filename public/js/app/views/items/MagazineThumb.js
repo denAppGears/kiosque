@@ -10,15 +10,10 @@ function(App, $, template, Backbone) {
         className: 'span4',
         //view triggers
         triggers: {
-            "click img": 'open',
             'click button.download': 'download',
-            'click button.cancel': 'cancel'
-        },
-        // aliases some dom selectors 
-        ui: {
-            'progress': '.progress',
-            'btnDownload': 'button .download',
-            'btnCancel': 'button .cancel'
+            'click button.cancel': 'cancel',
+            'click button.update': 'update',
+            'click button.open': 'open'
         },
 
         initialize: function(attributes) {
@@ -46,6 +41,7 @@ function(App, $, template, Backbone) {
         // events handlers
         onDownloadingChanged: function(magazine) {
             this.render();
+            //maybe faster ?
             // switch (magazine.get('downloading')) {
             // case true:
             //     this.ui.progress.removeClass('hide');

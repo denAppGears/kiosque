@@ -13,7 +13,6 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             App.vent.on('goto', function(options) {
                 controller[options.action](options.model);
             });
-
             //Listen to goto nav buttons
             $('.goto').live('click', function(event) {
                 App.vent.trigger('goto', {
@@ -35,16 +34,17 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     id: 1,
                     title: 'citroën',
                     content: 'all magazines provided by citroën'
-                }])
+                }]),
+                // default view -> trigger startViewLoaded when rendered !
+                onRender : function(){App.vent.trigger('startViewLoaded');}
             }));
-
         },
         // Show magazine feeds origins list
         'magazines': function(repo) {
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     action: 'repos',
-                    label: 'repos list',
+                    label: 'Repos list',
                     pageTitle: "Magazines list"
                 })
             }));
@@ -53,7 +53,9 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         id: 1,
                         title: 'mag1',
                         content: 'htm5 content1',
-                        uploadTime: '01-10-2013'
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        uploadTime: '01-10-2013',
+                        localData : true
                     }, {
                         id: 2,
                         title: 'mag2',
@@ -64,7 +66,8 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         id: 3,
                         title: 'mag3',
                         content: 'htm5 content3',
-                        uploadTime: '01-09-2013'
+                        uploadTime: '01-09-2013',
+                        localData : true
                     }]);
 
             }
@@ -76,7 +79,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     action: 'magazines',
-                    label: 'magazines list',
+                    label: 'Magazines list',
                     pageTitle: "Magazine reader"
                 })
             }));

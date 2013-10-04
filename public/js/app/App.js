@@ -3,9 +3,6 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 function($, Backbone, Marionette, _, Handlebars, MagazineDownloads) {
 
     var App = new Backbone.Marionette.Application();
-
-    //collection pesistence key init
-    App.collections = {};
     
     function isMobile() {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -14,16 +11,25 @@ function($, Backbone, Marionette, _, Handlebars, MagazineDownloads) {
         return ((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(userAgent));
     }
 
-    //Organize Application into regions corresponding to DOM elements
-    //Regions can contain views, Layouts, or subregions nested as necessary
-    App.addRegions({
-        headerRegion: "header",
-        mainRegion: "#main",
-        listRegion: "#list"
-    });
-
+    // Platform Agnostic initializer.
     App.addInitializer(function() {
+        //collection cache object init
+        this.collections = {};
+        
+        //Organize Application into regions corresponding to DOM elements
+        //Regions can contain views, Layouts, or subregions nested as necessary
+        this.addRegions({
+            headerRegion: "header",
+            mainRegion: "#main",
+            listRegion: "#list"
+        });
+
+    });
+    //Platform Agnostic Last initializer.
+    App.on("initialize:after", function(options){
+      if (Backbone.history){
         Backbone.history.start();
+      }
     });
 
     App.mobile = isMobile();

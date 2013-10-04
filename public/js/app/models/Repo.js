@@ -8,7 +8,8 @@ function($, Model) {
         // Default values for all of the Model attributes
         defaults: {
             title:'noTitleSetYet',
-            content :'no content'
+            content :'no content',
+            isRepo : true
         }
 
     });
