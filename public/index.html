@@ -14,12 +14,16 @@
     <title>Kiosque</title>
     <meta name="description" content="Yellow Pimento Kiosque">
 
-    <!-- Bootstrap Mobile First -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0", user-scalable="no">
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    
     
     <!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript -->
     <script>
-    
+        //Set ENV variables in the Global scope
+        var APP_ENV = {
+            "isPhonegap" : false
+        };
         // Mobile/Desktop Detection script
         (function(ua, w, d, undefined) {
 
@@ -92,7 +96,7 @@
             };
 
             // Mobile/Tablet Logic
-            if((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(ua) ) {
+            if ( (/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(ua) ) {
 
                 // Mobile/Tablet CSS and JavaScript files to load
                 filesToLoad = {
@@ -146,13 +150,17 @@
 </head>
 <body>
 
-<div class="container">
+<div data-role="page">
 
-    <header></header>
+    <header data-role="header"></header>
 
-    <div id="main"></div>
+    <div id="main" class="container-fluid" data-role="content"></div>
 
+    <footer data-role="footer" class="footer navbar navbar-fixed-bottom">
+        <p>
+        </p>
+    </footer>
 </div>
-
+<div id="modal"></div>
 </body>
 </html>

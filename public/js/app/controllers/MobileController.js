@@ -22,7 +22,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             });
         },
 
-        //gets mapped to in AppRouter's appRoutes
+        //DEFAULT show repos list
         'repos': function() {
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
@@ -36,7 +36,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     content: 'all magazines provided by citroën'
                 }]),
                 // default view -> trigger startViewLoaded when rendered !
-                onRender : function(){App.vent.trigger('startViewLoaded');}
+                onRender : function(){ App.vent.trigger('startViewLoaded'); }
             }));
         },
         // Show magazine feeds origins list

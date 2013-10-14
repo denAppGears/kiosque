@@ -11,6 +11,7 @@ require.config({
         "models": "../app/models",
         "views": "../app/views",
         "templates": "../app/templates",
+        "regions" : "../app/regions",
 
         // libraries
         "jquery": "jquery",

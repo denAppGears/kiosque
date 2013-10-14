@@ -1,9 +1,9 @@
 /**
  * Magazine thumbnail item view 
  */
-define(['App', 'jquery', 'hbs!templates/items/magazineThumb', 'backbone'],
+define(['App', 'jquery', 'hbs!templates/items/magazineThumb', 'backbone','views/modal/confirm'],
 
-function(App, $, template, Backbone) {
+function(App, $, template, Backbone,confirmView) {
     return Backbone.Marionette.ItemView.extend({
         template: template,
         tagName: 'li',
@@ -13,7 +13,8 @@ function(App, $, template, Backbone) {
             'click button.download': 'download',
             'click button.cancel': 'cancel',
             'click button.update': 'update',
-            'click button.open': 'open'
+            'click button.open': 'open',
+            'click button.remove': 'remove'
         },
 
         initialize: function(attributes) {
@@ -28,33 +29,24 @@ function(App, $, template, Backbone) {
                 triggerArgs.model.download();
             });
             this.on("cancel", function(triggerArgs) {
-                triggerArgs.model.cancel();
+                triggerArgs.model.endDownload();
+            });
+            this.on("remove", function(triggerArgs) {
+                App.modalRegion.show( new confirmView() );
+                //triggerArgs.model.removeDatas();
             });
         },
 
 
         // on magazine downloading state changes
         modelEvents: {
-            'change:downloading': 'onDownloadingChanged'
+            'change:downloading': 'onDownloadingChanged',
+            'change:dlProgress': 'onDownloadingChanged',
+            'change:dlAvailable' : 'onDownloadingChanged'
         },
-
         // events handlers
         onDownloadingChanged: function(magazine) {
             this.render();
-            //maybe faster ?
-            // switch (magazine.get('downloading')) {
-            // case true:
-            //     this.ui.progress.removeClass('hide');
-            //     this.ui.btnCancel.removeClass('hide');
-            //     this.ui.btnDownload.addClass('hide');
-            //     break;
-            // default:
-            //     this.ui.progress.addClass('hide');
-            //     this.ui.btnCancel.addClass('hide');
-            //     this.ui.btnDownload.removeClass('hide');
-            //     break;
-            // }
-
         }
     });
 

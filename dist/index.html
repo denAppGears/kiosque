@@ -17,11 +17,16 @@
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
     
+    <!-- @if PHONEGAP -->
     <script src="phonegap.js"></script>
+    <!-- @endif -->
     
     <!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript -->
     <script>
-    
+        //Set ENV variables in the Global scope
+        var APP_ENV = {
+            "isPhonegap" : <!-- @echo PHONEGAP -->
+        };
         // Mobile/Desktop Detection script
         (function(ua, w, d, undefined) {
 
@@ -30,7 +35,7 @@
             // App Environment
             // ---------------
             //  Tip: Set to true to turn on "production" mode
-            var production = <%- production %>,
+            var production = <!-- @echo PRODUCTION -->,
             filesToLoad,
 
             //BoilerplateMVC Helper Methods
@@ -158,8 +163,7 @@
         <p>
         </p>
     </footer>
-
 </div>
-
+<div id="modal"></div>
 </body>
 </html>

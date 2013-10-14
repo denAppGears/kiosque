@@ -34,9 +34,10 @@
         "grunt-git":"~0.1.5",
         "grunt-git-deploy":"~0.1.1",
         "grunt-contrib-clean":"~0.5.0",
-        "grunt-template":"~0.2.0",
+        "grunt-preprocess":"3.0.1",
         "grunt-contrib-watch":"~0.2.0",
-        "grunt-recess":"~0.2.0",
+        "grunt-phonegap-build":"",
+        "grunt-recess":"",
         "uglify-js":"~2.2.5"
     },
     "main":"./server/server",

@@ -102,12 +102,12 @@ module.exports = function(grunt) {
                 src: "dist/tmp/public"
             }
         },
-        template: {
+        preprocess: {
             'phonegap': {
                 'options': {
-                    'data': {
-                        'production': true,
-                        'phonegap' : true
+                    'context': {
+                        'PRODUCTION': true,
+                        'PHONEGAP': true
                     }
                 },
                 'files': {
@@ -116,9 +116,9 @@ module.exports = function(grunt) {
             },
             'dev' : {
                 'options': {
-                    'data': {
-                        'production': false,
-                        'phonegap' : false
+                    'context': {
+                        'PRODUCTION': false,
+                        'PHONEGAP': false
                     }
                 },
                 'files': {
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
             phonegap: {
                 files: [{
                     expand: true,
-                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
+                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*','public/fonts/*', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
                     dest: 'dist/tmp',
                     filter: 'isFile'
                 }, {
@@ -161,6 +161,21 @@ module.exports = function(grunt) {
                 src: 'dist/tmp'
             }
         },
+        "phonegap-build" : {
+            fromgit:{
+              options: {
+                //archive: "app.zip",
+                "isRepository" : "true",
+                "appId": "558893",
+                "user": {
+                    //"token" : "f0fcc519fad9122ec3144a0737f83ce08b74cd29" //github token
+                    "email": "schmitzdenis@gmail.com",
+                    "password": "Densch000"
+                }
+              }
+          
+          }
+        },
         watch: {
           recess: {
             files: 'public/css/less/bootstrap/*.less',
@@ -176,13 +191,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-git');
     grunt.loadNpmTasks('grunt-git-deploy');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-template');
+   // grunt.loadNpmTasks('grunt-template');
+    grunt.loadNpmTasks('grunt-preprocess');
+    grunt.loadNpmTasks('grunt-phonegap-build');
     grunt.loadNpmTasks('grunt-recess');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
-    grunt.registerTask('mobile', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap', 'template:phonegap','copy:phonegap', 'copy:root', 'clean:rmpublic', 'git_deploy:phonegap']);
+    grunt.registerTask('mobile', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']); //,'phonegap-build:fromgit'
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
 };

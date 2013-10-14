@@ -1,6 +1,6 @@
-define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
+define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars','regions/ModalRegion'],
 
-function($, Backbone, Marionette, _, Handlebars, MagazineDownloads) {
+function($, Backbone, Marionette, _, Handlebars,modalRegionClass) {
 
     var App = new Backbone.Marionette.Application();
     
@@ -16,14 +16,17 @@ function($, Backbone, Marionette, _, Handlebars, MagazineDownloads) {
         //collection cache object init
         this.collections = {};
         
+        var modalRegion = new modalRegionClass({el:"#modal"});
+        
         //Organize Application into regions corresponding to DOM elements
         //Regions can contain views, Layouts, or subregions nested as necessary
         this.addRegions({
             headerRegion: "header",
             mainRegion: "#main",
-            listRegion: "#list"
+            listRegion: "#list",
+            modalRegion: modalRegion
         });
-
+        // add a modal region wich exends marionette region.
     });
     //Platform Agnostic Last initializer.
     App.on("initialize:after", function(options){

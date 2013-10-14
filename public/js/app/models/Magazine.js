@@ -12,7 +12,8 @@ function(App, $, Model) {
             downloadUrl: null,
             dlAvailable: false,
             localData : false,
-            downloading: false // idle, pending, downloading
+            downloading: false, // idle, pending, downloading
+            dlProgress : 0 // % download completion
         },
 
         initialize: function(attributes) {
@@ -21,6 +22,7 @@ function(App, $, Model) {
         },
         //Check if the Magazine is localy downloaded and up to date
         checkLocal: function() {
+            if(!App.isPhonegap) return false;
             var uploadMoment = moment(this.get('uploadTime'), "DD-MM-YYYY");
             if (0 > uploadMoment.diff(moment(), 'day')) {
                 return false;
@@ -29,26 +31,37 @@ function(App, $, Model) {
         },
         //check if a new download is available
         checkDlAvailable: function() {
-            if (this.get('downloadUrl') && !this.checkLocal()) {
-                this.set({
-                    dlAvailable: true
-                });
-            }
-            else {
-                this.set({
-                    dlAvailable: false
-                });
-            }
+            var dlAvailable = false;
+            if ( App.isPhonegap && navigator.connection.type !== Connection.NONE && this.get('downloadUrl') && !this.checkLocal() ){
+                dlAvailable = true;
+            } 
+            this.set({dlAvailable : dlAvailable});
         },
         //Download Magazine to local file system.
         download: function() {
             App.downloads.add(this);
         },
-        //Cancel ongoing download
-        cancel: function() {
+        //Stop ongoing or completed download
+        endDownload: function() {
             App.downloads.remove(this);
+        },
+                //Stop ongoing or completed download
+        cancelDownload: function() {
+            this.endDownload();
+            this.removeDatas();
+        },
+        removeDatas: function(){
+            App.downloads.removeDatas(this);
         }
     });
+    
+    if(App.isPhonegap){
+        document.addEventListener("offline", onConnectionChange, false);
+        document.addEventListener("online", onConnectionChange, false);
+    }
+    function onConnectionChange() {
+        Magazine.checkDlAvailable();
+    }
 
     // Returns the Model class
     return Magazine;
