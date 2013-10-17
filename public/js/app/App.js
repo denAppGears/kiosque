@@ -16,12 +16,12 @@ function($, Backbone, Marionette, _, Handlebars,modalRegionClass) {
         //collection cache object init
         this.collections = {};
         
-        var modalRegion = new modalRegionClass({el:"#modal"});
+        var modalRegion = new modalRegionClass();
         
         //Organize Application into regions corresponding to DOM elements
         //Regions can contain views, Layouts, or subregions nested as necessary
         this.addRegions({
-            headerRegion: "header",
+            headerRegion: "#header",
             mainRegion: "#main",
             listRegion: "#list",
             modalRegion: modalRegion

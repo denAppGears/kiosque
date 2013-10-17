@@ -203,3 +203,11 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
 };
+
+/*
+add id_rsa
+add id_rsa.pub
+plugman install --platform ios --project ./platforms/ios  --plugin org.apache.cordova.file
+plugman install --platform ios --project ./platforms/ios  --plugin org.apache.cordova.file-transfer
+plugman install --platform ios --project ./platforms/ios  --plugin org.apache.cordova.network-information
+*/

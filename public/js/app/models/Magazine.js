@@ -12,8 +12,9 @@ function(App, $, Model) {
             downloadUrl: null,
             dlAvailable: false,
             localData : false,
-            downloading: false, // idle, pending, downloading
-            dlProgress : 0 // % download completion
+            downloading: false, // idle, downloading
+            dlProgress : 0, // % download completion
+            thumbSrc :'noimage.gif'
         },
 
         initialize: function(attributes) {

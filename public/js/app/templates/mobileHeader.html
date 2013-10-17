@@ -1,4 +1,10 @@
-<h2>{{pageTitle}}</h2>
-{{#if action}}
-<button  type="button" class="btn btn-primary goto" value="{{action}}"><span class="glyphicon glyphicon-circle-arrow-left"></span> {{label}}</button>
-{{/if}}
+<div class="row">
+    <div class="col-md-8">
+        <h2>{{pageTitle}}</h2>
+    </div>
+    <div class="col-md-4">    
+    {{#if action}}
+    <button  type="button" class="btn btn-primary goto" value="{{action}}"><span class="glyphicon glyphicon-circle-arrow-left"></span> {{label}}</button>
+    {{/if}}
+    </div>    
+</div>

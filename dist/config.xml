@@ -14,6 +14,6 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     
     <gap:plugin name="org.apache.cordova.core.file" />
     <gap:plugin name="org.apache.cordova.core.file-transfer" />
-
+    <gap:plugin name="org.apache.cordova.core.network-information" />
     
 </widget>

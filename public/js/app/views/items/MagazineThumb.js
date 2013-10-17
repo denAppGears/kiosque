@@ -1,5 +1,5 @@
 /**
- * Magazine thumbnail item view 
+ * View Item Magazine Thumbnail
  */
 define(['App', 'jquery', 'hbs!templates/items/magazineThumb', 'backbone','views/modal/confirm'],
 
@@ -32,7 +32,16 @@ function(App, $, template, Backbone,confirmView) {
                 triggerArgs.model.endDownload();
             });
             this.on("remove", function(triggerArgs) {
-                App.modalRegion.show( new confirmView() );
+                // config a confirm view to pass to the region modal.
+                var modalParams = new Backbone.Model({
+                    actionLabel: 'remove', 
+                    cancelLabel: 'cancel',  
+                    actionCallBack:triggerArgs.model.removeDatas,
+                    actionOptions:{},
+                    modalTitle : 'magazine local data removal',
+                    modalContent : "Are you sure you want to remove the localy saved magazine ? you'll have to download it again in order to read it."
+                }) ;
+                App.modalRegion.show( new confirmView({ model : modalParams }) );
                 //triggerArgs.model.removeDatas();
             });
         },

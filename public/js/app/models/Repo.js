@@ -9,7 +9,8 @@ function($, Model) {
         defaults: {
             title:'noTitleSetYet',
             content :'no content',
-            isRepo : true
+            isRepo : true,
+            thumbSrc :'noimage.gif'
         }
 
     });

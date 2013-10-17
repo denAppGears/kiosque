@@ -1,10 +1,13 @@
 define(["jquery", "marionette"],
     function($,Marionette){
         var ModalRegion = Marionette.Region.extend({
+            el : "#modal",
             constructor: function() {
+                
                 Marionette.Region.prototype.constructor.apply(this, arguments);
-         
                 this.ensureEl();
+                this.$el.addClass('modal fade');
+                //this.$el.addClass('modal fade');
                 this.$el.on('hidden', {region:this}, function(event) {
                     event.data.region.close();
                 });
@@ -15,7 +18,7 @@ define(["jquery", "marionette"],
             },
          
             onClose: function() {
-                this.$el.modal('hide');
+               this.$el.modal('hide');
             }
         });
         
