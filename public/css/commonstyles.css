@@ -1,3 +1,7 @@
 .clickable{
     cursor: pointer;
 }
+/*ovveride bootstrap modal behaviour to avoid 15px shift*/
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom  {
+    margin-right: 0
+}
