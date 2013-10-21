@@ -5,3 +5,26 @@
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom  {
     margin-right: 0
 }
+
+.scrollable { overflow-y: auto; }
+.scrollable::-webkit-scrollbar {
+    width: 4px;
+    height: 4px; 
+}
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07); 
+}
+.scrollable::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none; 
+}
+.scrollable::-webkit-scrollbar-corner {
+    background-color: transparent; 
+}
+
+#reader{
+    width:600px;
+    height:400px;
+}

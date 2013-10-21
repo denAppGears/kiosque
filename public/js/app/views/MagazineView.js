@@ -11,6 +11,14 @@ function(App, Backbone, Marionette, $, Magazine, template) {
         
         initialize: function() {
             _.bindAll(this);
+        },
+        onRender :  function(options){
+            //if(!App.isPhonegap) return;
+            var readerContainer = $(this.$el).find('#reader');
+            $.get( "mags/1/2/page-1.html", function( pageContent ) {
+                $(readerContainer).html(pageContent);
+            });
+            
         }
     });
 });

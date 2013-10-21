@@ -7,6 +7,7 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     email="denis@yellowpimento.com">Yellow Pimento</author>
     
     <preference name="phonegap-version" value="3.0.0" />
+    <preference name="stay-in-webview" value="true" /> 
     <access origin="*" />
     
     <gap:platform name="ios" />
@@ -15,5 +16,6 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     <gap:plugin name="org.apache.cordova.core.file" />
     <gap:plugin name="org.apache.cordova.core.file-transfer" />
     <gap:plugin name="org.apache.cordova.core.network-information" />
+    <gap:plugin name="org.apache.cordova.core.inappbrowser" />
     
 </widget>
