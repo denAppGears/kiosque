@@ -1,9 +1,9 @@
 /**
  * View of the magazine detailed content
  */
-define(['App', 'backbone', 'marionette', 'jquery', 'models/Magazine', 'hbs!templates/magazine'],
+define(['App', 'backbone', 'marionette', 'jquery', 'models/Magazine', 'hbs!templates/magazine','iscroll'],
 
-function(App, Backbone, Marionette, $, Magazine, template) {
+function(App, Backbone, Marionette, $, Magazine, template,iscroll) {
 
     return Backbone.Marionette.ItemView.extend({
         template: template,

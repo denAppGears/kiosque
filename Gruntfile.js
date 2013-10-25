@@ -50,10 +50,48 @@ module.exports = function(grunt) {
                         templateExtension: "html",
                         helperDirectory: "templates/helpers/",
                         i18nDirectory: "templates/i18n/",
+                        compileOptions: {}
+                    }
+                }
+            },
+            mobileDevJS: {
+                options: {
+                    baseUrl: "public/js/libs",
+                    wrap: false,
+                    // Don't use almond if your project needs to load modules dynamically
+                    name: "almond",
+                    preserveLicenseComments: true,
+                    optimize: "",
+                    optimizeCss: "standard",
+                    mainConfigFile: "public/js/app/config/config.js",
+                    include: ["../app/init/MobileInit"],
+                    out: "public/js/app/init/MobileInit.min.js",
+
+                    /**
+                     * https://github.com/SlexAxton/require-handlebars-plugin
+                     */
+                    pragmasOnSave: {
+                        //removes Handlebars.Parser code (used to compile template strings) set
+                        //it to `false` if you need to parse template strings even after build
+                        excludeHbsParser: true,
+                        // kills the entire plugin set once it's built.
+                        excludeHbs: true,
+                        // removes i18n precompiler, handlebars and json2
+                        excludeAfterBuild: true
+                    },
+
+                    locale: "en_us",
+
+                    // options object which is passed to Handlebars compiler
+                    hbs: {
+                        templateExtension: "html",
+                        helperDirectory: "templates/helpers/",
+                        i18nDirectory: "templates/i18n/",
 
                         compileOptions: {}
                     }
                 }
+            
             },
             mobileCSS: {
                 options: {
@@ -199,7 +237,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
-    grunt.registerTask('mobile', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']); //,'phonegap-build:fromgit'
+    grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
+    grunt.registerTask('mobile', ['test', 'recess','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']); //,'phonegap-build:fromgit'
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
 };

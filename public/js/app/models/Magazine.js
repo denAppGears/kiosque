@@ -46,7 +46,7 @@ function(App, $, Model) {
         endDownload: function() {
             App.downloads.remove(this);
         },
-                //Stop ongoing or completed download
+        //Stop ongoing or completed download
         cancelDownload: function() {
             this.endDownload();
             this.removeDatas();

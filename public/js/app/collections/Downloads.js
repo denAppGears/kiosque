@@ -22,7 +22,7 @@ function(App, $, parentCollection) {
         },
         fileAction: function(magazine, action) {
 
-            if (!App.isPhonegap){ App.modalRegion.close(); return; }
+            if (!App.isPhonegap) return;
 
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, function(error) {
                 console.log('requestFileSystemFailed : ' + error);
@@ -76,7 +76,6 @@ function(App, $, parentCollection) {
                 console.log('file removal suceed !');
                 magazine.set('localData', false);
                 magazine.endDownload();
-                App.modalRegion.close();
             }
 
             function fail(error) {

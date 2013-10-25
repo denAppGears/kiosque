@@ -13,13 +13,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             App.vent.on('goto', function(options) {
                 controller[options.action](options.model);
             });
-            //Listen to goto nav buttons
-            $('.goto').live('click', function(event) {
-                App.vent.trigger('goto', {
-                    action: this.value,
-                    model: null
-                });
-            });
+
         },
 
         //DEFAULT show repos list
@@ -43,9 +37,10 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         'magazines': function(repo) {
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
-                    action: 'repos',
-                    label: 'Repos list',
-                    pageTitle: "Magazines list"
+                    goBackAction: 'repos',
+                    goBackModel : null,
+                    label: 'Repos',
+                    pageTitle: repo.get('title')
                 })
             }));
             if (!App.collections.magazines) {
@@ -55,19 +50,22 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         content: 'htm5 content1',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         uploadTime: '01-10-2013',
-                        localData : true
+                        localData : true,
+                        repo : repo
                     }, {
                         id: 2,
                         title: 'mag2',
                         content: 'htm5 content2',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        uploadTime: '09-01-2013'
+                        uploadTime: '09-01-2013',
+                        repo : repo
                     }, {
                         id: 3,
                         title: 'mag3',
                         content: 'htm5 content3',
                         uploadTime: '01-09-2013',
-                        localData : true
+                        localData : true,
+                        repo : repo
                     }]);
 
             }
@@ -78,9 +76,10 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         'read': function(magazine) {
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
-                    action: 'magazines',
-                    label: 'Magazines list',
-                    pageTitle: "Magazine reader"
+                    goBackAction: 'magazines',
+                    goBackModel : magazine.get('repo'),
+                    label: 'Magzs',
+                    pageTitle: magazine.get('title')
                 })
             }));
             App.mainRegion.show(new magazineView({

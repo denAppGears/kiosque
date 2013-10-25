@@ -1,7 +1,10 @@
 // Include Mobile Specific JavaScript files here (or inside of your Mobile Controller, or differentiate based off App.mobile === false)
-require(["App", "jquery", "routers/AppRouter", "controllers/MobileController", "backbone", "marionette", "backbone.validation", "moment", "bootstrap"],
+require(["App", "jquery", "routers/AppRouter", "controllers/MobileController", "backbone", "marionette", "backbone.validation", "moment","fastclick","appframework.ui.min"],
 //"jquerymobile"
 function(App, $, AppRouter, AppController) {
+    
+    //init fastclick on body
+    FastClick.attach(document.body);
     
     App.addInitializer(function() {
         //app router init    

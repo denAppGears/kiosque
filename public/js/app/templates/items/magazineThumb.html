@@ -1,14 +1,13 @@
 <div class="thumbnail">
-    <div class=" row">
-        <div class="col-md-4">
-            <img src="img/{{thumbSrc}}" alt="ALT NAME">
-        </div>
-        <div class="caption col-md-4">
+    <div class=" grid">
+        <div class="caption col2">
             <h3>{{title}}</h3>
-            <h7>{{uploadTime}}</h7>
-            <p>{{content}}</p>
-        </div>    
-        <div class="buttons col-md-4">    
+            <img src="img/{{thumbSrc}}" alt="ALT NAME">
+            {{#if downloading}}
+                <div class="progress">{{dlProgress}}%</div>
+            {{/if}}
+        </div>
+        <div class="buttons col2">    
             {{#if isRepo}}
                 <button type="button" class="btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
             {{/if}}
@@ -30,13 +29,4 @@
             {{/if}}
         </div>
     </div>
-          {{#if downloading}}
-        <div class="row">
-            <div class="progress progress-striped active col-md-12">
-                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{dlProgress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{dlProgress}}%">
-                    <span class="sr-only">{{dlProgress}}% Complete</span>
-                </div>
-            </div>
-        </div>
-        {{/if}}
 </div>

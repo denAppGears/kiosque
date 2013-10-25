@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars','regions/ModalRegion'],
+define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 
 function($, Backbone, Marionette, _, Handlebars,modalRegionClass) {
 
@@ -16,15 +16,12 @@ function($, Backbone, Marionette, _, Handlebars,modalRegionClass) {
         //collection cache object init
         this.collections = {};
         
-        var modalRegion = new modalRegionClass();
-        
         //Organize Application into regions corresponding to DOM elements
         //Regions can contain views, Layouts, or subregions nested as necessary
         this.addRegions({
             headerRegion: "#header",
             mainRegion: "#main",
-            listRegion: "#list",
-            modalRegion: modalRegion
+            listRegion: "#list"
         });
         // add a modal region wich exends marionette region.
     });

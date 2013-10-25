@@ -1,7 +1,7 @@
 /**
  * View Item Magazine Thumbnail
  */
-define(['App', 'jquery', 'hbs!templates/items/magazineThumb', 'backbone','views/modal/confirm'],
+define(['App', 'jquery', 'hbs!templates/items/magazineThumb', 'backbone'],
 
 function(App, $, template, Backbone,confirmView) {
     return Backbone.Marionette.ItemView.extend({
@@ -32,16 +32,23 @@ function(App, $, template, Backbone,confirmView) {
                 triggerArgs.model.endDownload();
             });
             this.on("remove", function(triggerArgs) {
-                // config a confirm view to pass to the region modal.
-                var modalParams = new Backbone.Model({
-                    actionLabel: 'remove', 
-                    cancelLabel: 'cancel',  
-                    actionCallBack:triggerArgs.model.removeDatas,
-                    actionOptions:{},
-                    modalTitle : 'magazine local data removal',
-                    modalContent : "Are you sure you want to remove the localy saved magazine ? you'll have to download it again in order to read it."
-                }) ;
-                App.modalRegion.show( new confirmView({ model : modalParams }) );
+                /*
+                    @todo do git pull request to assign options in popup object to be able to pass parameters to the callBack function !
+                */
+                $.ui.popup( {
+                    title:"Magazine removal",
+                    message:"Are you sure you want to remove the localy saved magazine ? you'll have to download it again in order to read it.",
+                    cancelText:"Cancel",
+                    cancelCallback: function(){console.log("Removal canceled");},
+                    doneText:"Remove",
+                    doneCallback: function(){
+                        App.collections.magazines.get( arguments[0].addCssClass.split('_')[1] ).removeDatas();
+                    },
+                    cancelOnly:false,
+                    addCssClass : 'popup-remove-magazine-id'+ '_' + triggerArgs.model.get('id')
+                });
+                
+                //App.modalRegion.show( new confirmView({ model : modalParams }) );
                 //triggerArgs.model.removeDatas();
             });
         },

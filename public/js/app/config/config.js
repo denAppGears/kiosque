@@ -15,6 +15,7 @@ require.config({
 
         // libraries
         "jquery": "jquery",
+        "appframework.jq":"appframework.jq",
         "underscore": "lodash",
         "backbone": "backbone", //the AMD compatible fork
         "backbone.validation": "backbone.validation",
@@ -22,6 +23,11 @@ require.config({
         "moment" : "moment",
         "marionette": "backbone.marionette",
         "bootstrap":"bootstrap",
+        
+        "fastclick" : "fastclick",
+        "iscroll" : "iscroll",
+        
+        "appframework.ui.min" :"appframework.ui.min",
 
         "handlebars": "handlebars",
         "hbs": "hbs",
@@ -38,6 +44,8 @@ require.config({
 
         //UI libraries
         "bootstrap": ["jquery"],
+        "appframework.ui.min" : ["appframework.jq"],
+        "appframework.jq" : ["jquery"],
         "handlebars": {
             "exports": "Handlebars"
         },
