@@ -16,22 +16,28 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
 
         },
 
-        //DEFAULT show repos list
+        //DEFAULT show repos list as defined in app/router
         'repos': function() {
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     pageTitle: "Magazines Repositories"
                 })
             }));
-            App.mainRegion.show(new ReposView({
-                collection: new ReposCollection([{
+            
+            var reposView = new ReposView({
+                'collection': new ReposCollection([{
                     id: 1,
-                    title: 'citroën',
-                    content: 'all magazines provided by citroën'
+                    title: 'Wolluwe Shopping Center',
+                    content: 'all magazines provided by WSC',
+                    thumbSrc :'mags/1/thumb.png'
+                    
                 }]),
                 // default view -> trigger startViewLoaded when rendered !
-                onRender : function(){ App.vent.trigger('startViewLoaded'); }
-            }));
+                'onRender' : function(){ 
+                    App.vent.trigger('startViewLoaded'); 
+                }
+            });
+            App.mainRegion.show(reposView);
         },
         // Show magazine feeds origins list
         'magazines': function(repo) {
@@ -51,22 +57,35 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         uploadTime: '01-10-2013',
                         localData : true,
-                        repo : repo
+                        repo : repo,
+                        thumbSrc :'mags/1/1/thumb.png'
                     }, {
                         id: 2,
                         title: 'mag2',
                         content: 'htm5 content2',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         uploadTime: '09-01-2013',
-                        repo : repo
+                        repo : repo,
+                        thumbSrc :'mags/1/2/thumb.png'
                     }, {
                         id: 3,
                         title: 'mag3',
                         content: 'htm5 content3',
                         uploadTime: '01-09-2013',
                         localData : true,
-                        repo : repo
-                    }]);
+                        repo : repo,
+                        thumbSrc :'mags/1/3/thumb.png'
+                    }, {
+                        id: 4,
+                        title: 'mag4',
+                        content: 'htm5 content4',
+                        uploadTime: '20-09-2013',
+                        localData : true,
+                        repo : repo,
+                        thumbSrc :'mags/1/4/thumb.png'
+                    }
+                                                                    
+                ]);
 
             }
 

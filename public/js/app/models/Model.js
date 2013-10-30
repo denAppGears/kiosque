@@ -17,7 +17,6 @@ define(["jquery", "backbone"],
             validate: function(attrs) {
 
             }
-
         });
 
         // Returns the Model class

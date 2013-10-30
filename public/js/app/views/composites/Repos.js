@@ -1,13 +1,16 @@
 /**
  * Magazine  composite view 
  */
-define(['jquery', 'backbone', 'views/items/RepoThumb', 'hbs!templates/magazines'],
+define(['App','jquery', 'backbone', 'views/items/RepoThumb', 'hbs!templates/magazines'],
 
-function($, Backbone, itemView, template) {
+function(App,$, Backbone, itemView, template) {
     return Backbone.Marionette.CompositeView.extend({
         template: template,
         itemView: itemView,
-        itemViewContainer: '#list'
+        itemViewContainer: '#list',
         //emptyView: NoItemsView,
+        onRender : function(){ 
+            App.vent.trigger('startViewLoaded'); 
+        }
     });
 });

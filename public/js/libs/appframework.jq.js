@@ -209,12 +209,7 @@
           * @title $.query(selector,[context])
           */
         $.query = function (sel, what) {
-			try {
-            	return $(sel,what);
-			}
-			catch(e) {
-				return $();
-			}
+            return $(sel,what);
         };
 
         /* The following are for events on objects */

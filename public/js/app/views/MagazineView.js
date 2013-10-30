@@ -14,11 +14,11 @@ function(App, Backbone, Marionette, $, Magazine, template,iscroll) {
         },
         onRender :  function(options){
             //if(!App.isPhonegap) return;
-            var readerContainer = $(this.$el).find('#reader');
+            var readerContainer = $(this.$el).find('#magContainer');
             $.get( "mags/1/2/page-1.html", function( pageContent ) {
                 $(readerContainer).html(pageContent);
+                //var iScroller = new iScroll('magContent',{ hScrollbar:true,vScrollbar:true,vScroll:true, hScroll:true, lockDirection:false , zoom: true});
             });
-            
         }
     });
 });

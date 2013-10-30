@@ -2,30 +2,30 @@
     <div class=" grid">
         <div class="caption col2">
             <h3>{{title}}</h3>
-            <img src="img/{{thumbSrc}}" alt="ALT NAME">
+            <img src="{{thumbSrc}}" alt="ALT NAME">
             {{#if downloading}}
                 <div class="progress">{{dlProgress}}%</div>
             {{/if}}
         </div>
         <div class="buttons col2">    
             {{#if isRepo}}
-                <button type="button" class="btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
+                <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
             {{/if}}
             {{#unless downloading}}
                 {{#if localData}}
-                    <button type="button" class="btn btn-primary open"><span class="glyphicon glyphicon-eye-open"></span> Read</button>
+                    <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-eye-open"></span> Read</button>
                     {{#if dlAvailable}}
-                        <button type="button" class="btn btn-primary update"><span class="glyphicon glyphicon-cloud-download"></span> Update</button>
+                        <button type="button" class="button btn btn-primary update"><span class="glyphicon glyphicon-cloud-download"></span> Update</button>
                     {{/if}}
-                    <button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-remove"></span> remove</button>
+                    <button type="button" class="button btn btn-danger remove"><span class="glyphicon glyphicon-remove"></span> remove</button>
                 {{else}}
                     {{#if dlAvailable}}
-                        <button type="button" class="btn btn-primary download"><span class="glyphicon glyphicon-download"></span> Download</button>
+                        <button type="button" class="button btn btn-primary download"><span class="glyphicon glyphicon-download"></span> Download</button>
                     {{/if}}
                 {{/if}}
             {{/unless}}
             {{#if downloading}}
-            <button type="button" class="btn btn-danger cancel">Cancel</button>    
+            <button type="button" class="button btn btn-danger cancel">Cancel</button>    
             {{/if}}
         </div>
     </div>

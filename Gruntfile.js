@@ -13,7 +13,31 @@ module.exports = function(grunt) {
           theme: {
             src: ['public/css/less/bootstrap/theme.less'],
             dest: 'public/css/bootstrap-theme.css'
-          }
+          },
+          afui :{
+            src: ['public/css/less/afui/afui.less'],//,'public/css/less/afui/src/yp.css','public/css/less/afui/src/plugins/*'
+            dest: 'public/css/af.ui.css'
+          },
+        afui_newless:{
+            src: [ 
+                "public/css/less/afui/src/main.css",
+                "public/css/less/afui/src/appframework.css",
+                "public/css/less/afui/src/lists.css",
+                "public/css/less/afui/src/forms.css",
+                "public/css/less/afui/src/buttons.css",
+                "public/css/less/afui/src/badges.css",
+                "public/css/less/afui/src/grid.css",
+                
+                "public/css/less/afui/src/importer.css",
+                
+                "public/css/less/afui/src/plugins/af.actionsheet.css",
+                "public/css/less/afui/src/plugins/af.popup.css",
+                "public/css/less/afui/src/plugins/af.scroller.css",
+                "public/css/less/afui/src/plugins/af.selectbox.css"
+                 ],
+            dest: 'public/css/af.ui.less.new'
+        }
+           
         },
 
         requirejs: {
@@ -215,10 +239,14 @@ module.exports = function(grunt) {
           }
         },
         watch: {
-          recess: {
+          bootstrap: {
             files: 'public/css/less/bootstrap/*.less',
             tasks: ['recess']
-          }
+          },
+         afui :{
+            files:'public/css/less/afui/afui.less',
+            tasks:['recess:afui']
+            }
         }
 
     });
@@ -238,7 +266,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
     grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
-    grunt.registerTask('mobile', ['test', 'recess','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']); //,'phonegap-build:fromgit'
+    grunt.registerTask('mobile', ['test','recess:afui','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']); //,'phonegap-build:fromgit' //, 
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
 };

@@ -1,6 +1,6 @@
 define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 
-function($, Backbone, Marionette, _, Handlebars,modalRegionClass) {
+function($, Backbone, Marionette, _, Handlebars) {
 
     var App = new Backbone.Marionette.Application();
     

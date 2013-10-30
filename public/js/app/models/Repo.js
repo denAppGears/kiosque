@@ -10,7 +10,7 @@ function($, Model) {
             title:'noTitleSetYet',
             content :'no content',
             isRepo : true,
-            thumbSrc :'noimage.gif'
+            thumbSrc :'img/noimage.gif'
         }
 
     });

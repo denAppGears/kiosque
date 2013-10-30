@@ -20,11 +20,15 @@
     background-color: transparent; 
 }
 
-#reader{
+#magContainer{
     width:100%;
     height:100%;
+    padding:1%;
+    background:#fff;
 }
 
 .thumbnails{
     padding-top:10px;
 }
+
+

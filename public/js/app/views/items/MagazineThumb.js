@@ -58,7 +58,8 @@ function(App, $, template, Backbone,confirmView) {
         modelEvents: {
             'change:downloading': 'onDownloadingChanged',
             'change:dlProgress': 'onDownloadingChanged',
-            'change:dlAvailable' : 'onDownloadingChanged'
+            'change:dlAvailable' : 'onDownloadingChanged',
+            'change:localData' : 'onDownloadingChanged'
         },
         // events handlers
         onDownloadingChanged: function(magazine) {

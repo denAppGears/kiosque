@@ -14,7 +14,7 @@ function(App, $, Model) {
             localData : false,
             downloading: false, // idle, downloading
             dlProgress : 0, // % download completion
-            thumbSrc :'noimage.gif'
+            thumbSrc :'img/noimage.gif'
         },
 
         initialize: function(attributes) {
