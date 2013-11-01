@@ -51,85 +51,22 @@
 }
 
 
-
-
 .progress {
-  margin: 5px 0 3px;
+height:8px;    
   border: 1px solid #333;
   background: transparent;
   overflow: hidden;
-    
-  border-radius: 2px;
-  -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-    /*    
-      box-shadow: 1px 1px 1px #777;
-      -moz-box-shadow: 1px 1px 1px #777;
-      -webkit-box-shadow: 1px 1px 1px #777;
-    */    
 }
 
 .progress > span {
-  display: block;
-  height: 8px;
-  width: 20%;
-  background: #eee;    
+  display: inline-block;
+  height: 13px;
+  width: 0%;
+  background: #D12FDF;    
   border-radius: 2px;
-  -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-}
-
-
-.animate {
-  animation: progress 2s linear infinite;
-  -moz-animation: progress 2s linear infinite;
-  -webkit-animation: progress 2s linear infinite;
-  -ms-animation: progress 2s linear infinite;
-  -o-animation: progress 2s linear infinite;
-}
-
-@-webkit-keyframes progress {
-  from {
-    width: 20%;
-  }
-  to {
-   width: 100%;
-  }
-}
-
-@-moz-keyframes progress {
-  from {
-    width: 20%;
-  }
-  to {
-   width: 100%;
-  }
-}
-
-@-ms-keyframes progress {
-  from {
-    width: 20%;
-  }
-  to {
-   width: 100%;
-  }
-}
-
-@-o-keyframes progress {
-  from {
-    width: 20%;
-  }
-  to {
-   width: 100%;
-  }
-}
-
-@keyframes progress {
-  from {
-    width: 20%;
-  }
-  to {
-   width: 100%;
-  }
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+  -webkit-transition: width .4s ease-in-out;
 }
 

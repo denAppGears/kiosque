@@ -26,7 +26,7 @@ function(App, $, Model) {
         checkLocal: function() {
             if(!App.isPhonegap) return false;
             var uploadMoment = moment(this.get('uploadTime'), "DD-MM-YYYY");
-            if (0 > uploadMoment.diff(moment(), 'day')) {
+            if (0 > uploadMoment.diff(moment(), 'second')) {
                 return false;
             }
             return true;
