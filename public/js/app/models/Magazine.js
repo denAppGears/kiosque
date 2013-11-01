@@ -14,12 +14,13 @@ function(App, $, Model) {
             localData : false,
             downloading: false, // idle, downloading
             dlProgress : 0, // % download completion
-            thumbSrc :'img/noimage.gif'
+            thumbSrc :'img/noimage.gif',
+            magContent:false,
+            currentPage:null
         },
 
         initialize: function(attributes) {
             this.checkDlAvailable();
-            //this.on('change:downloading', this.checkDlAvailable);
         },
         //Check if the Magazine is localy downloaded and up to date
         checkLocal: function() {

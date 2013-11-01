@@ -1,6 +1,6 @@
-define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'views/composites/Repos', 'views/MobileHeaderView', 'views/MagazineView'],
+define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'views/composites/Repos', 'views/MobileHeaderView', 'views/composites/MagNav','views/MagazineView'],
 
-function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, ReposView, MobileHeaderView, magazineView) {
+function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, ReposView, MobileHeaderView,MagNavView, magazineView) {
     return Backbone.Marionette.Controller.extend({
         initialize: function(options) {
 
@@ -18,6 +18,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
 
         //DEFAULT show repos list as defined in app/router
         'repos': function() {
+            App.magNavRegion.close();
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     pageTitle: "Magazines Repositories"
@@ -41,6 +42,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         },
         // Show magazine feeds origins list
         'magazines': function(repo) {
+            App.magNavRegion.close();
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     goBackAction: 'repos',
@@ -50,6 +52,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                 })
             }));
             if (!App.collections.magazines) {
+                
                 App.collections.magazines = new MagazinesCollection([{
                         id: 1,
                         title: 'mag1',
@@ -64,7 +67,8 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         title: 'mag2',
                         content: 'htm5 content2',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        uploadTime: '09-01-2013',
+                        uploadTime: '01-10-2013',
+                        localData : true,
                         repo : repo,
                         thumbSrc :'mags/1/2/thumb.png'
                     }, {
@@ -98,12 +102,19 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     goBackAction: 'magazines',
                     goBackModel : magazine.get('repo'),
                     label: 'Magzs',
-                    pageTitle: magazine.get('title')
+                    pageTitle: magazine.get('title'),
+                    magazine:magazine
                 })
             }));
+
+            App.magNavRegion.show(new MagNavView({
+                model: magazine
+            }));
+            
             App.mainRegion.show(new magazineView({
                 model: magazine
             }));
+            
         }
     });
 });

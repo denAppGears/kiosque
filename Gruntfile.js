@@ -15,7 +15,7 @@ module.exports = function(grunt) {
             dest: 'public/css/bootstrap-theme.css'
           },
           afui :{
-            src: ['public/css/less/afui/afui.less'],//,'public/css/less/afui/src/yp.css','public/css/less/afui/src/plugins/*'
+            src: ['public/css/less/afui/afui.less','public/css/less/afui/theme-yp.less'],//,'public/css/less/afui/src/yp.css','public/css/less/afui/src/plugins/*'
             dest: 'public/css/af.ui.css'
           },
         afui_newless:{
@@ -244,7 +244,7 @@ module.exports = function(grunt) {
             tasks: ['recess']
           },
          afui :{
-            files:'public/css/less/afui/afui.less',
+            files:'public/css/less/afui/theme-yp.less',
             tasks:['recess:afui']
             }
         }

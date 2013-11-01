@@ -16,6 +16,12 @@
 @btnFontColor : #fff;
 @btnBGcolor:@secondColor;
 
+@popupFontColor: #fff;
+@popupBgColor:@secondColor;
+@popupBtnFontColor:@secondColor;
+@popupBtnBgColor:#fff;
+
+
 @headerBG:(@mainColor);
 @navbarBG:(@mainColor);
 @menuBG:(@secondColor);
@@ -233,8 +239,8 @@
     z-index: 1000000;
     top: 50%;
     
-    color:inherit;
-    background:rgba(249,249,249,1);
+    color:@popupFontColor;
+    background:@popupBgColor;//rgba(249,249,249,1);
     align:center;
 }
 
@@ -243,9 +249,9 @@
     width: 50%;
     margin: 0;
     border-radius: 0;
-    background: transparent;
+    background: @popupBtnBgColor; //transparent;
     border-top:1px solid rgba(158,158,158,255);
-    color:rgba(82,155,234,255);
+    color:@popupBtnFontColor;/*rgba(82,155,234,255);*/
     padding:12px 0;
 }
 

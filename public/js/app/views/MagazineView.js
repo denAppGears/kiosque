@@ -9,16 +9,29 @@ function(App, Backbone, Marionette, $, Magazine, template,iscroll) {
         template: template,
         model:Magazine,
         
+        
         initialize: function() {
             _.bindAll(this);
+            this.loadMagContent();
         },
-        onRender :  function(options){
-            //if(!App.isPhonegap) return;
-            var readerContainer = $(this.$el).find('#magContainer');
-            $.get( "mags/1/2/page-1.html", function( pageContent ) {
-                $(readerContainer).html(pageContent);
-                //var iScroller = new iScroll('magContent',{ hScrollbar:true,vScrollbar:true,vScroll:true, hScroll:true, lockDirection:false , zoom: true});
-            });
+        modelEvents:{
+            'change:currentPage' :'onCurrentPageChanged'
+        },
+        loadMagContent : function(){
+            var magContentUrl = "mags/" + this.model.get('repo').get('id') + '/' + this.model.get('id') + '/pages.html';
+            var that = this;
+            $.get( magContentUrl, function( magContent ) {
+                that.model.set('magContent', $('<div></div>').html( magContent) );
+                that.model.set('currentPage', 1);
+            });        
+        },
+        loadPage : function (pageId){
+            if(!this.model.get('magContent')) return this.loadMagContent();
+            this.model.set('pageContent', $(this.model.get('magContent')).clone(true).children('#page'+pageId).html() );
+            this.render();
+        },
+        onCurrentPageChanged : function(magazine){
+            this.loadPage(magazine.get('currentPage') );
         }
     });
 });

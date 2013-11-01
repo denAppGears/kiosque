@@ -3430,9 +3430,9 @@ select:disabled ~ .afFakeSelect {
   z-index: 1000000;
   display: block;
   padding: 0;
-  color: inherit;
+  color: #ffffff;
   text-align: center;
-  background: #f9f9f9;
+  background: #8a0072;
   border: 1px solid #9e9e9e;
   align: center;
 }
@@ -3441,8 +3441,8 @@ select:disabled ~ .afFakeSelect {
   width: 50%;
   padding: 12px 0;
   margin: 0;
-  color: #529bea;
-  background: transparent;
+  color: #8a0072;
+  background: #ffffff;
   border: none;
   border-top: 1px solid #9e9e9e;
   border-radius: 0;
