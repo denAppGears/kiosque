@@ -8,36 +8,44 @@ function(App, $, Model) {
         defaults: {
             title: 'noTitleSetYet',
             content: 'no content',
-            uploadTime: null,
             downloadUrl: null,
-            dlAvailable: false,
-            localData : false,
+            dlAvailable: false, 
+            localData : null,// weter or no available localData ?
+            localVersion : null,
+            serverVersion : null,
+            // local data download time
             downloading: false, // idle, downloading
             dlProgress : 0, // % download completion
             thumbSrc :'img/noimage.gif',
             magContent:false,
             currentPage:null
         },
-
         initialize: function(attributes) {
-            this.checkDlAvailable();
+            this.loadDatas();
+            this.on('change:localData', this.checkDlAvailable, this);
         },
-        //Check if the Magazine is localy downloaded and up to date
-        checkLocal: function() {
+        //try to load localy saved datas
+        loadDatas: function() {
             if(!App.isPhonegap) return false;
-            var uploadMoment = moment(this.get('uploadTime'), "DD-MM-YYYY");
-            if (0 > uploadMoment.diff(moment(), 'second')) {
-                return false;
+            App.downloads.loadDatas(this);
+        },
+        isUpToDate : function(){
+            if( this.get('localVersion') ){
+                var svMoment = moment(this.get('serverVersion'), "DD-MM-YYYY");
+                var lvMoment = moment(this.get('localVersion'));
+                if ( 0 > svMoment.diff( lvMoment, 'second') ) {
+                    return true;
+                }
             }
-            return true;
+            return false;
         },
         //check if a new download is available
         checkDlAvailable: function() {
-            var dlAvailable = false;
-            if ( App.isPhonegap && navigator.connection.type !== Connection.NONE && this.get('downloadUrl') && !this.checkLocal() ){
+            var dlAvailable = false;       
+            if ( App.isPhonegap && navigator.connection.type !== Connection.NONE && this.get('downloadUrl') && !this.isUpToDate() ){
                 dlAvailable = true;
-            } 
-            this.set({dlAvailable : dlAvailable});
+            }           
+            this.set({dlAvailable : dlAvailable});  
         },
         //Download Magazine to local file system.
         download: function() {

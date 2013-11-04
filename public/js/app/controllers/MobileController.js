@@ -28,7 +28,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             var reposView = new ReposView({
                 'collection': new ReposCollection([{
                     id: 1,
-                    title: 'Wolluwe Shopping Center',
+                    title: 'Woluwe Shopping Center',
                     content: 'all magazines provided by WSC',
                     thumbSrc :'mags/1/thumb.png'
                     
@@ -58,8 +58,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         title: 'mag1',
                         content: 'htm5 content1',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        uploadTime: '01-10-2013',
-                        localData : true,
+                        serverVersion: '01-10-2013',
                         repo : repo,
                         thumbSrc :'mags/1/1/thumb.png'
                     }, {
@@ -67,24 +66,23 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         title: 'mag2',
                         content: 'htm5 content2',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        uploadTime: '01-10-2013',
-                        localData : true,
+                        serverVersion: '01-10-2013',
                         repo : repo,
                         thumbSrc :'mags/1/2/thumb.png'
                     }, {
                         id: 3,
                         title: 'mag3',
                         content: 'htm5 content3',
-                        uploadTime: '01-09-2013',
-                        localData : true,
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '01-09-2013',
                         repo : repo,
                         thumbSrc :'mags/1/3/thumb.png'
                     }, {
                         id: 4,
                         title: 'mag4',
                         content: 'htm5 content4',
-                        uploadTime: '20-09-2013',
-                        localData : true,
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '20-09-2013',
                         repo : repo,
                         thumbSrc :'mags/1/4/thumb.png'
                     }
