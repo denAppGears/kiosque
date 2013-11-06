@@ -31,7 +31,7 @@ function(App, Backbone, Marionette, $, Magazine, template,iscroll) {
             this.render();
         },
         onCurrentPageChanged : function(magazine){
-            this.loadPage(magazine.get('currentPage') );
+            this.loadPage( magazine.get('currentPage') );
         }
     });
 });

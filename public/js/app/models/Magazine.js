@@ -30,10 +30,10 @@ function(App, $, Model) {
             App.downloads.loadDatas(this);
         },
         isUpToDate : function(){
-            if( this.get('localVersion') ){
+            if( this.get('localVersion') && this.get('localData') ){
                 var svMoment = moment(this.get('serverVersion'), "DD-MM-YYYY");
-                var lvMoment = moment(this.get('localVersion'));
-                if ( 0 > svMoment.diff( lvMoment, 'second') ) {
+                var lvMoment = moment(this.get('localVersion'), "DD-MM-YYYY");
+                if ( 0 >= svMoment.diff( lvMoment, 'second') ) {
                     return true;
                 }
             }

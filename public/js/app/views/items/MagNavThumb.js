@@ -11,6 +11,7 @@ function(App, $, template, Backbone,confirmView) {
             'click':'onSelect'
         },
         initialize:function(){
+            this.onCurrentPageChanged( this.model.get('magazine') );
             this.model.get('magazine').on('change:currentPage', this.onCurrentPageChanged, this);
         },
         onCurrentPageChanged: function(magazine){

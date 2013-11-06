@@ -56,7 +56,9 @@ function(App, $, parentCollection) {
 
             ft.onprogress = function(progressEvent) {
                 console.log(progressEvent);
-                magazine.set('dlProgress', Math.floor(progressEvent.loaded / progressEvent.total * 50));
+                var percents = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+                magazine.set('dlProgress', percents);
+                
             };
 
             ft.download(
@@ -99,8 +101,8 @@ function(App, $, parentCollection) {
             var win = function win(writer) {
                 writer.onwrite = function(evt) {
                         console.log("write infofile success");
-                        magazine.set('localData', true);
                         magazine.set('localVersion', magazine.get('serverVersion') );
+                        magazine.set('localData', true);
                         magazine.endDownload();
                     };
                     writer.write('{ "id" : "'+ magazine.get('id') +'" , "localVersion" : "'+ magazine.get('serverVersion')+'" }');

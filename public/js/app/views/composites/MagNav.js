@@ -24,6 +24,6 @@ function($, Backbone, itemView,template) {
             this.collection = new Backbone.Collection(pages);
             this.render();
         }
-       
+
     });
 });
