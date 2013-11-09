@@ -269,6 +269,14 @@ module.exports = function(grunt) {
     grunt.registerTask('mobile', ['test','recess:afui','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']); //,'phonegap-build:fromgit' //, 
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
+    
+    grunt.registerTask('parseMag', function(){
+        grunt.file.defaultEncoding = 'utf8';
+        var contents = grunt.file.read('public/mags/1/3/pages.html');
+        jQuery(contents).find('img');
+        console.log(contents);
+        grunt.file.write(filepath, contents);
+    });
 };
 
 /*

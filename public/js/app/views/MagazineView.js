@@ -18,7 +18,7 @@ function(App, Backbone, Marionette, $, Magazine, template,iscroll) {
             'change:currentPage' :'onCurrentPageChanged'
         },
         loadMagContent : function(){
-            var magContentUrl = "mags/" + this.model.get('repo').get('id') + '/' + this.model.get('id') + '/pages.html';
+            var magContentUrl = this.model.get('magPath') + '/pages.html';
             var that = this;
             $.get( magContentUrl, function( magContent ) {
                 that.model.set('magContent', $('<div></div>').html( magContent) );
@@ -27,8 +27,16 @@ function(App, Backbone, Marionette, $, Magazine, template,iscroll) {
         },
         loadPage : function (pageId){
             if(!this.model.get('magContent')) return this.loadMagContent();
-            this.model.set('pageContent', $(this.model.get('magContent')).clone(true).children('#page'+pageId).html() );
+            var page =  $(this.model.get('magContent')).clone(true).find('.page[data-name="'+pageId+'"]').first();
+            this.model.set('pageContent',this.parseLinks(page));
             this.render();
+        },
+        parseLinks : function (page){
+            var that = this;
+            $(page).find('img').each(function(index,el){
+                $(this).attr('src', that.model.get('magPath') + '/' + $(this).attr('src') );
+            });
+            return page.html();
         },
         onCurrentPageChanged : function(magazine){
             this.loadPage( magazine.get('currentPage') );

@@ -18,11 +18,13 @@ function(App, $, Model) {
             dlProgress : 0, // % download completion
             thumbSrc :'img/noimage.gif',
             magContent:false,
-            currentPage:null
+            currentPage:null,
+            magPath : null
         },
         initialize: function(attributes) {
             this.loadDatas();
             this.on('change:localData', this.checkDlAvailable, this);
+            this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id') );
         },
         //try to load localy saved datas
         loadDatas: function() {
