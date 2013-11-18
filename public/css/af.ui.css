@@ -3255,6 +3255,7 @@ select:disabled ~ .afFakeSelect {
 }
 
 #afui.yp .panel {
+  padding: 2px;
   background: #eeeeee;
 }
 

@@ -1,10 +1,14 @@
 <div class="thumbnail">
     <div class=" grid">
         <div class="caption col2">
-            <h3>{{title}}</h3>
-            <img src="{{thumbSrc}}" alt="ALT NAME">
+            <div class="caption col2">
+                <img src="{{thumbSrc}}" alt="ALT NAME">
+            </div>
+            <div class="buttons col2">
+                <h3>{{title}}</h3>
+            </div>
         </div>
-        <div class="buttons col2">    
+        <div class="buttons col2">
             {{#if isRepo}}
                 <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
             {{/if}}

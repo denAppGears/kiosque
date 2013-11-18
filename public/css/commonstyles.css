@@ -21,8 +21,7 @@
 }
 
 #magContainer {
-    padding:1%;
-    background:#fff;
+    padding:0;
 }
 
 #magNav {
@@ -68,5 +67,39 @@ height:8px;
   -webkit-border-radius: 2px;
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
   -webkit-transition: width .4s ease-in-out;
+}
+
+/* In5 CSS overrides */
+
+.panel div.paper-vertical{
+    padding: 0 3px;
+}
+
+video{
+    display:none;
+}
+
+.video-mask{
+    width:100%;
+    height:100%;
+    background-color:#000;
+    opacity:0.8;
+    
+}
+
+#header.discrete{
+    opacity:0.5;
+    position:absolute;
+    top:0;
+}
+/*Mag thumbnails*/
+.thumbnail img {
+    max-height:100px;
+    max-width:100px;
+}
+.thumbnail h3 {
+   display:block;
+    position:relative;
+    top:5px;
 }
 

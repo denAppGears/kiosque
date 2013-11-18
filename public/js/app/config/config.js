@@ -25,8 +25,8 @@ require.config({
         "bootstrap":"bootstrap",
         
         "fastclick" : "fastclick",
-        "iscroll" : "iscroll",
         
+        "in5" : "in5.config",
         "appframework.ui.min" :"appframework.ui.min",
 
         "handlebars": "handlebars",
@@ -49,6 +49,7 @@ require.config({
         "handlebars": {
             "exports": "Handlebars"
         },
+        "in5":["jquery"],
 
         "jasmine": {
             // Exports the global 'window.jasmine' object

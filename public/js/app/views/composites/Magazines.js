@@ -1,13 +1,16 @@
 /**
  * Magazine  composite view 
  */
-define(['jquery', 'backbone', 'views/items/MagazineThumb', 'hbs!templates/magazines'],
+define(['App','jquery', 'backbone', 'views/items/MagazineThumb', 'hbs!templates/magazines'],
 
-function($, Backbone, itemView,template) {
+function(App,$, Backbone, itemView,template) {
     return Backbone.Marionette.CompositeView.extend({
         template : template,
         itemView: itemView,
-        itemViewContainer:'#list'
+        itemViewContainer:'#list',
+        onRender : function(){ 
+                App.vent.trigger('startViewLoaded'); 
+        }
         //emptyView: NoItemsView
         
     });

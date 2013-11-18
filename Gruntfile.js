@@ -250,7 +250,8 @@ module.exports = function(grunt) {
         }
 
     });
-
+    
+    grunt.loadNpmTasks('jquery');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-copy');

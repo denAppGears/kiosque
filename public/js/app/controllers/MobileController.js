@@ -1,6 +1,6 @@
-define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'views/composites/Repos', 'views/MobileHeaderView', 'views/composites/MagNav','views/MagazineView'],
+define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'models/Repo','views/composites/Repos', 'views/MobileHeaderView', 'views/composites/MagNav','views/MagazineView'],
 
-function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, ReposView, MobileHeaderView,MagNavView, magazineView) {
+function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, RepoModel, ReposView, MobileHeaderView,MagNavView, magazineView) {
     return Backbone.Marionette.Controller.extend({
         initialize: function(options) {
 
@@ -32,59 +32,51 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     content: 'all magazines provided by WSC',
                     thumbSrc :'mags/1/thumb.png'
                     
-                }]),
-                // default view -> trigger startViewLoaded when rendered !
-                'onRender' : function(){ 
-                    App.vent.trigger('startViewLoaded'); 
-                }
+                }])
             });
             App.mainRegion.show(reposView);
         },
         // Show magazine feeds origins list
         'magazines': function(repo) {
+            repo = new RepoModel({
+                    id: 1,
+                    title: 'Woluwe Shopping Center',
+                    content: 'all magazines provided by WSC',
+                    thumbSrc :'mags/1/thumb.png'
+                    
+            });
             App.magNavRegion.close();
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
-                    goBackAction: 'repos',
+                    goBackAction: '',
                     goBackModel : null,
-                    label: 'Repos',
+                    label: '',
                     pageTitle: repo.get('title')
                 })
             }));
             if (!App.collections.magazines) {
                 
-                App.collections.magazines = new MagazinesCollection([{
-                        id: 1,
-                        title: 'mag1',
-                        content: 'htm5 content1',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '01-10-2013',
-                        repo : repo,
-                        thumbSrc :'mags/1/1/thumb.png'
-                    }, {
-                        id: 2,
-                        title: 'mag2',
-                        content: 'htm5 content2',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '01-10-2013',
-                        repo : repo,
-                        thumbSrc :'mags/1/2/thumb.png'
-                    }, {
+                App.collections.magazines = new MagazinesCollection([
+                     {
                         id: 3,
-                        title: 'mag3',
-                        content: 'htm5 content3',
+                        title: 'Les fêtes arrivent !',
+                        content: 'Les fêtes arrivent !',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '01-09-2013',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
                         repo : repo,
                         thumbSrc :'mags/1/3/thumb.png'
-                    }, {
-                        id: 4,
-                        title: 'mag4',
-                        content: 'htm5 content4',
+                    },{
+                        id: 2,
+                        title: 'In5 documentation',
+                        content: 'demo, tutorial',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '20-09-2013',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/4/thumb.png'
+                        thumbSrc :'mags/1/2/thumb.png'
                     }
                                                                     
                 ]);
@@ -99,8 +91,8 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                 model: new Model({
                     goBackAction: 'magazines',
                     goBackModel : magazine.get('repo'),
-                    label: 'Magzs',
-                    pageTitle: magazine.get('title'),
+                    label: '',
+                    pageTitle: '',//magazine.get('title'),
                     magazine:magazine
                 })
             }));

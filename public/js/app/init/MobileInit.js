@@ -16,12 +16,12 @@ function(App, $, AppRouter, AppController) {
         });
         
         this.vent.on('startViewLoaded',function(){
+            console.log('app:startViewLoaded');
             if( App.isPhonegap){ 
                //init AFUI    
                 $.ui.ready( function(){
                     navigator.splashscreen.hide();
-                }
-                );
+                });
             }    
         });
     });

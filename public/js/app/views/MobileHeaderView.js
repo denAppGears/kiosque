@@ -6,7 +6,6 @@ function(App,Backbone, Marionette, $, template) {
         triggers: {
             'click #backButton': 'goBack'
         },
-        
         initialize: function(attributes) {
             this.on("goBack", function(triggerArgs) {
                 App.vent.trigger('goto', {
@@ -14,8 +13,10 @@ function(App,Backbone, Marionette, $, template) {
                     model: triggerArgs.model.get('goBackModel')
                 });  
             });
-            
-
+        },
+        onRender : function (){
+            $('#header').removeClass('discrete');
+            $('#content').css('top','44px');
         }
     });
 });

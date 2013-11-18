@@ -21,6 +21,13 @@ function(App, $, Model) {
             currentPage:null,
             magPath : null
         },
+        //set page nb to 1 if 0 or less is requested
+        set : function(attributes, options) {
+            if(attributes.hasOwnProperty('currentPage') && attributes.currentPage <=0 ) {
+               this.set('currentPage',1);
+            }  
+            Backbone.Model.prototype.set.call(this, attributes, options);
+        },
         initialize: function(attributes) {
             this.loadDatas();
             this.on('change:localData', this.checkDlAvailable, this);

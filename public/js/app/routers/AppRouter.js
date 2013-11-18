@@ -6,7 +6,7 @@ function(Backbone, Marionette, App) {
 
         //"index" must be a method in AppRouter's controller
         appRoutes: {
-            "": "repos",
+            "": "magazines",
             "/read/:id": "read"
         }
     });
