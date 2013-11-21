@@ -101,10 +101,11 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                 model: magazine
             }));
             
-            App.mainRegion.show(new magazineView({
-                model: magazine
-            }));
-            
+            var magView = new magazineView({model: magazine});
+            magView.model.on('change:magContent',function(magazine){
+                App.mainRegion.show(magView);
+            });
+            magView.loadMagContent();    
         }
     });
 });

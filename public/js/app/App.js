@@ -21,7 +21,7 @@ function($, Backbone, Marionette, _, Handlebars) {
         this.addRegions({
             headerRegion: "#header",
             magNavRegion: "#magNav",
-            mainRegion: "#main",
+            mainRegion: "#content",
             listRegion: "#list"
         });
         // add a modal region wich exends marionette region.

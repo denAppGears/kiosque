@@ -3233,7 +3233,7 @@ select:disabled ~ .afFakeSelect {
 
 #afui.yp {
   color: #8a0072;
-  background: #000000;
+  background: #ffffff;
 }
 
 #afui.yp {
@@ -3252,6 +3252,11 @@ select:disabled ~ .afFakeSelect {
 #afui.yp #header h1 {
   color: #ffffff;
   text-shadow: none;
+}
+
+#afui.yp .panel.page {
+  width: 1024px;
+  height: 768px;
 }
 
 #afui.yp .panel {

@@ -2,51 +2,101 @@
     cursor: pointer;
 }
 
-.scrollable { overflow-y: auto; }
-.scrollable::-webkit-scrollbar {
-    width: 4px;
-    height: 4px; 
-}
-.scrollable::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07); 
-}
-.scrollable::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-    display: none; 
-}
-.scrollable::-webkit-scrollbar-corner {
-    background-color: transparent; 
-}
-
 #magContainer {
     padding:0;
 }
 
-#magNav {
-    float:right;
-    color:#fff;
-    position: absolute;
-    right: 0;
-    z-index: 5000;
-    display: block;
-    height: 44px;
+
+#magPageThumbs {
+    display:none;
+    position:absolute;
+    right:2px;
+    top:44px;
+    width: 120px;
+    height: 100%;
+    background:#eee;
+    z-index:5000;
     overflow: hidden;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding-right:50px;
+    border-left:1px solid #bbb;
+	-webkit-box-shadow: 0px 0px 5px #999;
 }
-#magNav li{
-    float:left;
+#magPageThumbs li{
     display: block;
-    margin-left:15px;
+    padding:10px;
+    background:#eee;
+    border-bottom:1px solid #bbb;
 }
-#magNav .button.selected{
-    border-color:#FE7903;
+
+#magPageThumbs li>div {
+   margin:auto;
+   width:100px;
+   height:80px;
+   background:#345;
+   text-align:center;
+   border:1px solid #bbb;
+   background-size: cover;
+   cursor: pointer;
+   
 }
+
+#magPageThumbs li>div.selected{
+    border:2px solid #D12FDF;
+    color:#fff;
+}
+#magPageThumbs li>div.selected>span {
+   color:#000;
+   opacity:0.3;
+   border-left:0;
+}
+
+#magPageThumbs li>div>span {
+   display:block;
+   line-height:80px;
+   color:#444;
+   opacity:0.9;
+   width:30px;
+   height:100%;
+   margin-left:auto;
+   background:#fff;
+   border-left: 1px solid #bbb;
+}
+#navToggle{
+  position:absolute;
+  right:0;
+  top:50%;
+  background:#fff;
+  width:50px;
+  height:60px;
+  z-index:5000;
+  opacity:0.6;
+  border : 1px solid #bbb;
+  -webkit-box-shadow: 0px 0px 4px #bbb;
+}
+
+#navPrev{
+  position:absolute;
+  right:70px;
+  top:5px;
+  background:#fff;
+  width:50px;
+  height:30px;
+  z-index:5000;
+  border : 1px solid #bbb;
+}
+
+#navNext{
+  position:absolute;
+  right:10px;
+  top:5px;
+  background:#fff;
+  width:50px;
+  height:30px;
+  z-index:5000;
+  border : 1px solid #bbb;
+}
+
 .thumbnails{
-    padding-top:10px;
+    padding-top:8px;
 }
 
 

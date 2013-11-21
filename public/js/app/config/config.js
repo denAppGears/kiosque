@@ -19,7 +19,7 @@ require.config({
         "underscore": "lodash",
         "backbone": "backbone", //the AMD compatible fork
         "backbone.validation": "backbone.validation",
-        "json2": "json2",
+        //"json2": "json2",
         "moment" : "moment",
         "marionette": "backbone.marionette",
         "bootstrap":"bootstrap",

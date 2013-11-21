@@ -13,35 +13,36 @@ function(App, Backbone, Marionette, $, Magazine, template) {
         //id:,   
         initialize: function() {
             _.bindAll(this);
-            var that = this;
-            that.loadMagContent();
         },
         modelEvents:{
             'change:currentPage' :'onCurrentPageChanged'
         },
         loadMagContent : function(){
+           
+            if(this.model.get('magContent')){
+                this.model.trigger('change:magContent',this.model); 
+                return;
+            }
+            
             var that = this;
             var magContentUrl = this.model.get('magPath') + '/index.html';  
             $.get( magContentUrl, function( magContent ) {
-                //var $content = $('<div></div>').html(that.parseLinks(magContent));
                 var $content = that.parseLinks(magContent);
-                that.model.set('magContent', $content);
-                that.model.set('currentPage', 1);
+                that.model.set('magContent', $content.html() );
             });
         },
         loadPage : function (pageId){
-            if(!this.model.get('magContent')) return this.loadMagContent();
-            //$(this.model.get('magContent')).find('.page').hide();
-            var $page = $(this.model.get('magContent')).filter('.page[data-name="'+pageId+'"]').first();//.show(); //.prepend(in5Js)
-            this.model.set('pageContent',$page.html());     
-            this.render();
+            var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;
+            $.ui.loadContent('page_'+ pageId ,false,false, transition);    
         },
         parseLinks : function (html){
             var that = this;
             var $parsed = $(html);
+            
             $parsed.find('img').each(function(index,el){
                 $(this).attr('src', that.model.get('magPath') + '/' + $(this).attr('src') );
             });
+            
             $parsed.filter('link').each(function(index,el){
                 $('#magcss',$('head')).remove();
                 $('<link>').appendTo($('head'))
@@ -51,6 +52,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             
             $parsed.find('video').each(function(index,el){
                 $(this).attr('poster', that.model.get('magPath') + '/' + $(this).attr('poster'));
+                $('object',this).remove();
             });
             
             $parsed.find('source').each(function(index,el){
@@ -61,17 +63,26 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 $(this).removeAttr('src');
             });
             
-            //var $css = $content.clone(true).find('link').first();
-            //$('head').append($css);
+            $parsed.find('.page').each(function(index,el){
+                $(this).addClass('panel');
+                //@todo disable scrolling if necessary by adding style="overflow:hidden to panels"
+                $(this).attr({'id':'page_' + $(this).data('name'),'js-scrolling':"false"});   
+            });
             
-            return $parsed.find('.page');
+            return $parsed.find('.pages');
         },
         onCurrentPageChanged : function(magazine){
             this.loadPage( magazine.get('currentPage') );
         },
-        onRender : function(){
-            var magazine = this.model;       
+        onRender : function(event){ 
+            //$('#header').addClass('discrete');
+            //$('#content').css('top','0px');
+        },
+        onShow : function (){
             
+            var magazine = this.model;
+            
+            $(document).trigger('MagRendered');
             //handling In5 onClicks Buttons actions:
             clickEv = 'click';
             
@@ -80,6 +91,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 var random = new Date().getMilliseconds();
                 $('source',this).attr('src',$('source',this).attr('src') + '?' + random);
                 $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
+                //$.ui.blockUI(0.9);
                 $('.video-mask').on('click',function(){
                     videoEl.pause();
                 });
@@ -101,10 +113,10 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 magazine.set('currentPage',magazine.get('currentPage')-1);
             };
             
-            $('#header').addClass('discrete');
-            $('#content').css('top','0px');
-
-            $(document).trigger('MagRendered');
+           $('.panel').bind('swipeDown', nav.back);
+           $('.panel').bind('swipeUp', nav.next);
+           
+            this.model.set('currentPage', 1); this.model.trigger('change:currentPage',this.model);
         }
     });
 });

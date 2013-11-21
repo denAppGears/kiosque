@@ -19,13 +19,23 @@ function(App, $, Model) {
             thumbSrc :'img/noimage.gif',
             magContent:false,
             currentPage:null,
+            backPage:1,
             magPath : null
         },
         //set page nb to 1 if 0 or less is requested
         set : function(attributes, options) {
-            if(attributes.hasOwnProperty('currentPage') && attributes.currentPage <=0 ) {
-               this.set('currentPage',1);
-            }  
+            if(attributes.hasOwnProperty('currentPage') || attributes == 'currentPage' ) {
+               var destPage = ( attributes.hasOwnProperty('currentPage') )? attributes.currentPage : options ;
+               if(destPage !== null){
+                   this.set('backPage', this.get('currentPage') );
+                   if( destPage <= 0){
+                       this.set('currentPage',1)
+                       return;
+                   };
+                   console.log( this.get('backPage') + '=>' + destPage );
+               } 
+            } 
+            
             Backbone.Model.prototype.set.call(this, attributes, options);
         },
         initialize: function(attributes) {

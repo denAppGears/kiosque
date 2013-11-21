@@ -8,10 +8,14 @@ function(App,$, Backbone, itemView,template) {
         template : template,
         itemView: itemView,
         itemViewContainer:'#list',
-        onRender : function(){ 
-                App.vent.trigger('startViewLoaded'); 
+        className :'panel',
+        onRender : function(){
+            this.$el.attr({id:'list_panel',selected:"true"});           
+        },
+        onShow: function(){
+            $.ui.loadContent('#list_panel', false, false, 'fade');
+            App.vent.trigger('startViewLoaded');
         }
-        //emptyView: NoItemsView
-        
+        //emptyView: NoItemsView 
     });
 });

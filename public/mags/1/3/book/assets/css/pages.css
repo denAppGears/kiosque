@@ -1,0 +1,322 @@
+/* 	Begin Modified Meyer Reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body { line-height: 1; }
+table { border-collapse: collapse; border-spacing: 0; }
+ul { list-style-type:disc; }
+/*General styles*/
+
+html, body, #container { height: 100%; }
+button { border:none; cursor:pointer; }
+#container { height: 100%; min-height: 100%;}
+a { color:inherit; text-decoration:inherit; }
+
+#in5footer,#demoNote,#loadIndicator{
+	min-width:100%;
+	color:#fff;
+	background:#666;
+	font-family:"Trebuchet MS", "Lucida Grande", Helvetica, sans-serif;
+	text-align:center;
+	font-size:15px;
+	box-sizing:border-box; 
+	-moz-box-sizing:border-box;
+}
+
+#loadIndicator{
+	top:0; left:0; margin:auto;
+	padding: 6px;
+    position: fixed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition:all 1s ease-in .5s;
+    opacity:1;
+    z-index:1;
+}
+
+body.loaded #loadIndicator {
+	opacity:0;
+	transform:translateY(-36px);
+	-webkit-transform:translateY(-36px);
+}
+
+#loadIndicator img {
+	vertical-align:text-bottom;
+    width:18px;
+}
+
+#loadIndicator span:after {
+	content:' Loading Content...';
+}
+
+#in5footer{
+	height:26px;
+	line-height:26px;
+	clear:both;
+	position: relative;
+	margin-top: -26px;
+}
+
+#demoNote {
+    right: 0; bottom: 0; margin: auto;
+    height: 96px !important;
+    padding: 36px 10px;
+}
+
+#in5footer a, #demoNote a {
+	text-decoration:none;
+	color:#99ccff;
+}
+
+.pageItem, .pageItemIFrame {
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	width:auto !important;
+	height:auto !important;
+	box-sizing:border-box; 
+	-moz-box-sizing:border-box;
+	-webkit-tap-highlight-color:transparent;
+}
+
+.page {
+	position:relative;
+	float: left;
+	height: 100%;
+	width: 100%;
+	overflow:hidden;
+}
+
+.pages {
+	list-style: none outside none;
+	padding: 0;
+	margin: 0 auto ;
+}	
+
+#container > .page { /*center single page baker*/
+    position:absolute;
+    bottom:0;
+    left:0; 
+    right:0;
+    top:0;
+    margin:auto;
+}
+
+.textColumn {
+	float:left;
+}
+
+.scroll {
+	overflow:auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.scroll-vert {
+	overflow-y:auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+@media only screen and (max-device-width : 1024px) {
+	.anythingSlider {padding:0;}
+}
+
+object, embed, img, a { 
+  outline: 0;
+}
+
+svg {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.noPlugin {
+	width:100%;
+	height:100%;
+	background:#ccc;
+	border:1px solid #666;
+	padding:6px;
+}
+
+.paper-vertical, .paper-horizontal {
+	padding: 0 8px;
+}
+
+.paper-horizontal {
+	position:absolute;
+	top:50%;
+	overflow:visible;
+}
+
+.paper-vertical .page, .paper-horizontal .page {
+	border: 1px solid #bbb;	
+	margin: 4px 4px 4px 0;
+	-moz-box-shadow: 0px 0px 0px #999;
+	-webkit-box-shadow: 0px 0px 5px #999;
+	box-shadow: 0px 0px 5px #999;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999');
+}
+
+.liquid .page, .page.liquid {
+	position: absolute;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	display:none;
+}
+
+.page.liquid { /*for multi-file*/
+    display:block;
+}
+
+.liquid .page.activePage {
+	display:block;
+}
+
+#container > nav { display:none; }
+#container > nav > button {
+	display: block;
+	position:absolute;
+	top:50%;
+	width: 30px;
+	height: 40px;
+	margin: -20px 0 0 0; /* half height of image */
+	text-align: center;
+	outline: 0;
+	background: url(../images/arrows-minimalist.png) no-repeat;
+}	
+
+#container > nav > #backBtn { 
+	left: 0; 
+	background-position: left bottom;
+}
+#container > nav > #backBtn:hover { background-position: left top; }
+
+#container > nav > #nextBtn { 
+	right: 0; 
+	background-position: right bottom; 
+}
+#container > nav > #nextBtn:hover { background-position: right top; }
+
+
+/* ColorBox Core Style: The following CSS is consistent between example themes and should not be altered. */
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none;}
+.cboxIframe{width:100%; height:100%; display:block; border:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box;}
+
+/* 	User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#fff;}
+#colorbox{
+	border-radius: 12px;
+    box-shadow: 0 0 10px 10px #CCCCCC;
+}
+    #cboxContent{background:#fff; overflow:hidden;}
+    #cboxMiddleLeft, #cboxMiddleRight { width:8px; }
+    #cboxTopCenter{ height:24px; } 
+    #cboxBottomCenter { height:8px; }
+	.cboxIframe{background:#fff;}
+	#cboxError{padding:50px;}
+	#cboxLoadedContent{background:#fff; margin-top:28px;}
+	#cboxTitle{position:absolute; top:4px; left:0; text-align:center; width:100%; color:#949494;}
+	#cboxCurrent{position:absolute; top:4px; left:0px; color:#949494;}
+	#cboxSlideshow{position:absolute; bottom:4px; right:30px; color:#0092ef;}
+	#cboxPrevious{position:absolute; top:50%; left:0px; margin-top:-32px; background:url(../images/lb_controls.png) no-repeat top left; width:33px; height:65px; text-indent:-9999px;}
+	#cboxNext{position:absolute; top:50%; right:0px; margin-top:-32px; background:url(../images/lb_controls.png) no-repeat top right; width:33px; height:65px; text-indent:-9999px;}
+	#cboxLoadingOverlay{background:#fff;}
+	#cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
+	#cboxClose{position:absolute; top:2px; right:0px; display:block; background:url(../images/lb_controls.png) no-repeat top center; width:26px; height:24px; text-indent:-9999px;}
+/*
+  The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
+  when an alpha filter (opacity change) is set on the element or ancestor element.  This style is not applied to or needed in IE9.
+  See: http://jacklmoore.com/notes/ie-transparency-problems/
+*/
+.cboxIE #cboxTopLeft, .cboxIE #cboxTopCenter, .cboxIE #cboxTopRight, .cboxIE #cboxBottomLeft, .cboxIE #cboxBottomCenter,
+.cboxIE #cboxBottomRight, .cboxIE #cboxMiddleLeft, .cboxIE #cboxMiddleRight {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
+}
+
+.hidden { display:none; }
+.mso > .state { display:none; width:100%; height:inherit; position:absolute; }
+.mso > .state.active { display:block; }
+.mso.slideshow.seq, .panzoom { overflow: hidden; }
+.panzoom { cursor:move; cursor:-moz-grab; cursor:-webkit-grab; }
+
+.align-vert { display:table; }
+[class^="valign"] {
+	position:relative;
+	display:table-cell;
+	vertical-align:middle;
+}
+.valign-bottom { vertical-align:bottom; }
+
+.flex-image {
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+.fill-image {
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+/*anchor object styles*/
+img.noTextWrap {
+	position:absolute;
+}
+
+img.alignLeft { float:left; }
+img.alignRight { float:right; }
+img.alignCenter {display:block; margin-left:auto; margin-right:auto;}
+
+img.leftFullWidth {
+	float:left;
+	padding-right:100%;
+}
+
+img.rightFullWidth {
+	float:right;
+	padding-left:100%;
+}
+
+ul.thumbs {
+	padding:20px;
+	white-space: nowrap;
+    width: 1px;
+}
+
+ul.thumbs li { /*Baker index thumbnails*/
+    display:inline;
+    list-style-type:none;
+    margin: 0 4px;
+    outline: none;
+    vertical-align:top;
+}
+ul.thumbs > li img { box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); }
+
+/*CSS Generated from InDesign Styles*/
+body { background:#ededed; }#slider { width:1024.00px; height:768.00px; }.page { width:1024.00px; height:768.00px; background: #fff !important; }.paper-vertical { width:1024.00px; height:100%; }.paper-horizontal { width:0.00px; height:768.00px; margin-top:-384.00px; }@media all and (max-height:768.00px) {	.paper-horizontal { margin:0;top:0;}	#container > .page { margin:0 auto;}/*pos top for webkit+baker*/}#item1 {	width:38px !important;	height:36px !important;	left:980px !important;	top:726px !important;	background:url('../images/item1.png') no-repeat 0px 50%;}#item3 {	width:112px !important;	height:122px !important;	left:39px !important;	top:386px !important;	background:url('../images/item3.png') no-repeat 0px 50%;}#item4 {	width:270px !important;	height:140px !important;	left:343px !important;	top:97px !important;	background:url('../images/item4.png') no-repeat 0px 50%;}#item5 {	width:213px !important;	height:255px !important;	left:21px !important;	top:461px !important;}#item6 {	width:144px !important;	height:215px !important;	left:271px !important;	top:192px !important;}#item7 {	width:104px !important;	height:225px !important;	left:449px !important;	top:289px !important;}#item8 {	width:166px !important;	height:196px !important;	left:509px !important;	top:71px !important;}#item9 {	width:136px !important;	height:208px !important;	left:873px !important;	top:136px !important;}#item10 {	width:125px !important;	height:202px !important;	left:663px !important;	top:307px !important;}#item12 {	width:50px !important;	height:50px !important;	left:974px !important;	top:720px !important;	background:url('../images/item12.png') no-repeat 0px 50%;}#item13 {	width:50px !important;	height:56px !important;	left:974px !important;	background:url('../images/item13.png') no-repeat 0px 50%;}#item14 {	width:213px !important;	height:254px !important;	left:735px !important;	top:57px !important;	background:url('../images/item14.png') no-repeat 0px 50%;}#in5footer {display:none;}
