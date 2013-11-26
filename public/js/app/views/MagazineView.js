@@ -33,11 +33,13 @@ function(App, Backbone, Marionette, $, Magazine, template) {
         },
         loadPage : function (pageId){
             var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;
-            $.ui.loadContent('page_'+ pageId ,false,false, transition);    
+            $.ui.loadContent('page_'+ pageId ,false,false, transition);           
+            $.ui.toggleHeaderMenu(false);
         },
         parseLinks : function (html){
             var that = this;
             var $parsed = $(html);
+            var pageCount = 0;
             
             $parsed.find('img').each(function(index,el){
                 $(this).attr('src', that.model.get('magPath') + '/' + $(this).attr('src') );
@@ -64,11 +66,12 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             });
             
             $parsed.find('.page').each(function(index,el){
-                $(this).addClass('panel');
-                //@todo disable scrolling if necessary by adding style="overflow:hidden to panels"
-                $(this).attr({'id':'page_' + $(this).data('name'),'js-scrolling':"false"});   
+               $(this).addClass('panel');
+               //@todo disable scrolling if necessary by adding style="overflow:hidden to panels"
+                $(this).attr({'id':'page_' + $(this).data('name'),'js-scrolling':"false"});
+                pageCount++;
             });
-            
+            this.model.set('pageCount',pageCount);
             return $parsed.find('.pages');
         },
         onCurrentPageChanged : function(magazine){
@@ -76,7 +79,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
         },
         onRender : function(event){ 
             //$('#header').addClass('discrete');
-            //$('#content').css('top','0px');
+            //$('#content').css('top','0px');        
         },
         onShow : function (){
             
@@ -116,7 +119,8 @@ function(App, Backbone, Marionette, $, Magazine, template) {
            $('.panel').bind('swipeDown', nav.back);
            $('.panel').bind('swipeUp', nav.next);
            
-            this.model.set('currentPage', 1); this.model.trigger('change:currentPage',this.model);
+           this.model.set('currentPage', 1); this.model.trigger('change:currentPage',this.model);
+
         }
     });
 });

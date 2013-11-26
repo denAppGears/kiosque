@@ -13,8 +13,8 @@ function(App,$, Backbone, itemView,template) {
             this.$el.attr({id:'list_panel',selected:"true"});           
         },
         onShow: function(){
-            $.ui.loadContent('#list_panel', false, false, 'fade');
             App.vent.trigger('startViewLoaded');
+            $.ui.loadContent('#list_panel', false, false, 'fade');
         }
         //emptyView: NoItemsView 
     });

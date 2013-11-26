@@ -1,9 +1,9 @@
 /**
  * Magazine Navigator composite view 
  */
-define(['jquery', 'backbone', 'views/items/magNavThumb', 'hbs!templates/magnav'],
+define(['jquery', 'backbone', 'views/items/magNavThumb', 'hbs!templates/magnav','swipeview'],
 
-function($, Backbone, itemView,template) {
+function($, Backbone, itemView,template,swipeview) {
     return Backbone.Marionette.CompositeView.extend({
         template : template,
         itemView: itemView,
@@ -29,12 +29,15 @@ function($, Backbone, itemView,template) {
         onRender : function(){
             $('#navToggle').on('click',function(){
                 $(this).hide();
-                $('#magPageThumbs').show();
+                $('#thumbs_container').show();
+                $.ui.toggleHeaderMenu(true);
             });
             $('#content').not('#magPageThumbs').on('click',function(){
-               $('#magPageThumbs').hide();
+               $('#thumbs_container').hide();
                $('#navToggle').show();
+               $.ui.toggleHeaderMenu(false);
             });
+            
             var magazine = this.model;
             $('#navNext').on('click', function(){
                 magazine.set('currentPage',magazine.get('currentPage')+1);

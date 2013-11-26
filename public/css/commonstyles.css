@@ -2,23 +2,55 @@
     cursor: pointer;
 }
 
-#magContainer {
+#magContainer{
     padding:0;
+    overflow: hidden;
+    z-index : 4000000;
+}
+
+#magContainer li.panel{
+ height: 900px;
 }
 
 
+#thumbs_container {
+  position:absolute;
+  background:#eee;
+  border-left:1px solid #bbb;
+  width:120px;
+  right:0px;
+  left:auto;
+  display:none;
+}
+
+.scroller {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0,0,0);
+    position: absolute;
+    z-index : 200;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.scroller_container{
+  overflow:hidden;
+}
+
 #magPageThumbs {
-    display:none;
     position:absolute;
-    right:2px;
-    top:44px;
-    width: 120px;
-    height: 100%;
+    right: 0px;
+    //top:44px;
+    /* width: 120px; */
+    //height: 10000px;
     background:#eee;
     z-index:5000;
     overflow: hidden;
-    border-left:1px solid #bbb;
-	-webkit-box-shadow: 0px 0px 5px #999;
+    
+	
+    /* -webkit-box-shadow: 0px 0px 5px #999; */
 }
 #magPageThumbs li{
     display: block;
@@ -152,4 +184,6 @@ video{
     position:relative;
     top:5px;
 }
+
+
 

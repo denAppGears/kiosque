@@ -14,6 +14,7 @@ function(App, $, template, Backbone,confirmView) {
             'click button.cancel': 'cancel',
             'click button.update': 'update',
             'click button.open': 'open',
+            'click div.thumbnail': 'open',
             'click button.remove': 'remove'
         },
 

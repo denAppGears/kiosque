@@ -66,7 +66,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/3/thumb.png'
+                        thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
                     },{
                         id: 2,
                         title: 'In5 documentation',
@@ -87,6 +87,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         },
         // Show magazine reader for the given models/magazine
         'read': function(magazine) {
+            
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     goBackAction: 'magazines',
@@ -96,9 +97,10 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     magazine:magazine
                 })
             }));
+            
 
             App.magNavRegion.show(new MagNavView({
-                model: magazine
+                model: magazine,
             }));
             
             var magView = new magazineView({model: magazine});

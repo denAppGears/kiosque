@@ -25,6 +25,7 @@ require.config({
         "bootstrap":"bootstrap",
         
         "fastclick" : "fastclick",
+        "swipeview" : "swipeview",
         
         "in5" : "in5.config",
         "appframework.ui.min" :"appframework.ui.min",

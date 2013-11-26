@@ -20,6 +20,7 @@ function(App, $, Model) {
             magContent:false,
             currentPage:null,
             backPage:1,
+            pageCount:null,
             magPath : null
         },
         //set page nb to 1 if 0 or less is requested
@@ -28,10 +29,10 @@ function(App, $, Model) {
                var destPage = ( attributes.hasOwnProperty('currentPage') )? attributes.currentPage : options ;
                if(destPage !== null){
                    this.set('backPage', this.get('currentPage') );
-                   if( destPage <= 0){
-                       this.set('currentPage',1)
+                   if( destPage <= 0 || destPage > this.get('pageCount') ){
+                       //this.set('currentPage',1);
                        return;
-                   };
+                   }
                    console.log( this.get('backPage') + '=>' + destPage );
                } 
             } 
@@ -41,7 +42,7 @@ function(App, $, Model) {
         initialize: function(attributes) {
             this.loadDatas();
             this.on('change:localData', this.checkDlAvailable, this);
-            this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id') );
+            this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id')  );
         },
         //try to load localy saved datas
         loadDatas: function() {
