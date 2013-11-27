@@ -10,6 +10,7 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     <preference name="stay-in-webview" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="fullscreen" value="true" />
+    <preference name="orientation" value="landscape" />
     <access origin="*" />
     
     <gap:platform name="ios" />

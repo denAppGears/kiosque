@@ -26,6 +26,7 @@ require.config({
         
         "fastclick" : "fastclick",
         "swipeview" : "swipeview",
+        "iscroll" : "iscroll",
         
         "in5" : "in5.config",
         "appframework.ui.min" :"appframework.ui.min",

@@ -1,15 +1,17 @@
 .clickable{
     cursor: pointer;
 }
-
+.hidden{
+  display:none;
+}
 #magContainer{
     padding:0;
     overflow: hidden;
     z-index : 4000000;
 }
 
-#magContainer li.panel{
- height: 900px;
+#paper-vertical li{
+  list-style:none;
 }
 
 
@@ -39,17 +41,37 @@
   overflow:hidden;
 }
 
+button.backButton {
+  position:relative;
+  width:120px;
+  height:44px;
+  box-sizing: none;
+  display: block;
+  padding: none;
+  line-height: 44px;
+  color: #ffffff;
+  background-color: #552546;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  font-family: 'chevron';
+  font-size: 22px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  
+}
+
 #magPageThumbs {
     position:absolute;
     right: 0px;
-    //top:44px;
+    top:44px;
     /* width: 120px; */
     //height: 10000px;
     background:#eee;
     z-index:5000;
     overflow: hidden;
-    
-	
     /* -webkit-box-shadow: 0px 0px 5px #999; */
 }
 #magPageThumbs li{
@@ -153,9 +175,20 @@ height:8px;
 
 /* In5 CSS overrides */
 
-.panel div.paper-vertical{
-    padding: 0 3px;
+div.paper-vertical, div.paper-horizontal {
+  padding: 0px;
 }
+
+div.paper-vertical .page, .paper-horizontal .page {
+	border: none;	
+	margin: 0;
+}
+
+div.paper-vertical li.page, .paper-horizontal li.page{
+  list-style:none;
+  float:none;
+}
+
 
 video{
     display:none;
@@ -185,5 +218,24 @@ video{
     top:5px;
 }
 
+/* Swipeview */
+#wrapper {
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+}
+
+#swipeview-slider > div {
+    position: relative;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: -o-box;
+    display: box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    overflow: hidden;
+}
 
 

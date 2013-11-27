@@ -1,7 +1,7 @@
 /**
  * View of the magazine detailed content
  */
-define(['App', 'backbone', 'marionette', 'jquery', 'models/Magazine', 'hbs!templates/magazine','in5'],
+define(['App', 'backbone', 'marionette', 'jquery', 'models/Magazine', 'hbs!templates/magazine','in5','iscroll'],
 
 function(App, Backbone, Marionette, $, Magazine, template) {
 
@@ -32,9 +32,10 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             });
         },
         loadPage : function (pageId){
-            var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;
-            $.ui.loadContent('page_'+ pageId ,false,false, transition);           
-            $.ui.toggleHeaderMenu(false);
+            var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;  
+            //this.model.get('viewSwiper').goToPage(pageId-1);
+            $.ui.toggleHeaderMenu(false);           
+            $(document).trigger('MagRendered');
         },
         parseLinks : function (html){
             var that = this;
@@ -66,10 +67,8 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             });
             
             $parsed.find('.page').each(function(index,el){
-               $(this).addClass('panel');
-               //@todo disable scrolling if necessary by adding style="overflow:hidden to panels"
-                $(this).attr({'id':'page_' + $(this).data('name'),'js-scrolling':"false"});
-                pageCount++;
+               $(this).addClass('slide');
+               pageCount++;
             });
             this.model.set('pageCount',pageCount);
             return $parsed.find('.pages');
@@ -78,14 +77,82 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             this.loadPage( magazine.get('currentPage') );
         },
         onRender : function(event){ 
-            //$('#header').addClass('discrete');
-            //$('#content').css('top','0px');        
+            $('#header').addClass('discrete');
+            $.ui.toggleHeaderMenu(false);
+            //$('#content').css('top','0px');
+            
         },
-        onShow : function (){
+        onShow : function (){ 
+           $.ui.toggleHeaderMenu(false);
+           var magazine = this.model ;
+           
+           myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    //document.querySelector('#indicator > li.active').className = '';
+                    //document.querySelector('#indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'active';
+                }
+            });
             
-            var magazine = this.model;
+           /*    
+           var slides = $('.page'),
+           i,
+           page
+           ;
+           
+           if(slides.length === 1 ){
+                gallery = {
+                   goToPage : function(pageId){
+                       $('#wrapper').append(slides[0]);  
+                   }
+               };
+           }else{
+
+                gallery =  new SwipeView('#wrapper', { 
+                        numberOfPages: slides.length,
+                        hastyPageFlip: true,
+                        loop: false
+               });
             
-            $(document).trigger('MagRendered');
+                switch(slides.length){
+    
+                    default:
+                        for (i = 0; i < 3; i++) {
+                            page = i === 0 ? slides.length - 1 : i - 1;
+                            gallery.masterPages[i].appendChild(slides[page]); 
+                        }
+                    break;
+                    
+                }
+               
+               //also triggered on gotoPage
+                gallery.onFlip(function () {
+                    var el,
+                        upcoming,
+                        i;
+                        
+                   // window.location.hash = gallery.pageIndex;
+            
+                    for (i = 0; i < 3; i++) {
+                        upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
+                        if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
+                            el = gallery.masterPages[i].querySelector('.slide');
+                            if (el) gallery.masterPages[i].removeChild(el);
+                            el = gallery.masterPages[i].appendChild(slides[upcoming]);
+                            el.className += " loading";
+                        }
+                    }
+            
+                });
+           
+           }
+           */
+           
+           //$("#magContainer").remove();
+           $("#menu").remove();
+
             //handling In5 onClicks Buttons actions:
             clickEv = 'click';
             
@@ -115,11 +182,12 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             nav.back = function(){
                 magazine.set('currentPage',magazine.get('currentPage')-1);
             };
-            
-           $('.panel').bind('swipeDown', nav.back);
-           $('.panel').bind('swipeUp', nav.next);
+
+           $.ui.toggleHeaderMenu(false);
+           //magazine.set('viewSwiper',gallery);
+           this.model.set('currentPage', 1); 
+           this.model.trigger('change:currentPage',this.model);
            
-           this.model.set('currentPage', 1); this.model.trigger('change:currentPage',this.model);
 
         }
     });

@@ -41,6 +41,11 @@ function(App, $, AppRouter, AppController) {
     
     // starts the application when device's ready.
     function onDeviceReady() {
+        /*
+        if (App.isPhonegap && parseFloat(window.device.version) === 7.0) {
+          document.body.style.marginTop = "20px";
+        }
+        */
         App.start();
     }
     

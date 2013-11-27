@@ -69,14 +69,36 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
                     },{
                         id: 2,
-                        title: 'In5 documentation',
-                        content: 'demo, tutorial',
+                        title: 'Nouveautés',
+                        content: 'Nouveautés WSC',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/2/thumb.png'
+                        thumbSrc :'mags/1/2/book/nouveautésfrinteractif_def.png'
+                    },
+                    {
+                        id: 4,
+                        title: 'Mode',
+                        content: 'Mode WSC',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/4/book/modefrinteractif.png'
+                    },
+                    {
+                        id: 5,
+                        title: 'Cadeaux',
+                        content: 'Cadeaux WSC',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/5/book/cadeauxfrinteractif.png'
                     }
                                                                     
                 ]);
@@ -96,11 +118,12 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     pageTitle: '',//magazine.get('title'),
                     magazine:magazine
                 })
-            }));
-            
+            }));      
 
             App.magNavRegion.show(new MagNavView({
                 model: magazine,
+                goBackAction: 'magazines',
+                goBackModel : magazine.get('repo')
             }));
             
             var magView = new magazineView({model: magazine});

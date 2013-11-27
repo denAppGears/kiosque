@@ -1,17 +1,15 @@
 /**
  * Magazine Navigator composite view 
  */
-define(['jquery', 'backbone', 'views/items/magNavThumb', 'hbs!templates/magnav','swipeview'],
+define(['App','jquery', 'backbone', 'views/items/magNavThumb', 'hbs!templates/magnav','swipeview'],
 
-function($, Backbone, itemView,template,swipeview) {
+function(App,$, Backbone, itemView,template,swipeview) {
     return Backbone.Marionette.CompositeView.extend({
         template : template,
         itemView: itemView,
         tagName : "div",
         itemViewContainer:'#magPageThumbs',
         //className:'grid',
-        initialize: function(){
-        },
         modelEvents:{
             'change:magContent':'onMagContentChanged'   
         },
@@ -27,10 +25,18 @@ function($, Backbone, itemView,template,swipeview) {
             this.render();
         },
         onRender : function(){
+            var that = this ;
+            
+            $('.backButton').on("click", function(triggerArgs) {
+                App.vent.trigger('goto', {
+                    action: 'magazines',
+                    model: that.model.get('repo')
+                });  
+            });
             $('#navToggle').on('click',function(){
                 $(this).hide();
                 $('#thumbs_container').show();
-                $.ui.toggleHeaderMenu(true);
+               // $.ui.toggleHeaderMenu(true);
             });
             $('#content').not('#magPageThumbs').on('click',function(){
                $('#thumbs_container').hide();

@@ -29,7 +29,7 @@ function(App, $, Model) {
                var destPage = ( attributes.hasOwnProperty('currentPage') )? attributes.currentPage : options ;
                if(destPage !== null){
                    this.set('backPage', this.get('currentPage') );
-                   if( destPage <= 0 || destPage > this.get('pageCount') ){
+                   if( destPage <= 0 || destPage > this.get('pageCount')  || destPage == this.get('currentPage') ){
                        //this.set('currentPage',1);
                        return;
                    }
