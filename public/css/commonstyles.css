@@ -8,6 +8,7 @@
     padding:0;
     overflow: hidden;
     z-index : 4000000;
+    -webkit-transform: translate3d(0,0,0);
 }
 
 #paper-vertical li{
@@ -20,9 +21,8 @@
   background:#eee;
   border-left:1px solid #bbb;
   width:120px;
-  right:0px;
+  right:-120px;
   left:auto;
-  display:none;
 }
 
 .scroller {
@@ -42,7 +42,7 @@
 }
 
 button.backButton {
-  position:relative;
+  position: absolute;
   width:120px;
   height:44px;
   box-sizing: none;
@@ -60,19 +60,22 @@ button.backButton {
   font-style: normal;
   font-weight: normal;
   line-height: 1;
-  
+  right:0;
+  bottom: 0px;
+  z-index: 70000;
 }
 
 #magPageThumbs {
     position:absolute;
     right: 0px;
-    top:44px;
+    padding-bottom:44px;
     /* width: 120px; */
     //height: 10000px;
     background:#eee;
     z-index:5000;
     overflow: hidden;
     /* -webkit-box-shadow: 0px 0px 5px #999; */
+    -webkit-transform: translate3d(0,0,0);
 }
 #magPageThumbs li{
     display: block;
@@ -238,4 +241,42 @@ video{
     overflow: hidden;
 }
 
+
+
+/* This is masthead bar that appears at the top of the UI */
+#header {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 250;
+  border: none;
+  height:0;
+}
+#header div{
+  color: inherit;
+  background: #552546;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  display: block;
+  height: 44px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#header div h1 {
+  position: absolute;
+  left: 27.5%;
+  z-index: 1;
+  width: 45%;
+  height: 44px;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: inherit;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.8) 0 -1px 0;
+  white-space: nowrap;
+  color:#fff;
+}
 

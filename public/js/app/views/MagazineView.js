@@ -33,9 +33,8 @@ function(App, Backbone, Marionette, $, Magazine, template) {
         },
         loadPage : function (pageId){
             var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;  
-            //this.model.get('viewSwiper').goToPage(pageId-1);
-            $.ui.toggleHeaderMenu(false);           
-            $(document).trigger('MagRendered');
+            viewSwiper.scrollToPage(0,pageId-1,0);
+            //$.ui.toggleHeaderMenu(false);            
         },
         parseLinks : function (html){
             var that = this;
@@ -71,124 +70,91 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                pageCount++;
             });
             this.model.set('pageCount',pageCount);
+            
             return $parsed.find('.pages');
         },
         onCurrentPageChanged : function(magazine){
             this.loadPage( magazine.get('currentPage') );
         },
         onRender : function(event){ 
-            $('#header').addClass('discrete');
-            $.ui.toggleHeaderMenu(false);
-            //$('#content').css('top','0px');
-            
+            this.$el.hide();
         },
         onShow : function (){ 
-           $.ui.toggleHeaderMenu(false);
+           $("#menu").remove();       
+            
            var magazine = this.model ;
+                
+            // init Iscroller
+            var that = this;
+            function onImagesLoaded(imgCount) {
+                
+                setTimeout(function () {
+                   
+                   viewSwiper = new iScroll('wrapper', {
+                        snap: 'li',
+                        momentum: false,
+                        hScrollbar: false,
+                        vScrollbar: false,
+                        hScroll:false,
+                        onScrollEnd: function () {
+                            if(viewSwiper.currPageY != (magazine.get('currentPage') - 1) ){
+                                magazine.set('currentPage', viewSwiper.currPageY + 1);
+                            }
+                        }
+                   });
+                   
+                   magazine.set('currentPage', 1); 
+                   magazine.trigger('change:currentPage',magazine);
            
-           myScroll = new iScroll('wrapper', {
-                snap: true,
-                momentum: false,
-                hScrollbar: false,
-                onScrollEnd: function () {
-                    //document.querySelector('#indicator > li.active').className = '';
-                    //document.querySelector('#indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'active';
+                }, 100);
+                
+                
+                $(document).trigger('MagRendered');
+             
+                //handling In5 onClicks Buttons actions:
+                clickEv = 'click';
+                
+                $('video').on('play',function(){
+                    var videoEl = $(this)[0];
+                    var random = new Date().getMilliseconds();
+                    $('source',this).attr('src',$('source',this).attr('src') + '?' + random);
+                    $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
+                    $('.video-mask').on('click',function(){
+                        videoEl.pause();
+                    });
+                    $(this).show();
+                });
+                
+                $('video').on('pause',function(){
+                    $(this).hide();
+                    $('.video-mask').remove();
+                });
+                
+                nav.to = function(pageId){
+                    magazine.set('currentPage',pageId);
+                };
+                nav.next = function(){
+                    magazine.set('currentPage',magazine.get('currentPage')+1);
+                };
+                nav.back = function(){
+                    magazine.set('currentPage',magazine.get('currentPage')-1);
+                };
+                
+                $('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
+                
+                that.$el.show();    
+            }
+            
+            //waiting for images to be loaded
+            var total = $(this.$el).find('img').length;
+            var loaded = 0;
+            $( "img",this.$el ).load(function(){
+                loaded++;
+                if( total == loaded ){
+                    onImagesLoaded();
                 }
             });
-            
-           /*    
-           var slides = $('.page'),
-           i,
-           page
-           ;
-           
-           if(slides.length === 1 ){
-                gallery = {
-                   goToPage : function(pageId){
-                       $('#wrapper').append(slides[0]);  
-                   }
-               };
-           }else{
-
-                gallery =  new SwipeView('#wrapper', { 
-                        numberOfPages: slides.length,
-                        hastyPageFlip: true,
-                        loop: false
-               });
-            
-                switch(slides.length){
-    
-                    default:
-                        for (i = 0; i < 3; i++) {
-                            page = i === 0 ? slides.length - 1 : i - 1;
-                            gallery.masterPages[i].appendChild(slides[page]); 
-                        }
-                    break;
-                    
-                }
-               
-               //also triggered on gotoPage
-                gallery.onFlip(function () {
-                    var el,
-                        upcoming,
-                        i;
-                        
-                   // window.location.hash = gallery.pageIndex;
-            
-                    for (i = 0; i < 3; i++) {
-                        upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
-                        if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
-                            el = gallery.masterPages[i].querySelector('.slide');
-                            if (el) gallery.masterPages[i].removeChild(el);
-                            el = gallery.masterPages[i].appendChild(slides[upcoming]);
-                            el.className += " loading";
-                        }
-                    }
-            
-                });
-           
-           }
-           */
-           
-           //$("#magContainer").remove();
-           $("#menu").remove();
-
-            //handling In5 onClicks Buttons actions:
-            clickEv = 'click';
-            
-            $('video').on('play',function(){
-                var videoEl = $(this)[0];
-                var random = new Date().getMilliseconds();
-                $('source',this).attr('src',$('source',this).attr('src') + '?' + random);
-                $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
-                //$.ui.blockUI(0.9);
-                $('.video-mask').on('click',function(){
-                    videoEl.pause();
-                });
-                $(this).show();
-            });
-            
-            $('video').on('pause',function(){
-                $(this).hide();
-                $('.video-mask').remove();
-            });
-            
-            nav.to = function(pageId){
-                magazine.set('currentPage',pageId);
-            };
-            nav.next = function(){
-                magazine.set('currentPage',magazine.get('currentPage')+1);
-            };
-            nav.back = function(){
-                magazine.set('currentPage',magazine.get('currentPage')-1);
-            };
-
-           $.ui.toggleHeaderMenu(false);
-           //magazine.set('viewSwiper',gallery);
-           this.model.set('currentPage', 1); 
-           this.model.trigger('change:currentPage',this.model);
-           
-
+        
         }
     });
 });

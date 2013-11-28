@@ -35,13 +35,15 @@ function(App,$, Backbone, itemView,template,swipeview) {
             });
             $('#navToggle').on('click',function(){
                 $(this).hide();
-                $('#thumbs_container').show();
-               // $.ui.toggleHeaderMenu(true);
+                $('.backButton').show();
+                $('#thumbs_container').css('right','0px');
+                $('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
             });
+            $('.backButton').hide();
             $('#content').not('#magPageThumbs').on('click',function(){
-               $('#thumbs_container').hide();
                $('#navToggle').show();
-               $.ui.toggleHeaderMenu(false);
+               $('.backButton').hide();
+               $('#thumbs_container').css('right','-120px');
             });
             
             var magazine = this.model;

@@ -109,17 +109,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         },
         // Show magazine reader for the given models/magazine
         'read': function(magazine) {
-            
-            App.headerRegion.show(new MobileHeaderView({
-                model: new Model({
-                    goBackAction: 'magazines',
-                    goBackModel : magazine.get('repo'),
-                    label: '',
-                    pageTitle: '',//magazine.get('title'),
-                    magazine:magazine
-                })
-            }));      
-
+            App.headerRegion.close();
             App.magNavRegion.show(new MagNavView({
                 model: magazine,
                 goBackAction: 'magazines',

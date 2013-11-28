@@ -114,7 +114,7 @@ textarea {
 /**********************************************************
 	header
 **********************************************************/
-
+/*
 #afui > #header {
   position: absolute;
   right: 0;
@@ -126,9 +126,9 @@ textarea {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-
+*/
 /* This is masthead bar that appears at the top of the UI */
-
+/*
 #afui #header h1 {
   position: absolute;
   left: 27.5%;
@@ -143,7 +143,7 @@ textarea {
   text-shadow: rgba(0, 0, 0, 0.8) 0 -1px 0;
   white-space: nowrap;
 }
-
+*/
 /* This is text that appears in the header at the top of the screen */
 
 /**********************************************************
@@ -647,7 +647,7 @@ textarea {
   color: #53575E;
   background: white;
 }
-
+/*
 #afui > #header {
   color: white;
   background: #0088D1;
@@ -659,7 +659,7 @@ textarea {
   width: 45%;
   text-shadow: none;
 }
-
+*/
 #afui #backButton {
   position: absolute;
   top: 0;
@@ -3241,7 +3241,7 @@ select:disabled ~ .afFakeSelect {
   /*'HelveticaNeue', 'Helvetica Neue',Helvetica, Arial, sans-serif;*/
 
 }
-
+/*
 #afui.yp #header {
   color: inherit;
   background: #552546;
@@ -3253,7 +3253,7 @@ select:disabled ~ .afFakeSelect {
   color: #ffffff;
   text-shadow: none;
 }
-
+*/
 #afui.yp .panel.page {
   width: 1024px;
   height: 768px;

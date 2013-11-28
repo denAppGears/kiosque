@@ -29,7 +29,7 @@ require.config({
         "iscroll" : "iscroll",
         
         "in5" : "in5.config",
-        "appframework.ui.min" :"appframework.ui.min",
+       // "appframework.ui.min" :"appframework.ui.min",
 
         "handlebars": "handlebars",
         "hbs": "hbs",
@@ -46,8 +46,8 @@ require.config({
 
         //UI libraries
         "bootstrap": ["jquery"],
-        "appframework.ui.min" : ["appframework.jq"],
-        "appframework.jq" : ["jquery"],
+        //"appframework.ui.min" : ["appframework.jq"],
+        //"appframework.jq" : ["jquery"],
         "handlebars": {
             "exports": "Handlebars"
         },

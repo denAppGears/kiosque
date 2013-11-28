@@ -15,7 +15,6 @@ function(App,Backbone, Marionette, $, template) {
             });
         },
         onRender : function (){
-            $('#header').removeClass('discrete');
             $('#content').css('top','44px');
         }
     });

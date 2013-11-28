@@ -14,7 +14,8 @@ function(App,$, Backbone, itemView,template) {
         },
         onShow: function(){
             App.vent.trigger('startViewLoaded');
-            $.ui.loadContent('#list_panel', false, false, 'fade');
+            //$.ui.loadContent('#list_panel', false, false, 'fade');
+            $('#list_panel').show();
         }
         //emptyView: NoItemsView 
     });
