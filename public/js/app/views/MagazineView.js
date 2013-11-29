@@ -18,12 +18,14 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             'change:currentPage' :'onCurrentPageChanged'
         },
         loadMagContent : function(){
-           
+            
             if(this.model.get('magContent')){
+                console.log('getSavedMagcontent');
                 this.model.trigger('change:magContent',this.model); 
                 return;
             }
             
+            console.log('loadMagcontent');
             var that = this;
             var magContentUrl = this.model.get('magPath') + '/index.html';  
             $.get( magContentUrl, function( magContent ) {
@@ -32,11 +34,12 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             });
         },
         loadPage : function (pageId){
+            console.log('loadPage ' + pageId);
             var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;  
-            viewSwiper.scrollToPage(0,pageId-1,0);
-            //$.ui.toggleHeaderMenu(false);            
+            viewSwiper.scrollToPage(0,pageId-1,0);           
         },
         parseLinks : function (html){
+            console.log('parseLinks');
             var that = this;
             var $parsed = $(html);
             var pageCount = 0;
@@ -45,16 +48,19 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 $(this).attr('src', that.model.get('magPath') + '/' + $(this).attr('src') );
             });
             
-            $parsed.filter('link').each(function(index,el){
-                $('#magcss',$('head')).remove();
-                $('<link>').appendTo($('head'))
-                .attr({id :'magcss' ,type : 'text/css', rel : 'stylesheet'})
-                .attr('href', that.model.get('magPath') + '/' + $(this).attr('href') ); 
+            var magCsss = [];
+            $parsed.filter('link[rel="stylesheet"]').each(function(index){
+              magCsss.push( $(this).attr('href') );
             });
+            that.model.set('cssPaths', magCsss);
             
             $parsed.find('video').each(function(index,el){
                 $(this).attr('poster', that.model.get('magPath') + '/' + $(this).attr('poster'));
                 $('object',this).remove();
+            });
+            
+            $parsed.find('.mso.slideshow').each(function(index,el){
+                $(this).attr('data-useswipe',0);
             });
             
             $parsed.find('source').each(function(index,el){
@@ -77,7 +83,12 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             this.loadPage( magazine.get('currentPage') );
         },
         onRender : function(event){ 
-            this.$el.hide();
+            var that = this;
+            // load Mag Css
+            var magCsss = this.model.get('cssPaths');
+            _.each(magCsss,function(href){
+                 $('<link>').appendTo($('head')).attr({id :'magcss' ,type : 'text/css', rel : 'stylesheet'}).attr('href', that.model.get('magPath') + '/' + href ); 
+            });   
         },
         onShow : function (){ 
            $("#menu").remove();       
@@ -86,10 +97,10 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 
             // init Iscroller
             var that = this;
-            function onImagesLoaded(imgCount) {
-                
+            function onImagesLoaded() {
+                 console.log('AllImagesLoaded');
                 setTimeout(function () {
-                   
+                   console.log('setViewSwiper');
                    viewSwiper = new iScroll('wrapper', {
                         snap: 'li',
                         momentum: false,
@@ -104,16 +115,19 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                    });
                    
                    magazine.set('currentPage', 1); 
-                   magazine.trigger('change:currentPage',magazine);
+                   //magazine.trigger('change:currentPage',magazine);
            
                 }, 100);
+                console.log('show mag Container');
+                $('#magContainer',that.$el).css('left','0');
                 
-                
-                $(document).trigger('MagRendered');
-             
-                //handling In5 onClicks Buttons actions:
                 clickEv = 'click';
                 
+                $(document).trigger('assignIn5');
+             
+                //handling In5 onClicks Buttons actions:
+                console.log('overrideIn5');
+
                 $('video').on('play',function(){
                     var videoEl = $(this)[0];
                     var random = new Date().getMilliseconds();
@@ -140,9 +154,8 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                     magazine.set('currentPage',magazine.get('currentPage')-1);
                 };
                 
-                $('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
                 
-                that.$el.show();    
+                //$('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
             }
             
             //waiting for images to be loaded
@@ -155,6 +168,9 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 }
             });
         
+        },
+        onClose: function(){
+            $('#magcss',$('head')).remove();
         }
     });
 });

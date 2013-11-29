@@ -21,7 +21,8 @@ function(App, $, Model) {
             currentPage:null,
             backPage:1,
             pageCount:null,
-            magPath : null
+            magPath : null,
+            cssPaths : null
         },
         //set page nb to 1 if 0 or less is requested
         set : function(attributes, options) {
@@ -33,7 +34,7 @@ function(App, $, Model) {
                        //this.set('currentPage',1);
                        return;
                    }
-                   console.log( this.get('backPage') + '=>' + destPage );
+                  // console.log( this.get('backPage') + '=>' + destPage );
                } 
             } 
             

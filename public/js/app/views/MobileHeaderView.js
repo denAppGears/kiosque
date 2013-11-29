@@ -16,6 +16,9 @@ function(App,Backbone, Marionette, $, template) {
         },
         onRender : function (){
             $('#content').css('top','44px');
+        },
+        onClose : function(){
+            $('#content').css('top','0px');
         }
     });
 });

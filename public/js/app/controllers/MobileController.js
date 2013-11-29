@@ -99,6 +99,17 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         localVersion:'01-09-2013', 
                         repo : repo,
                         thumbSrc :'mags/1/5/book/cadeauxfrinteractif.png'
+                    },
+                    {
+                        id: 7,
+                        title: 'fused',
+                        content: 'fused WSC',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
                     }
                                                                     
                 ]);

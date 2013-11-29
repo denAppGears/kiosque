@@ -248,8 +248,8 @@ function initPanZoom(){
 }
 
 $(function(){
-    $(document).on('MagRendered',function(){
-        console.log('in5 dom ready function');
+    $(document).on('assignIn5',function(){
+        console.log('in5 init');
         
         $(document).on('newPage', function(e, data) { onNewPage(e, data); });
         if(!multifile && pageMode.substr(0,2) === 'cs') $(document).on('scroll', function(e){ checkScroll(e, pageMode.substr(2)); });

@@ -37,7 +37,7 @@ function(App,$, Backbone, itemView,template,swipeview) {
                 $(this).hide();
                 $('.backButton').show();
                 $('#thumbs_container').css('right','0px');
-                $('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
+                //$('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
             });
             $('.backButton').hide();
             $('#content').not('#magPageThumbs').on('click',function(){

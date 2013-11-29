@@ -5,6 +5,8 @@
   display:none;
 }
 #magContainer{
+    position:absolute;
+    left:-100%;
     padding:0;
     overflow: hidden;
     z-index : 4000000;
@@ -243,6 +245,12 @@ video{
 
 
 
+
+#afui.yp {
+font-family: 'Arial';
+}
+
+
 /* This is masthead bar that appears at the top of the UI */
 #header {
   position: absolute;
@@ -264,6 +272,7 @@ video{
           box-sizing: border-box;
 }
 
+
 #header div h1 {
   position: absolute;
   left: 27.5%;
@@ -279,4 +288,33 @@ video{
   white-space: nowrap;
   color:#fff;
 }
+#header h1 {
+  width: 45%;
+  text-shadow: none;
+}
 
+#header h1 {
+  position: absolute;
+  left: 27.5%;
+  z-index: 1;
+  width: 45%;
+  height: 44px;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: inherit;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.8) 0 -1px 0;
+  white-space: nowrap;
+}
+
+#afui div#content {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  bottom: 0px;
+  left: 0;
+  z-index: 180;
+  display: block;
+  overflow: hidden;
+}

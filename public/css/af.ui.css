@@ -114,37 +114,6 @@ textarea {
 /**********************************************************
 	header
 **********************************************************/
-/*
-#afui > #header {
-  position: absolute;
-  right: 0;
-  left: 0;
-  z-index: 250;
-  display: block;
-  height: 44px;
-  overflow: hidden;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-*/
-/* This is masthead bar that appears at the top of the UI */
-/*
-#afui #header h1 {
-  position: absolute;
-  left: 27.5%;
-  z-index: 1;
-  width: 45%;
-  height: 44px;
-  padding: 10px 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: inherit;
-  text-align: center;
-  text-shadow: rgba(0, 0, 0, 0.8) 0 -1px 0;
-  white-space: nowrap;
-}
-*/
-/* This is text that appears in the header at the top of the screen */
 
 /**********************************************************
 	CONTENT AREA
@@ -241,7 +210,6 @@ textarea {
 /* Custom footers - always hidden */
 
 #afui footer,
-#afui header,
 #afui nav {
   display: none;
 }
@@ -249,8 +217,7 @@ textarea {
 /* Show the active header/footer/navs */
 
 #afui #navbar footer,
-#afui #menu nav,
-#afui #header header {
+#afui #menu nav {
   display: block;
 }
 
@@ -647,19 +614,7 @@ textarea {
   color: #53575E;
   background: white;
 }
-/*
-#afui > #header {
-  color: white;
-  background: #0088D1;
-  border: none;
-  border-bottom: 1px solid #0088D1;
-}
 
-#afui #header h1 {
-  width: 45%;
-  text-shadow: none;
-}
-*/
 #afui #backButton {
   position: absolute;
   top: 0;
@@ -1496,13 +1451,6 @@ textarea {
   text-shadow: 0 -1px 0 #000000;
   background: #171F28;
   border-color: #666;
-}
-
-#afui #header .button {
-  height: 32px;
-  padding: 7px ;
-  margin-top: 5px;
-  font-size: 12px;
 }
 
 /*src/badges.css*/
@@ -3241,7 +3189,7 @@ select:disabled ~ .afFakeSelect {
   /*'HelveticaNeue', 'Helvetica Neue',Helvetica, Arial, sans-serif;*/
 
 }
-/*
+
 #afui.yp #header {
   color: inherit;
   background: #552546;
@@ -3253,7 +3201,7 @@ select:disabled ~ .afFakeSelect {
   color: #ffffff;
   text-shadow: none;
 }
-*/
+
 #afui.yp .panel.page {
   width: 1024px;
   height: 768px;
