@@ -87,7 +87,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             // load Mag Css
             var magCsss = this.model.get('cssPaths');
             _.each(magCsss,function(href){
-                 $('<link>').appendTo($('head')).attr({id :'magcss' ,type : 'text/css', rel : 'stylesheet'}).attr('href', that.model.get('magPath') + '/' + href ); 
+                 $('<link>').appendTo($('head')).attr({class :'magcss' ,type : 'text/css', rel : 'stylesheet'}).attr('href', that.model.get('magPath') + '/' + href ); 
             });   
         },
         onShow : function (){ 
@@ -170,7 +170,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
         
         },
         onClose: function(){
-            $('#magcss',$('head')).remove();
+            $('.magcss',$('head')).remove();
         }
     });
 });

@@ -21,6 +21,7 @@ function($, Backbone, Marionette, _, Handlebars) {
         this.addRegions({
             headerRegion: "#header",
             magNavRegion: "#magNav",
+            articleNavRegion:"#articleNav",
             mainRegion: "#content",
             listRegion: "#list"
         });

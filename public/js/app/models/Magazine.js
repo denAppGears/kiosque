@@ -22,7 +22,8 @@ function(App, $, Model) {
             backPage:1,
             pageCount:null,
             magPath : null,
-            cssPaths : null
+            cssPaths : null,
+            selected:''
         },
         //set page nb to 1 if 0 or less is requested
         set : function(attributes, options) {

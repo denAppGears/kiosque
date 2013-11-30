@@ -1,6 +1,6 @@
-define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'models/Repo','views/composites/Repos', 'views/MobileHeaderView', 'views/composites/MagNav','views/MagazineView'],
+define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'models/Repo','views/composites/Repos', 'views/MobileHeaderView', 'views/composites/MagNav','views/composites/ArticleNav','views/MagazineView'],
 
-function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, RepoModel, ReposView, MobileHeaderView,MagNavView, magazineView) {
+function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, RepoModel, ReposView, MobileHeaderView,MagNavView,ArticleNavView, magazineView) {
     return Backbone.Marionette.Controller.extend({
         initialize: function(options) {
 
@@ -38,6 +38,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         },
         // Show magazine feeds origins list
         'magazines': function(repo) {
+            App.articleNavRegion.close();
             repo = new RepoModel({
                     id: 1,
                     title: 'Woluwe Shopping Center',
@@ -57,9 +58,9 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             if (!App.collections.magazines) {
                 
                 App.collections.magazines = new MagazinesCollection([
-                     {
-                        id: 3,
-                        title: 'Les fêtes arrivent !',
+                    {
+                        id: 'cover',
+                        title: 'Les fêtes arrivent',
                         content: 'Les fêtes arrivent !',
                         downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
@@ -67,6 +68,49 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         localVersion:'01-09-2013', 
                         repo : repo,
                         thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
+                    },
+                     {
+                        id: 'summary',
+                        title: 'Les fêtes arrivent',
+                        content: 'Les fêtes arrivent !',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
+                    },
+                     {
+                        id: 3,
+                        title: 'Beauté',
+                        content: 'Les fêtes arrivent !',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
+                    },
+                                        {
+                        id: 4,
+                        title: 'Mode',
+                        content: 'Mode WSC',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/4/book/modefrinteractif.png'
+                    }, {
+                        id: 5,
+                        title: 'Cadeaux',
+                        content: 'Cadeaux WSC',
+                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        serverVersion: '10-10-2013',
+                        localData:true,
+                        localVersion:'01-09-2013', 
+                        repo : repo,
+                        thumbSrc :'mags/1/5/book/cadeauxfrinteractif.png'
                     },{
                         id: 2,
                         title: 'Nouveautés',
@@ -77,39 +121,6 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         localVersion:'01-09-2013', 
                         repo : repo,
                         thumbSrc :'mags/1/2/book/nouveautésfrinteractif_def.png'
-                    },
-                    {
-                        id: 4,
-                        title: 'Mode',
-                        content: 'Mode WSC',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
-                        thumbSrc :'mags/1/4/book/modefrinteractif.png'
-                    },
-                    {
-                        id: 5,
-                        title: 'Cadeaux',
-                        content: 'Cadeaux WSC',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
-                        thumbSrc :'mags/1/5/book/cadeauxfrinteractif.png'
-                    },
-                    {
-                        id: 7,
-                        title: 'fused',
-                        content: 'fused WSC',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
-                        thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
                     }
                                                                     
                 ]);
@@ -121,10 +132,16 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
         // Show magazine reader for the given models/magazine
         'read': function(magazine) {
             App.headerRegion.close();
+            magazine.get('repo').set('currentArticle',magazine);
+            magazine.get('repo').set('navMode',false);
             App.magNavRegion.show(new MagNavView({
                 model: magazine,
                 goBackAction: 'magazines',
                 goBackModel : magazine.get('repo')
+            }));
+            App.articleNavRegion.show(new ArticleNavView({
+                model: magazine.get('repo'),
+                collection:App.collections.magazines
             }));
             
             var magView = new magazineView({model: magazine});
@@ -132,6 +149,21 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                 App.mainRegion.show(magView);
             });
             magView.loadMagContent();    
+        },
+        'article' : function(magazine){
+            App.headerRegion.close();
+            magazine.get('repo').set('currentArticle',magazine);
+            App.magNavRegion.show(new MagNavView({
+                model: magazine,
+                goBackAction: 'magazines',
+                goBackModel : magazine.get('repo')
+            }));
+            magazine.get('repo').set('currentArticle',magazine);
+            var magView = new magazineView({model: magazine});
+            magView.model.on('change:magContent',function(magazine){
+                App.mainRegion.show(magView);
+            });
+            magView.loadMagContent();  
         }
     });
 });

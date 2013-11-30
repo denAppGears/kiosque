@@ -10,7 +10,9 @@ function($, Model) {
             title:'noTitleSetYet',
             content :'no content',
             isRepo : true,
-            thumbSrc :'img/noimage.gif'
+            thumbSrc :'img/noimage.gif',
+            currentArticle:null,
+            navMode:false
         }
 
     });

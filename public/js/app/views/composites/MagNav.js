@@ -27,6 +27,18 @@ function(App,$, Backbone, itemView,template,swipeview) {
         onRender : function(){
             var that = this ;
             
+            function showNav(){
+                $('#navToggle').hide();
+                $('.backButton').show();
+                $('#thumbs_container').css('right','0px');
+                $('#article_container').css('top','0px');
+                that.model.get('repo').set('navMode',true);
+            }
+            
+            if( that.model.get('repo').get('navMode') ){
+                  showNav();
+            }
+            
             $('.backButton').on("click", function(triggerArgs) {
                 App.vent.trigger('goto', {
                     action: 'magazines',
@@ -34,16 +46,18 @@ function(App,$, Backbone, itemView,template,swipeview) {
                 });  
             });
             $('#navToggle').on('click',function(){
-                $(this).hide();
-                $('.backButton').show();
-                $('#thumbs_container').css('right','0px');
-                //$('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
+                showNav();
             });
+            
+            
+            
             $('.backButton').hide();
-            $('#content').not('#magPageThumbs').on('click',function(){
+            $('#content').not('#magPageThumbs').not('#article_container').on('click',function(){
                $('#navToggle').show();
                $('.backButton').hide();
                $('#thumbs_container').css('right','-120px');
+               $('#article_container').css('top','-120px');
+               that.model.get('repo').set('navMode',false);
             });
             
             var magazine = this.model;
