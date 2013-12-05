@@ -8,6 +8,17 @@ function(App,$, Backbone, itemView,template) {
         template : template,
         itemView: itemView,
         tagName : "div",
-        itemViewContainer:'#magArticlesThumbs'
+        itemViewContainer:'#magArticlesThumbs',
+        onRender : function(){
+            if(!this.model.get('navMode')){
+                this.hide();
+            }
+        },
+        hide : function(){
+            $('#article_container',this.$el).css('bottom','-120px');
+        },
+        show : function(){
+            $('#article_container',this.$el).css('bottom','0px');
+        }
     });
 });

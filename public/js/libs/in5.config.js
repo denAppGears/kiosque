@@ -1,4 +1,3 @@
-
 var useBookmark = false;
 var bookmarkName = 'in5_bookmark_' + location.href.substr(location.host.length);
 var touchEnabled = 'ontouchstart' in document.documentElement;
@@ -96,19 +95,32 @@ function checkScroll(e, mode){
 }
 
 function nextState(dataID, loop) {
+	
+	
 	var mso = $('[data-id=' + dataID + ']');
 	var states = mso.first().children('.state');
 	var current = states.siblings('.active').index();
 	if(current+1 < states.length) {
-		mso.each(function(index,elem) {
-			if(elem.crossfade > 0) {
+		mso.each(function(index,elem) {	
+			//@changed
+				$(elem).removeClass('hidden').children('.state').removeClass('active').eq(current+1).addClass('active');
+				//$('.active',elem).css('opacity',1);
+				return;
+			//@changeEnd
+			if(elem.crossfade > 0 ) {
 				var el = $(elem).removeClass('hidden');
 				el.children('.state.active').show().fadeOut(elem.crossfade, function() { $(this).removeClass('active'); });
 				el.children('.state').eq(current+1).addClass('active').hide().fadeIn(elem.crossfade);
 			} else $(elem).removeClass('hidden').children('.state').removeClass('active').eq(current+1).addClass('active');
 		});
 	} else if(loop) {
+		
 		mso.each(function(index,elem) {
+			//@changed
+				$(elem).removeClass('hidden').children('.state').removeClass('active').first().addClass('active')
+				//$('.active',elem).css('opacity',1);
+				return;
+			//@changeEnd
 			if(elem.hasOwnProperty('loopcount')) {
 				elem.loopcount++;
 				if(elem.loopmax != -1 && elem.loopcount >= elem.loopmax) {

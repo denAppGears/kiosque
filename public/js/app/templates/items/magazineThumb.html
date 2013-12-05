@@ -1,42 +1,41 @@
-<div class="thumbnail">
-    <div class=" grid">
-        <div class="caption col2">
-            <div class="caption col2">
+    <table>
+        <tr>
+            <td>
                 <img src="{{thumbSrc}}" alt="ALT NAME">
-            </div>
-            <div class="buttons col2">
-                <h3>{{title}}</h3>
-            </div>
-        </div>
-        <div class="buttons col2">
-        {{#if isMobile}}
-            
-        
-                {{#if isRepo}}
-                    <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
-                {{/if}}
-                {{#unless downloading}}
-                    {{#if localData}}
-                        <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-eye-open"></span> Read</button>
-                        {{#if dlAvailable}}
-                            <button type="button" class="button btn btn-primary update"><span class="glyphicon glyphicon-cloud-download"></span> Update</button>
-                        {{/if}}
-                        <button type="button" class="button btn btn-danger remove"><span class="glyphicon glyphicon-remove"></span> remove</button>
-                    {{else}}
-                        {{#if dlAvailable}}
-                            <button type="button" class="button btn btn-primary download"><span class="glyphicon glyphicon-download"></span> Download</button>
-                        {{/if}}
+            </td>
+            <td>
+                 <h3>{{title}}</h3>
+            </td>
+            <td>
+            {{#if isMobile}}
+                    {{#if isRepo}}
+                        <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
                     {{/if}}
-                {{/unless}}
-                {{#if downloading}}
-                <button type="button" class="button btn btn-danger cancel">Cancel</button>
+                    {{#unless downloading}}
+                        {{#if localData}}
+                            <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-eye-open"></span> Read</button>
+                            {{#if dlAvailable}}
+                                <button type="button" class="button btn btn-primary update"><span class="glyphicon glyphicon-cloud-download"></span> Update</button>
+                            {{/if}}
+                            <button type="button" class="button btn btn-danger remove"><span class="glyphicon glyphicon-remove"></span> remove</button>
+                        {{else}}
+                            {{#if dlAvailable}}
+                                <button type="button" class="button btn btn-primary download"><span class="glyphicon glyphicon-download"></span> Download</button>
+                            {{/if}}
+                        {{/if}}
+                    {{/unless}}
+                    {{#if downloading}}
+                    <button type="button" class="button btn btn-danger cancel">Cancel</button>
+                    {{/if}}
+                {{else}}
+                
                 {{/if}}
-            {{else}}
-            
+            </div>
+        </td>
+        <td>
+            {{#if downloading}}
+                <div class="progress"><span class="animate" style="width:{{dlProgress}}%"></span></div>
             {{/if}}
-        </div>
-    </div>
-    {{#if downloading}}
-    <div class="progress grid"><span class="animate" style="width:{{dlProgress}}%"></span></div>
-    {{/if}}
-</div>
+        </td>
+    </tr>
+</table>

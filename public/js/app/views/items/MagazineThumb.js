@@ -7,14 +7,14 @@ function(App, $, template, Backbone,confirmView) {
     return Backbone.Marionette.ItemView.extend({
         template: template,
         tagName: 'li',
-        className: 'span4',
+        className: 'topcoat-list__item thumbnail-item',
         //view triggers
         triggers: {
             'click button.download': 'download',
             'click button.cancel': 'cancel',
             'click button.update': 'update',
             'click button.open': 'open',
-            'click div.thumbnail': 'open',
+            'click': 'open',
             'click button.remove': 'remove'
         },
 
@@ -50,7 +50,6 @@ function(App, $, template, Backbone,confirmView) {
             });
         },
 
-
         // on magazine downloading state changes
         modelEvents: {
             'change:downloading': 'onDownloadingChanged',
@@ -61,6 +60,11 @@ function(App, $, template, Backbone,confirmView) {
         // events handlers
         onDownloadingChanged: function(magazine) {
             this.render();
+        },
+        onRender : function (){
+            if( !this.model.get('inMagList') ){
+                this.$el.css('display','none');
+            }
         }
     });
 

@@ -8,15 +8,13 @@ function(App,$, Backbone, itemView,template) {
         template : template,
         itemView: itemView,
         itemViewContainer:'#list',
-        className :'panel',
+        className :'topcoat-list',
         onRender : function(){
             this.$el.attr({id:'list_panel',selected:"true"});           
         },
         onShow: function(){
             App.vent.trigger('startViewLoaded');
-            //$.ui.loadContent('#list_panel', false, false, 'fade');
             $('#list_panel').show();
         }
-        //emptyView: NoItemsView 
     });
 });

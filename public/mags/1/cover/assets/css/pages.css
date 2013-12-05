@@ -319,4 +319,21 @@ ul.thumbs li { /*Baker index thumbnails*/
 ul.thumbs > li img { box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); }
 
 /*CSS Generated from InDesign Styles*/
-body { background:#ededed; }.page { width:1024.00px; height:768.00px; background: #fff !important; }.paper-vertical { width:1024.00px; height:100%; }.paper-horizontal { width:1034.00px; height:768.00px; margin-top:-384.00px; }@media all and (max-height:768.00px) {	.paper-horizontal { margin:0;top:0;}	#container > .page { margin:0 auto;}/*pos top for webkit+baker*/}.mejs-audio {display:none;}#item1 {	width:116px !important;	height:118px !important;	left:908px !important;	top:652px !important;	background:url('../images/item1.png') no-repeat 0px 50%;}#in5footer {display:none;}
+
+body { background:#ededed; }
+.page { width:1024.00px; height:768.00px; background: #fff !important; }
+.paper-vertical { width:1024.00px; height:100%; }
+.paper-horizontal { width:1034.00px; height:768.00px; margin-top:-384.00px; }
+@media all and (max-height:768.00px) {
+	.paper-horizontal { margin:0;top:0;}
+	#container > .page { margin:0 auto;}/*pos top for webkit+baker*/
+}
+.mejs-audio {display:none;}
+#item1 {
+	width:116px !important;
+	height:118px !important;
+	left:908px !important;
+	top:652px !important;
+	background:url('../images/item1.png') no-repeat 0px 50%;
+}
+#in5footer {display:none;}

@@ -23,7 +23,8 @@ function(App, $, Model) {
             pageCount:null,
             magPath : null,
             cssPaths : null,
-            selected:''
+            selected:'',
+            inMagList :false
         },
         //set page nb to 1 if 0 or less is requested
         set : function(attributes, options) {

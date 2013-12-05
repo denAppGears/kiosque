@@ -6,7 +6,7 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     <author href="http://yellowpimento.com"
     email="denis@yellowpimento.com">Yellow Pimento</author>
     
-    <preference name="phonegap-version" value="3.1.0" />
+    <preference name="phonegap-version" value="3.2.0" />
     <preference name="stay-in-webview" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="fullscreen" value="true" />
@@ -17,19 +17,17 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     <gap:platform name="android" />
     
 
-    <icon gap:platform="ios" height="57" src="res/1/ios/icon/apple-touch-icon-57x57.png" width="57"/>
-    <icon gap:platform="ios" height="60" src="res/1/ios/icon/apple-touch-icon-60x60.png" width="60"/>
-    <icon gap:platform="ios" height="72" src="res/1/ios/icon/apple-touch-icon-72x72.png" width="72" />
-    <icon gap:platform="ios" height="76" src="res/1/ios/icon/apple-touch-icon-76x76.png" width="76" /> 
-    <icon gap:platform="ios" height="114" src="res/1/ios/icon/apple-touch-icon-114x114.png" width="114" />
-    <icon gap:platform="ios" height="120" src="res/1/ios/icon/apple-touch-icon-120x120.png" width="120" />
-    <icon gap:platform="ios" height="144" src="res/1/ios/icon/apple-touch-icon-144x144.png" width="144" />
-    <icon gap:platform="ios" height="152" src="res/1/ios/icon/apple-touch-icon-152x152.png" width="152" />
+    <icon gap:platform="ios" height="57" src="res/1/ios/icon/icon.png" width="57"/>
+    <icon gap:platform="ios" height="60" src="res/1/ios/icon/icon-60.png" width="60"/>
+    <icon gap:platform="ios" height="72" src="res/1/ios/icon/icon-72.png" width="72" />
+    <icon gap:platform="ios" height="76" src="res/1/ios/icon/icon-76.png" width="76" /> 
+    <icon gap:platform="ios" height="114" src="res/1/ios/icon/icon@2x.png" width="114" />
+    <icon gap:platform="ios" height="120" src="res/1/ios/icon/icon-60@2x.png" width="120" />
+    <icon gap:platform="ios" height="144" src="res/1/ios/icon/icon-72@2x.png" width="144" />
+    <icon gap:platform="ios" height="152" src="res/1/ios/icon/icon-76@2x.png" width="152" />
     
-    <gap:splash gap:platform="ios" height="1024" src="res/1/ios/splash/iPad-Retina–portrait.png" width="768" />
-    <gap:splash gap:platform="ios" height="768" src="res/1/ios/splash/iPad-Retina–landscape.png" width="1024" />
-    <gap:splash gap:platform="ios" height="2008" src="res/1/ios/splash/iPad-Retina–portrait.png" width="1536" />
-    <gap:splash gap:platform="ios" height="1496" src="res/1/ios/splash/iPad-Retina–landscape.png" width="2048" />
+    <gap:splash gap:platform="ios" height="2008" src="res/1/ios/splash/Default-Portrait@2x~ipad.png" width="1536" />
+    <gap:splash gap:platform="ios" height="1496" src="res/1/ios/splash/Default-Landscape@2x~ipad.png" width="2048" />
     
     
     <gap:plugin name="org.apache.cordova.core.splashscreen" />

@@ -18,20 +18,32 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             'change:currentPage' :'onCurrentPageChanged'
         },
         loadMagContent : function(){
-            
             if(this.model.get('magContent')){
                 console.log('getSavedMagcontent');
                 this.model.trigger('change:magContent',this.model); 
                 return;
             }
-            
             console.log('loadMagcontent');
             var that = this;
             var magContentUrl = this.model.get('magPath') + '/index.html';  
             $.get( magContentUrl, function( magContent ) {
                 var $content = that.parseLinks(magContent);
-                that.model.set('magContent', $content.html() );
+                that.on('cssLoaded',function(cssContent){
+                        console.log('cssLoaded');
+                        that.model.set('magContent', {css:cssContent,html:$content} );
+                });
+                that.loadCss();
             });
+        },
+        loadCss : function(){
+            var that = this;    
+            var magCsss = this.model.get('cssPaths');
+            _.each(magCsss,function(href){
+                 $.get( that.model.get('magPath') + '/' + href , function( cssContent ) {
+                         
+                       that.trigger('cssLoaded',cssContent.split('/*CSS Generated from InDesign Styles*/')[1]) ;
+                 });
+            });     
         },
         loadPage : function (pageId){
             console.log('loadPage ' + pageId);
@@ -49,7 +61,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             });
             
             var magCsss = [];
-            $parsed.filter('link[rel="stylesheet"]').each(function(index){
+            $parsed.filter('link[rel="stylesheet"]').each(function(index){      
               magCsss.push( $(this).attr('href') );
             });
             that.model.set('cssPaths', magCsss);
@@ -76,40 +88,87 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                pageCount++;
             });
             this.model.set('pageCount',pageCount);
-            
-            return $parsed.find('.pages');
+  
+            return $parsed.find('.pages').html()
+   
         },
         onCurrentPageChanged : function(magazine){
             this.loadPage( magazine.get('currentPage') );
         },
-        onRender : function(event){ 
-            var that = this;
-            // load Mag Css
-            var magCsss = this.model.get('cssPaths');
-            _.each(magCsss,function(href){
-                 $('<link>').appendTo($('head')).attr({class :'magcss' ,type : 'text/css', rel : 'stylesheet'}).attr('href', that.model.get('magPath') + '/' + href ); 
-            });   
-        },
         onShow : function (){ 
            $("#menu").remove();       
-            
+           var that = this; 
            var magazine = this.model ;
+           
+           var nextArticle = App.collections.magazines.getNext() ;
+           var prevArticle = App.collections.magazines.getPrev();
+             //load prev and next articles thumbs
+            
+            if( nextArticle ){
+                $('button.next div').first().css('background-image','url("' + App.collections.magazines.getNext().get('thumbSrc') + '")');
+            }
+            if( prevArticle ){
+                $('button.prev div').first().css('background-image','url("' + App.collections.magazines.getPrev().get('thumbSrc') + '")');
+            }
                 
             // init Iscroller
-            var that = this;
+        
             function onImagesLoaded() {
                  console.log('AllImagesLoaded');
                 setTimeout(function () {
                    console.log('setViewSwiper');
+                   var confirmDist = 120;
+                   var sugestDist = 100;
                    viewSwiper = new iScroll('wrapper', {
                         snap: 'li',
-                        momentum: false,
+                        momentum: true,
+                        lockDirection:true,
+                        snapThreshold:100,
                         hScrollbar: false,
                         vScrollbar: false,
                         hScroll:false,
                         onScrollEnd: function () {
                             if(viewSwiper.currPageY != (magazine.get('currentPage') - 1) ){
                                 magazine.set('currentPage', viewSwiper.currPageY + 1);
+                            }
+                            if( viewSwiper.absDistX >= confirmDist && viewSwiper.distX < 0 && nextArticle){
+                                $('button.next','#articleNav').addClass('confirmed');
+                                that.$el.trigger('nextArticle');
+                                console.log('swipeRIGHT');
+                            }
+                            if( viewSwiper.absDistX >= confirmDist && viewSwiper.distX > 0 && prevArticle){
+                                $('button.prev','#articleNav').addClass('confirmed');    
+                                that.$el.trigger('prevArticle');
+                                console.log('swipeLEFT');
+                            }
+                            $('button','#articleNav').removeClass('sugested');
+                            $('button','#articleNav').removeClass('confirmed');
+                            
+                            console.log(viewSwiper);
+                            
+                        },
+                        onScrollMove : function(){
+                            if( viewSwiper.absDistX > confirmDist && viewSwiper.distX < 0){
+                                $('button.next','#articleNav').addClass('confirmed');
+                                $('button.prev','#articleNav').removeClass('confirmed');
+                            }
+                            if( viewSwiper.absDistX > confirmDist && viewSwiper.distX > 0){
+                                $('button.prev','#articleNav').addClass('confirmed');
+                                $('button.next','#articleNav').removeClass('confirmed');
+                            }
+                            if( viewSwiper.absDistX >= sugestDist && viewSwiper.absDistX <= sugestDist ){
+                                    $('button.prev','#articleNav').removeClass('confirmed');
+                                    $('button.next','#articleNav').removeClass('confirmed');
+                            }
+                            if( viewSwiper.absDistX >= sugestDist && viewSwiper.distX < 0){
+                                $('button.next','#articleNav').addClass('sugested');
+                                $('button.prev','#articleNav').removeClass('sugested');
+                                
+                            }
+                            if( viewSwiper.absDistX >= sugestDist && viewSwiper.distX > 0){
+                                $('button.prev','#articleNav').addClass('sugested');
+                                $('button.next','#articleNav').removeClass('sugested');
+                                
                             }
                         }
                    });
@@ -118,6 +177,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                    //magazine.trigger('change:currentPage',magazine);
            
                 }, 100);
+                
                 console.log('show mag Container');
                 $('#magContainer',that.$el).css('left','0');
                 
@@ -143,6 +203,20 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                     $(this).hide();
                     $('.video-mask').remove();
                 });
+            
+                
+                $('button[data-gotoarticle]').on('click',function(){
+                    var article = App.collections.magazines.setElement( App.collections.magazines.get( $(this).data('gotoarticle') ) );
+                });
+                
+                that.$el.on('nextArticle',function(){
+                    console.log('nextArticle');
+                    App.collections.magazines.next();
+                }); 
+                that.$el.on('prevArticle',function(){
+                    console.log('prevArticle');
+                    App.collections.magazines.prev();
+                });
                 
                 nav.to = function(pageId){
                     magazine.set('currentPage',pageId);
@@ -153,9 +227,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 nav.back = function(){
                     magazine.set('currentPage',magazine.get('currentPage')-1);
                 };
-                
-                
-                //$('#magContainer').css ('-webkit-transform', 'translate3d(0px,0px,0px)' );
+          
             }
             
             //waiting for images to be loaded

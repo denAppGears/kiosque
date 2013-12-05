@@ -12,7 +12,7 @@ function(App, $, template, Backbone,confirmView) {
         },
         onMagContentChanged: function(){
             this.$el.siblings().each(function(index){
-                $('div',this).removeClass('selected')
+                $('div',this).removeClass('selected');
             });
             $('div',this.$el).addClass('selected');
         },
@@ -21,15 +21,11 @@ function(App, $, template, Backbone,confirmView) {
         },
         initialize: function(attributes) {
             this.on("onSelect", function(triggerArgs) {
-                App.vent.trigger('goto', {
-                    action: 'article',
-                    model: triggerArgs.model
-                });
-
+                App.collections.magazines.setElement( triggerArgs.model );
             });
         },
         onRender : function(){
-            var selected = ( this.model.get('id') == this.model.get('repo').get('currentArticle').get('id') )? 'selected':  '';
+            var selected = ( this.model.get('id') ==  App.collections.magazines.getElement().get('id') )? 'selected':  '';
             if(this.model.get('selected') != selected) {
                 this.model.set('selected', selected);
                 this.render();
