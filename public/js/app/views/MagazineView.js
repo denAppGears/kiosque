@@ -23,16 +23,16 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 this.model.trigger('change:magContent',this.model); 
                 return;
             }
-            console.log('loadMagcontent');
             var that = this;
-            var magContentUrl = this.model.get('magPath') + '/index.html';  
+            var magContentUrl = this.model.get('magPath') + '/parsed.html';
+            var articleCssUrl = this.model.get('magPath') + '/assets/css/parsed.css';  
             $.get( magContentUrl, function( magContent ) {
-                var $content = that.parseLinks(magContent);
-                that.on('cssLoaded',function(cssContent){
-                        console.log('cssLoaded');
-                        that.model.set('magContent', {css:cssContent,html:$content} );
+                console.log('loadArticleContent');
+                var $content = magContent;
+                $.get( articleCssUrl, function( cssContent ) {
+                         console.log('cssLoaded');
+                         that.model.set('magContent', {css:cssContent,html:$content} );   
                 });
-                that.loadCss();
             });
         },
         loadCss : function(){
@@ -89,7 +89,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             });
             this.model.set('pageCount',pageCount);
   
-            return $parsed.find('.pages').html()
+            return $parsed.find('.pages').html();
    
         },
         onCurrentPageChanged : function(magazine){

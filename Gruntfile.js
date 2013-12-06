@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
-
+    
+    var $ = require( "jquery" );
+    
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         recess: {
@@ -255,8 +257,7 @@ module.exports = function(grunt) {
         }
 
     });
-    
-    grunt.loadNpmTasks('jquery');
+
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -272,18 +273,75 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
     grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
-    grunt.registerTask('mobile', ['test','recess:afui','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
-    grunt.registerTask('mobile-nopush', ['test','recess:afui','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
+    grunt.registerTask('mobile', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
+    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
     
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
     
+    
     grunt.registerTask('parseMag', function(){
         grunt.file.defaultEncoding = 'utf8';
-        var contents = grunt.file.read('public/mags/1/3/pages.html');
-        jQuery(contents).find('img');
-        console.log(contents);
-        grunt.file.write(filepath, contents);
+        console.log('---- Html Parse ----');
+        grunt.file.recurse('public/mags/1', function(abspath, rootdir, subdir, filename){
+      
+            if(filename != 'index.html' || abspath.search('book') !== -1  )return;
+      
+            var magPath = 'mags/1/' + subdir;
+            var content = grunt.file.read(abspath);
+            
+            var $parsed = $(content);
+           
+            $parsed.find('img').each(function(index,el){
+                $(this).attr('src', magPath + '/' + $(this).attr('src') );
+            });
+
+            $parsed.find('video').each(function(index,el){
+                $(this).attr('poster', magPath + '/' + $(this).attr('poster'));
+                $('object',this).remove();
+            });
+            
+            $parsed.find('.mso.slideshow').each(function(index,el){
+                $(this).attr('data-useswipe',0);
+            });
+            
+            $parsed.find('source').each(function(index,el){
+                $(this).attr('src',$(this).attr('src') );
+            });
+            
+            $parsed.filter('script').each(function(index,el){
+                $(this).removeAttr('src');
+            });
+            
+            $parsed.find('.page').each(function(index,el){
+               $(this).addClass('slide');
+            });
+
+            filepath = rootdir + '/' + subdir + '/parsed.html' ;
+            
+            console.log(filepath);
+            
+            grunt.file.write(filepath, $parsed.find('.pages').html() );
+        });
+        
+        
+        console.log('---- Css Parse ----');
+        grunt.file.recurse('public/mags/1', function(abspath, rootdir, subdir, filename){
+      
+            if(filename != 'pages.css' || abspath.search('book') !== -1  )return;
+            
+            var filepath = rootdir + '/' + subdir + '/parsed.css' ;
+            
+            console.log(filepath);
+      
+            var magPath = 'mags/1/' + subdir;
+            
+            var css = grunt.file.read(abspath).split('/*CSS Generated from InDesign Styles*/')[1] ;
+  
+            var parsedCss = css.replace(/images/gi,  'mags/1/' + subdir.split('/')[0] + '/assets/images' ) ;
+            
+            grunt.file.write(filepath, parsedCss );
+        });
     });
 };
 

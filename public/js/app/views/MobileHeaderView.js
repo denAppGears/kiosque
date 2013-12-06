@@ -38,7 +38,6 @@ function(App,Backbone, Marionette, $, template) {
             $('#content').css('top', this.$el.height() + 'px');
             this.$el.parent().css('top','0px');
             this.model.set('show',true);
-        },
-        
+        }
     });
 });

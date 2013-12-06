@@ -155,7 +155,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     goBackModel : magazine.get('repo'),
                     goBackAction:'magazines', 
                     label:'Liste',
-                    pageTitle: '',
+                    pageTitle: ''
                 })
             }));
             magazine.get('repo').set('navMode',false);

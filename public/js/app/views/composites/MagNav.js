@@ -21,6 +21,7 @@ function(App,$, Backbone, itemView,template,swipeview) {
                 var thumbSrc = that.model.get('magPath') + '/book/assets/images/pagethumb_000' + pageId + '.jpg';
                 pages.push({"id":pageId,"pageId":pageId,magazine:that.model, "thumbSrc":thumbSrc});
             });
+            this.model.set('pageCount',pages.lenght);
             this.collection = new Backbone.Collection(pages);
             this.render();
         },
