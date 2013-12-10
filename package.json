@@ -39,6 +39,8 @@
         "grunt-contrib-watch":"~0.2.0",
         "grunt-phonegap-build":"",
         "grunt-recess":"",
+        "grunt-image-resize":"",
+        "grunt-multiresize":"",
         "uglify-js":"~2.2.5"
     },
     "main":"./server/server",

@@ -207,13 +207,21 @@ module.exports = function(grunt) {
                 }]
 
             },
+            multiresize: {
+                iconsIOS: {
+                  src: 'dist/res/1/ios/icon/icon-76@2x.png',
+                  dest: ['icon.png', 'icon@2x.png','icon-60.png','icon-60@2x.png','icon-72.png','icon-72@2x.png','icon-76.png','icon-76@2x.png'],
+                  destSizes: ['57x57', '114x114','60x60','120x120','72x72','144x144','76x76','152x152']
+                }
+            },
             root: {
                 files: [{
                     expand: true,
                     cwd: 'dist/tmp/public',
                     src: ['./**'],
                     dest: 'dist/tmp'
-                },{
+                }
+                ,{
                     expand: true,
                     cwd: 'dist/res',
                     src: ['./**'],
@@ -221,6 +229,7 @@ module.exports = function(grunt) {
                 }]
             }
         },
+
         git_deploy: {
             phonegap: {
                 options: {
@@ -269,7 +278,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-phonegap-build');
     grunt.loadNpmTasks('grunt-recess');
     grunt.loadNpmTasks('grunt-contrib-watch');
-
+    grunt.loadNpmTasks('grunt-image-resize');
+    grunt.loadNpmTasks('grunt-multiresize');
+    
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
     grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
@@ -278,6 +289,10 @@ module.exports = function(grunt) {
     
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
+    
+    grunt.registerTask('images', ['multiresize']);
+    
+    
     
     
     grunt.registerTask('parseMag', function(){

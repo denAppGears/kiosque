@@ -27,7 +27,7 @@ button { border:none; cursor:pointer; }
   bottom: 0px;
   transition : bottom 0.1s;
   top:auto;
-   -webkit-transform:translate3d(0,0,0);
+  -webkit-transform:translate3d(0,0,0);
 }
 
 #thumbs_container {
@@ -40,7 +40,7 @@ button { border:none; cursor:pointer; }
   transition : right 0.1s;
   top:44px;
   left:auto;
-   -webkit-transform:translate3d(0,0,0);
+   /*-webkit-transform:translate3d(0,0,0);*/
 }
 
 .scroller {
@@ -154,9 +154,14 @@ button.backButton {
 }
 
 #magArticlesThumbs {
+  margin:0;
+  -webkit-margin:0;
+  -webkit-padding-start:0;
+  /*
   margin-left:40px;
   margin-right:auto;
   width:1000%;
+  */
 }
 
 
@@ -265,18 +270,18 @@ video{
   background-size:cover;
 }
 #articleNav button.next {
-  right:-120px;
+  right:-122px;
   transition: right 0.3s;
 }
 #articleNav button.prev {
-  left:-120px;
+  left:-122px;
   transition: left 0.3s;
 }
 #articleNav button.next.sugested {
-  right:0;
+  right:-3px;
 }
 #articleNav button.prev.sugested {
-  left:0;
+  left:-4px;
 }
 
 /* Thumbnails list */
@@ -340,12 +345,12 @@ video{
 #header #backButton {
   position: absolute;
   top: 10px;
-  left: 25px;
+  left: 45px;
   display: block;
   width: 200px;
   height: 28px;
-  font-size: 20px;
-  font-weight: lighter;
+  font-size: 19px;
+  /* font-weight: lighter; */
   line-height: 26px;
   color: #FFFFFF;
   text-align: center;
@@ -364,8 +369,8 @@ div#content {
 
 #navToggle{
   position:absolute;
-  right:30px;
-  top:10px;
+  right:40px;
+  top:20px;
   z-index:2000;
 }
 

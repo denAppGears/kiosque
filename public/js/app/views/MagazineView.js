@@ -117,13 +117,13 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                  console.log('AllImagesLoaded');
                 setTimeout(function () {
                    console.log('setViewSwiper');
-                   var confirmDist = 120;
-                   var sugestDist = 100;
+                   var confirmDist = 150;
+                   var sugestDist = 90;
                    viewSwiper = new iScroll('wrapper', {
                         snap: 'li',
-                        momentum: true,
+                        momentum: false,
                         lockDirection:true,
-                        snapThreshold:100,
+                        snapThreshold:200,
                         hScrollbar: false,
                         vScrollbar: false,
                         hScroll:false,
