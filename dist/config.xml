@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
-id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
+id="com.yellowpimento.kiosque" versionCode="10" version="1.0.5">
     <name>Woluwe Shopping Magazine</name>
     <description>A HTML5 Magazine Reader WSC</description>
     <author href="http://yellowpimento.com"
@@ -11,6 +11,7 @@ id="com.yellowpimento.kiosque" versionCode="10" version="1.0.0">
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="fullscreen" value="true" />
     <preference name="orientation" value="landscape" />
+    <preference name="SplashScreen" value="splash"/>
     <access origin="*" />
     
     <gap:platform name="ios" />

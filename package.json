@@ -2,7 +2,7 @@
     "name":"kiosque",
     "title":"Kiosque",
     "description":"A Marionette.js Require.js and Phonegap Kiosque application",
-    "version":"1.1.0",
+    "version":"1.0.4",
     "homepage":"https://yellowpimento.com",
     "author":{
         "name":"Schmitz Denis",
@@ -23,25 +23,25 @@
         }
     ],
     "dependencies":{
-        "express":"3.x",
+        "express":"",
          "jquery":""
     },
     "devDependencies":{
-        "express":"3.x",
-        "grunt":"~0.4.1",
-        "grunt-contrib-requirejs":"~0.4.0",
-        "grunt-contrib-jshint":"~0.3.0",
-        "grunt-contrib-copy":"~0.4.1",
-        "grunt-git":"~0.1.5",
-        "grunt-git-deploy":"~0.1.1",
-        "grunt-contrib-clean":"~0.5.0",
-        "grunt-preprocess":"3.0.1",
-        "grunt-contrib-watch":"~0.2.0",
-        "grunt-phonegap-build":"",
-        "grunt-recess":"",
-        "grunt-image-resize":"",
-        "grunt-multiresize":"",
-        "uglify-js":"~2.2.5"
+        "grunt":">=0",
+        "grunt-contrib-requirejs":">=0",
+        "grunt-contrib-jshint":">=0",
+        "grunt-contrib-copy":">=0",
+        "grunt-git":">=0",
+        "grunt-git-deploy":">=0",
+        "grunt-contrib-clean":">=0",
+        "grunt-preprocess":">=0",
+        "grunt-contrib-watch":">=0",
+        "grunt-phonegap-build":">=0",
+        "grunt-recess":">=0",
+        "grunt-image-resize":">=0",
+        "grunt-multiresize":">=0",
+        "grunt-responsive-images":">=0",
+        "uglify-js":">=0"
     },
     "main":"./server/server",
     "keywords":["Marionette.js", "Backbone.js", "Require.js", "Kiosque"]

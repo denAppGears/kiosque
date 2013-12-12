@@ -138,7 +138,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/2/book/nouveautésfrinteractif_def.png'
+                        thumbSrc :'mags/1/2/book/nouveautesfrinteractif_def.png'
                     }
                                                                     
                 ]);

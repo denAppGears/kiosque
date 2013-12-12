@@ -195,7 +195,7 @@ module.exports = function(grunt) {
             phonegap: {
                 files: [{
                     expand: true,
-                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*','public/fonts/*','public/mags/**', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
+                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*','public/font/*','public/mags/**', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
                     dest: 'dist/tmp',
                     filter: 'isFile'
                 }, {
@@ -207,29 +207,108 @@ module.exports = function(grunt) {
                 }]
 
             },
-            multiresize: {
-                iconsIOS: {
-                  src: 'dist/res/1/ios/icon/icon-76@2x.png',
-                  dest: ['icon.png', 'icon@2x.png','icon-60.png','icon-60@2x.png','icon-72.png','icon-72@2x.png','icon-76.png','icon-76@2x.png'],
-                  destSizes: ['57x57', '114x114','60x60','120x120','72x72','144x144','76x76','152x152']
-                }
-            },
             root: {
                 files: [{
                     expand: true,
                     cwd: 'dist/tmp/public',
                     src: ['./**'],
                     dest: 'dist/tmp'
-                }
-                ,{
+                },
+                {
                     expand: true,
                     cwd: 'dist/res',
                     src: ['./**'],
                     dest: 'dist/tmp/res'
+                },
+                {
+                    expand: true,
+                    cwd: 'dist/hooks',
+                    src: ['./**'],
+                    dest: 'dist/tmp/hooks'
                 }]
             }
         },
+        /*
+        multiresize: {
+                iconsIOS: {
+                  src: 'dist/res/1/ios/icons/icon-76@2x.png',
+                  dest: ['icon.png', 'icon@2x.png','icon-60.png','icon-60@2x.png','icon-72.png','icon-72@2x.png','icon-76.png','icon-76@2x.png'],
+                  destSizes: ['57x57', '114x114','60x60','120x120','72x72','144x144','76x76','152x152']
+                }
+        },
+        */
+        responsive_images: {
+            iconsIOS: {
+              options: {
+                sizes: 
+                [
+                    {name: '',width: 57},
+                    {name: "@2x",width: 114/*suffix: "_x2",*//*quality: 0.6*/},
+                    {name: '60',width: 60},
+                    {name: '60@2x',width: 120},
+                    {name: '72',width: 72},
+                    {name: '72@2x',width: 144},
+                    {name: '76',width: 76},
+                    {name: '76@2x',width: 152}
+                ]
+              },
+              files: [{
+                expand: true,
+                src: ['dist/res/1/ios/icons/icon.png']
+              }]
+            },
 
+            splashIOS: {
+              options: {
+                sizes: 
+                [
+                    {name: '568h@2x~iphone',width: 640,height:1136},
+                    {name: 'Landscape@2x~ipad',width: 2048 ,height:1496},
+                    {name: 'Landscape~ipad',width: 1024,height:768},
+                    {name: 'Portrait@2x~ipad',width: 1536,height:2008},
+                    {name: 'Portrait~ipad',width: 768 ,height:1004},
+                    {name: '@2x~iphone',width: 640,height:960},
+                    {name: '~iphone',width: 320,height:480}
+                ]
+              },
+              files: [{expand: true,src: ['dist/res/1/ios/splash/Default.png']}]
+            },
+            //http://docs.phonegap.com/en/3.0.0/cordova_splashscreen_splashscreen.md.html
+            iconsAndroid: {
+              options: {  
+                sizes: 
+                [
+                    {name: 'drawable',width: 48,height:48},
+                    {name: 'drawable-ldpi',width: 36,height:36},
+                    {name: 'drawable-mdpi',width: 48,height:48},
+                    {name: 'drawable-hdpi',width: 72,height:72},
+                    {name: 'drawable-xhdpi',width: 96,height:96}
+                ]
+              },
+              files: [{
+                  expand: true,
+                  src: ['dist/res/1/ios/icons/icon.png'],
+                  custom_dest: 'dist/res/1/android/{%= name %}/'
+              }]
+            },
+            splashAndroid: {
+              options: {
+                sizes: 
+                [
+                    {name: 'drawable',width: 960,height:720},
+                    {name: 'drawable-ldpi',width: 426,height:320},
+                    {name: 'drawable-mdpi',width: 470,height:320},
+                    {name: 'drawable-hdpi',width: 640,height:480},
+                    {name: 'drawable-xhdpi',width: 960,height:720}
+                ]
+              },
+              files: [{
+                  expand: true,
+                  src: ['dist/res/1/android/drawable/splash.png'],
+                  custom_dest: 'dist/res/1/android/{%= name %}/'
+              }]
+            }
+        },
         git_deploy: {
             phonegap: {
                 options: {
@@ -278,19 +357,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-phonegap-build');
     grunt.loadNpmTasks('grunt-recess');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-image-resize');
-    grunt.loadNpmTasks('grunt-multiresize');
+    /*grunt.loadNpmTasks('grunt-image-resize');*/
+    grunt.loadNpmTasks('grunt-responsive-images');
+    /*grunt.loadNpmTasks('grunt-multiresize');*/
     
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
     grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
     grunt.registerTask('mobile', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
-    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
+    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','responsive_images','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
     
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
     
-    grunt.registerTask('images', ['multiresize']);
+    grunt.registerTask('images', ['responsive_images']);
     
     
     
@@ -363,7 +443,19 @@ module.exports = function(grunt) {
 /*
 add id_rsa
 add id_rsa.pub
+brew install graphicsmagick
+
 plugman install --platform ios --project ./platforms/ios  --plugin org.apache.cordova.file
 plugman install --platform ios --project ./platforms/ios  --plugin org.apache.cordova.file-transfer
 plugman install --platform ios --project ./platforms/ios  --plugin org.apache.cordova.network-information
+
+
+/platforms/ios/Geometrixx/Resources/icons folder and 
+splash screens into the …/platforms/ios/Geometrixx/Resources/splash folder.
+
+sudo npm install -g grunt-cli
+
+Android Sign apk:
+http://ionicframework.com/docs/guide/publishing.html
+
 */
