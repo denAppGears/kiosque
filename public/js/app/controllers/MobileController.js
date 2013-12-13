@@ -64,12 +64,12 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         orderId:0,
                         title: 'Les fêtes arrivent',
                         content: 'Les fêtes arrivent !',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
+                        downloadUrl: 'https://dl.dropboxusercontent.com/u/2582860/1.zip',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/cover/book/coverdef.png',
+                        thumbSrc :'mags/thumbs/coverdef.png',
                         inMagList :true   
                     },
                      {
@@ -77,68 +77,62 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         orderId:1,
                         title: 'Sommaire',
                         content: 'Les fêtes arrivent !',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/summary/book/sommaire.png'
+                        thumbSrc :'mags/thumbs/sommaire.png'
                     },
                      {
                         id: 3,
                         orderId:2,
                         title: 'Beauté',
                         content: 'Les fêtes arrivent !',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/3/book/beautyfrinteractif.png'
+                        thumbSrc :'mags/thumbs/beautyfrinteractif.png'
                     },{
                         id: 4,
                         orderId:3,
                         title: 'Mode',
                         content: 'Mode WSC',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/4/book/modefrinteractif.png'
+                        thumbSrc :'mags/thumbs/modefrinteractif.png'
                     },{
                         id: 6,
                         orderId:4,
                         title: 'Deco',
                         content: 'Deco WSC',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/6/book/decofrinteractif.png'
+                        thumbSrc :'mags/thumbs/decofrinteractif.png'
                     },{
                         id: 5,
                         orderId:5,
                         title: 'Cadeaux',
                         content: 'Cadeaux',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/5/book/cadeauxfrinteractif.png'
+                        thumbSrc :'mags/thumbs/cadeauxfrinteractif.png'
                     },{
                         id: 2,
                         orderId:6,
                         title: 'Nouveautés',
                         content: 'Nouveautés WSC',
-                        downloadUrl: 'https://build.phonegap.com/apps/558893/download/android',
                         serverVersion: '10-10-2013',
                         localData:true,
                         localVersion:'01-09-2013', 
                         repo : repo,
-                        thumbSrc :'mags/1/2/book/nouveautesfrinteractif_def.png'
+                        thumbSrc :'mags/thumbs/nouveautesfrinteractif_def.png'
                     }
                                                                     
                 ]);

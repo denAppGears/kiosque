@@ -10,7 +10,7 @@ function(App, $, parentCollection) {
             magazine.set({
                 downloading: true
             });
-            this.fileAction(magazine, this.fileToStorage,true,".apk");
+            this.fileAction(magazine, this.fileToStorage,true,".zip");
         },
         onRemove: function(magazine) {
             magazine.set({
@@ -18,7 +18,7 @@ function(App, $, parentCollection) {
             });
         },
         removeDatas: function(magazine) {
-            this.fileAction(magazine, this.fileRemoveDatas,false,".apk");
+            this.fileAction(magazine, this.fileRemoveDatas,false,".zip");
         },
         loadDatas: function(magazine) {
              this.fileAction(magazine, this.fileReadInfos,false,".json");
@@ -36,8 +36,9 @@ function(App, $, parentCollection) {
 
             function gotFS(fileSystem) {
                     console.log('Got Filesystem');
-                    fileSystem.root.getDirectory( 'mag_' + magazine.get('id'), {create: create, exclusive: false}, function(dirEntry){
-                        dirEntry.getFile( 'datas' + ext, { create: create, exclusive: false}, getFileSucceed, getFileFailed);
+                    fileSystem.root.getDirectory( 'mags', {create: create, exclusive: false}, function(dirEntry){
+                        that.dirEntry = dirEntry;
+                        dirEntry.getFile( magazine.get('id') + ext, { create: create, exclusive: false}, getFileSucceed, getFileFailed);
                     },getFileFailed);
             }
         
@@ -49,8 +50,19 @@ function(App, $, parentCollection) {
                 magazine.set('localData',false);
             }
         },
+        fileUnzip : function (magazine,fileInfo){
+            var that = this;
+            var zipPath = fileInfo.fullPath;
+            console.log('inflating : ' + zipPath);
+            // using cordova unzip plugin https://github.com/MobileChromeApps/zip.git
+            zip.unzip(zipPath, that.dirEntry.fullPath, function(){
+                console.log('Magazine Unziped');
+                that.writeInfos(magazine);
+            });
+        },
         fileToStorage: function(magazine,fileInfo) {
-            console.log('downloading : ' + fileInfo);
+            var zipPath = fileInfo.fullPath;
+            console.log('downloading : ' + zipPath);
             var that = this;
             var ft = new FileTransfer();
 
@@ -66,8 +78,7 @@ function(App, $, parentCollection) {
                 fileInfo.fullPath,
                 function(entry) {
                     console.log("download complete: " + entry.fullPath);
-                    that.writeInfos(magazine);
-                    
+                    that.fileUnzip(magazine,entry);
                 },
     
                 function(error) {
@@ -84,8 +95,6 @@ function(App, $, parentCollection) {
             fileInfo.getParent(function(parentDir){
                 parentDir.removeRecursively(success,fail);
             }, fail);
-            
-            
 
             function success(fileInfo) {
                 console.log('file removal suceed !');
@@ -98,14 +107,17 @@ function(App, $, parentCollection) {
             }
         },
         fileWriteInfos : function(magazine,fileInfo){
+            var that = this;
             var win = function win(writer) {
+                magazine.set('magPath', 'file://' + that.dirEntry.fullPath + '/1/' + magazine.get('id') ); //magazine.get('id')
                 writer.onwrite = function(evt) {
                         console.log("write infofile success");
                         magazine.set('localVersion', magazine.get('serverVersion') );
                         magazine.set('localData', true);
                         magazine.endDownload();
+                        console.log( magazine.get('magPath') );
                     };
-                    writer.write('{ "id" : "'+ magazine.get('id') +'" , "localVersion" : "'+ magazine.get('serverVersion')+'" }');
+                    writer.write('{ "id" : "'+ magazine.get('id') +'" , "localVersion" : "'+ magazine.get('serverVersion')+'","magPath": "'+magazine.get('magPath')+'" }');
             };
             
             var fail = function fail(error) {
@@ -123,6 +135,7 @@ function(App, $, parentCollection) {
                     var infos = $.parseJSON(evt.target.result);
                     magazine.set('localVersion', infos.localVersion);
                     magazine.set('localData', true);
+                    magazine.set('magPath',infos.magPath);
                 };
                 reader.readAsText(file);
             };
@@ -134,8 +147,6 @@ function(App, $, parentCollection) {
             fileInfo.file(win, fail);
 
         }
-
-
     });
     return Downloads;
 });

@@ -10,7 +10,7 @@ function(App, $, Model) {
             content: 'no content',
             downloadUrl: null,
             dlAvailable: false, 
-            localData : null,// weter or no available localData ?
+            localData : null,// Available localData ?
             localVersion : null,
             serverVersion : null,
             // local data download time
@@ -26,7 +26,7 @@ function(App, $, Model) {
             selected:'',
             inMagList :false
         },
-        //set page nb to 1 if 0 or less is requested
+        //set page nb to 1 if : 0 or less is requested; set page nb to nbOfPages if more is requested.
         set : function(attributes, options) {
             if(attributes.hasOwnProperty('currentPage') || attributes == 'currentPage' ) {
                var destPage = ( attributes.hasOwnProperty('currentPage') )? attributes.currentPage : options ;
@@ -36,16 +36,15 @@ function(App, $, Model) {
                        //this.set('currentPage',1);
                        return;
                    }
-                  // console.log( this.get('backPage') + '=>' + destPage );
                } 
             } 
-            
             Backbone.Model.prototype.set.call(this, attributes, options);
         },
         initialize: function(attributes) {
+            this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id')  );
             this.loadDatas();
             this.on('change:localData', this.checkDlAvailable, this);
-            this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id')  );
+            
         },
         //try to load localy saved datas
         loadDatas: function() {
