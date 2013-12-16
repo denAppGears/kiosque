@@ -187,13 +187,21 @@ function(App, Backbone, Marionette, $, Magazine, template) {
              
                 //handling In5 onClicks Buttons actions:
                 console.log('overrideIn5');
-
+                
+                /*
+                $('video').parent().each(function(){
+                    $(this).appendTo( $(this).parent('li.page') );
+                });
+                */
+                
                 $('video').on('play',function(){
                     var videoEl = $(this)[0];
                     var random = new Date().getMilliseconds();
                     $('source',this).attr('src',$('source',this).attr('src') + '?' + random);
-                    $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
-                    $('.video-mask').on('click',function(){
+                    $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() ); //
+                    
+                    $('.video-mask').not('video').on(clickEv,function(event){
+                        //event.stopImmediatePropagation();
                         videoEl.pause();
                     });
                     $(this).show();
@@ -201,7 +209,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 
                 $('video').on('pause',function(){
                     $(this).hide();
-                    $('.video-mask').remove();
+                    $('.video-mask').hide();
                 });
             
                 

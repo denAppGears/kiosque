@@ -390,10 +390,15 @@ module.exports = function(grunt) {
             $parsed.find('img').each(function(index,el){
                 $(this).attr('src', magPath + '/' + $(this).attr('src') );
             });
-
+            /*
+            $('video').parent().each(function(){
+                    $(this).appendTo( $(this).parent('li.page') );
+            });
+            */    
             $parsed.find('video').each(function(index,el){
                 $(this).attr('poster', magPath + '/' + $(this).attr('poster'));
                 $('object',this).remove();
+                $(this).parent().appendTo( $(this).parents('li.page') );
             });
             
             $parsed.find('.mso.slideshow').each(function(index,el){
