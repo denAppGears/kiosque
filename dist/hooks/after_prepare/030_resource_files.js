@@ -10,5 +10,4 @@ rm -rf www/res/1/android;
 rm -rf www/res;
 rm -rf www/hooks;
 
-
 sed -i '.back' 's/debuggable="true"/debuggable="false"/g' 'platforms/android/AndroidManifest.xml';
