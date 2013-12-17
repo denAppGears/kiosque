@@ -195,6 +195,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
                 */
                 
                 $('video').on('play',function(){
+                    $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
                     var videoEl = $(this)[0];
                     var random = new Date().getMilliseconds();
                     $('source',this).attr('src',$('source',this).attr('src') + '?' + random);

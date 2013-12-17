@@ -264,7 +264,8 @@ module.exports = function(grunt) {
                 [
                     {name: '568h@2x~iphone',width: 640,height:1136},
                     {name: 'Landscape@2x~ipad',width: 2048 ,height:1496},
-                    {name: 'Landscape~ipad',width: 1024,height:768},
+                    {name: 'Landscape~ipad',width: 1024,height:748},
+                    {name: 'Landscape~ipad1',width: 1024,height:768},
                     {name: 'Portrait@2x~ipad',width: 1536,height:2008},
                     {name: 'Portrait~ipad',width: 768 ,height:1004},
                     {name: '@2x~iphone',width: 640,height:960},
