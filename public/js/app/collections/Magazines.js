@@ -15,7 +15,6 @@ define(["App","jquery","collections/Collection","models/Magazine"],
       setElement: function(model,opening) {
         var prevElement = this.currentElement;
         this.currentElement = model;
-        console.log('setted element : ' );
         console.log(this.currentElement);
         if( prevElement != model || opening){
           this.gotoArticle();

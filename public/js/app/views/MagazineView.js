@@ -39,8 +39,7 @@ function(App, Backbone, Marionette, $, Magazine, template) {
             var that = this;    
             var magCsss = this.model.get('cssPaths');
             _.each(magCsss,function(href){
-                 $.get( that.model.get('magPath') + '/' + href , function( cssContent ) {
-                         
+                 $.get( that.model.get('magPath') + '/' + href , function( cssContent ) {  
                        that.trigger('cssLoaded',cssContent.split('/*CSS Generated from InDesign Styles*/')[1]) ;
                  });
             });     
