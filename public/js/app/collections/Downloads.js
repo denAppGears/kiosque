@@ -56,56 +56,49 @@ function(App, $, parentCollection) {
             console.log('inflating : ' + zipPath);
             // using cordova unzip plugin https://github.com/MobileChromeApps/zip.git
             zip.unzip(zipPath, that.dirEntry.fullPath, function(){
-                console.log(Arguments);
                 console.log('Magazine Unziped');
-                that.parseFileUrl(magazine);
+                _.each(App.collections.magazines.models,function(mag){
+                       that.parseFileUrl(mag);
+                       that.writeInfos(mag);
+                });
+                
+                
             });
         },
         parseFileUrl : function(magazine){
-            
-            //get filesEntries
-            var articleEntry = that.dirEntry.getFile( '1/' + magazine.get('id') + '/parsed.html');
-            var cssEntry = that.dirEntry.getFile( '1/' + magazine.get('id') + '/assets/css/parsed.css');
-            var pathPrefix = that.dirEntry.fullPath.split('mags')[0];
-            
+            var that = this;
+                                            var pathPrefix = encodeURI('file://' + that.dirEntry.fullPath.split('mags')[0]+ 'mags');
+                                            var articlePath= '1/' + magazine.get('id');
+                                       
+                                            
             var fail = function(evt) {
                 console.log(error.code);
             };
             
-            //Parse Article content
-            function winArticle(file) {
+            function win(file,entry) {
                 var reader = new FileReader();
                 reader.onloadend = function(evt) {
-                    var $parsed = $(evt.target.result);
-                    $parsed.find("[src^='mags']").each(function(index,el){ 
-                       $(this).attr('src', pathPrefix + $this.attr('src') );
-                    });
-                    $parsedTxt = $parsed.html();
-                    file.createWriter(function(){
-                        console.log('write parsed url article');
-                    },fail);
-                    writer.write( $parsed.html());
-                };
-                reader.readAsText(file);
-            }    
-            articleEntry.file(winArticle, fail);
             
-            //Parse Css content
-            function winCss(file) {
-                var reader = new FileReader();
-                reader.onloadend = function(evt) {
-                    var cssTxt = evt.target.result.replace('url(', 'url(' + pathPrefix,'g');
-                    file.createWriter(function(){
-                        console.log('write parsed url css');
+                    var pattern = /(\.\.\/mags|mags)/gi;
+                    var parsed = evt.target.result.replace(pattern , pathPrefix);
+            
+                                            
+                    entry.createWriter(function(writer){
+                        writer.onwrite = function(evt) {
+                           console.log('write parsed url');
+                        };
+                        writer.write(parsed);
                     },fail);
-                    writer.write(cssTxt);
+
                 };
                 reader.readAsText(file);
-            }   
-            cssEntry.file(winCss, fail);
-
-            console.log('Url Parsed');
-            that.writeInfos(magazine);
+            }
+        
+        that.dirEntry.getFile( articlePath + '/parsed.html',{},function(entry){
+                              entry.file( function(file){return win(file,entry)}, fail );},fail);
+                                            
+        that.dirEntry.getFile( articlePath + '/assets/css/parsed.css',{},function(entry){
+                              entry.file(function(file){return win(file,entry)}, fail);},fail);
         },
         fileToStorage: function(magazine,fileInfo) {
             var zipPath = fileInfo.fullPath;
