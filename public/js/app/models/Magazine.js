@@ -43,7 +43,7 @@ function(App, $, Model) {
         initialize: function(attributes) {
             this.loadDatas();
             this.on('change:localData', this.checkDlAvailable, this);
-            
+            this.trigger('change:localData');
         },
         //try to load localy saved datas
         loadDatas: function() {

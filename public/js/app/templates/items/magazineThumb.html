@@ -1,13 +1,12 @@
     <table>
         <tr>
-            <td>
+            <td class="thumb">
                 <img src="{{thumbSrc}}" alt="ALT NAME">
             </td>
-            <td>
-                 <h3>{{title}}</h3>
+            <td class="info">
+                <h3>{{title}}</h3>
             </td>
-            <td>
-            <button type="button" class="button btn btn-primary download"><span class="glyphicon glyphicon-download"></span> Download</button>
+            <td class="status">
             {{#if isMobile}}
                     {{#if isRepo}}
                         <button type="button" class="button btn btn-primary open"><span class="glyphicon glyphicon-circle-arrow-right"></span> Magazines list</button>
@@ -32,11 +31,10 @@
                 
                 {{/if}}
             </div>
-        </td>
-        <td>
-            {{#if downloading}}
-                <div class="progress"><span class="animate" style="width:{{dlProgress}}%"></span></div>
-            {{/if}}
-        </td>
+        </td>   
     </tr>
 </table>
+
+{{#if downloading}}
+    <div class="progress"><span class="animate" style="width:{{dlProgress}}%"></span></div>
+{{/if}}

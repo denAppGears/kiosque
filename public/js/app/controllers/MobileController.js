@@ -66,7 +66,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                         content: 'Les fêtes arrivent !',
                         downloadUrl: 'https://dl.dropboxusercontent.com/u/2582860/1.zip',
                         serverVersion: '10-10-2013',
-                        localData:true,
+                        localData:false,
                         localVersion:'01-09-2013', 
                         repo : repo,
                         thumbSrc :'mags/thumbs/coverdef.png',

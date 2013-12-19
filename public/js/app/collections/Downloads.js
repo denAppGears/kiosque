@@ -67,10 +67,8 @@ function(App, $, parentCollection) {
         },
         parseFileUrl : function(magazine){
             var that = this;
-                                            var pathPrefix = encodeURI('file://' + that.dirEntry.fullPath.split('mags')[0]+ 'mags');
-                                            var articlePath= '1/' + magazine.get('id');
-                                       
-                                            
+            var pathPrefix = encodeURI('file://' + that.dirEntry.fullPath.split('mags')[0]+ 'mags');
+            var articlePath= '1/' + magazine.get('id');                                  
             var fail = function(evt) {
                 console.log(error.code);
             };
@@ -78,11 +76,8 @@ function(App, $, parentCollection) {
             function win(file,entry) {
                 var reader = new FileReader();
                 reader.onloadend = function(evt) {
-            
                     var pattern = /(\.\.\/mags|mags)/gi;
-                    var parsed = evt.target.result.replace(pattern , pathPrefix);
-            
-                                            
+                    var parsed = evt.target.result.replace(pattern , pathPrefix);                                  
                     entry.createWriter(function(writer){
                         writer.onwrite = function(evt) {
                            console.log('write parsed url');
@@ -95,10 +90,10 @@ function(App, $, parentCollection) {
             }
         
         that.dirEntry.getFile( articlePath + '/parsed.html',{},function(entry){
-                              entry.file( function(file){return win(file,entry)}, fail );},fail);
+                              entry.file( function(file){return win(file,entry);}, fail );},fail);
                                             
         that.dirEntry.getFile( articlePath + '/assets/css/parsed.css',{},function(entry){
-                              entry.file(function(file){return win(file,entry)}, fail);},fail);
+                              entry.file(function(file){return win(file,entry);}, fail);},fail);
         },
         fileToStorage: function(magazine,fileInfo) {
             var zipPath = fileInfo.fullPath;

@@ -206,21 +206,20 @@ button.backButton {
 
 
 .progress {
-height:8px;    
-  border: 1px solid #333;
-  background: transparent;
+  height: 4px;    
+  border-top: 1px solid #DFDFDF;
+  border-bottom:none;
   overflow: hidden;
-  -webkit-border-radius: 2px;
+  position:relative;
+  top:20px;
+  margin:0 -20px;
 }
 
 .progress > span {
   display: inline-block;
-  height: 13px;
+  height: 20px;
   width: 0%;
-  background: #D12FDF;    
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+  background: #D12FDF;
   -webkit-transition: width .4s ease-in-out;
 }
 
@@ -300,18 +299,28 @@ video{
 }
 
 /* Thumbnails list */
+.thumbnail-item table {
+  width:100%;
+  height:100%;
+}
 .thumbnail-item img {
     max-height:100px;
     max-width:100px;
     border: solid 1px #aaa;
 }
-.thumbnail-item h3 {
-   display:block;
-    position:relative;
-    top:5px;
+.thumbnail-item h3{
+
 }
-.thumbnail-item td{
-  padding-right:40px;
+.thumbnail-item td.thumb{
+  width: 10%;
+}
+.thumbnail-item td.info{
+}
+.thumbnail-item td.status{
+  width: 40px;
+}
+.thumbnail-item td.progress{
+  width:50px;
 }
 
 
