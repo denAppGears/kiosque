@@ -382,8 +382,10 @@ module.exports = function(grunt) {
         grunt.file.recurse('public/mags/1', function(abspath, rootdir, subdir, filename){
       
             if(filename != 'index.html' || abspath.search('book') !== -1  )return;
-      
+            
+            
             var magPath = 'mags/1/' + subdir;
+
             var content = grunt.file.read(abspath);
             
             var $parsed = $(content);
@@ -430,12 +432,14 @@ module.exports = function(grunt) {
             var filepath = rootdir + '/' + subdir + '/parsed.css' ;
             
             console.log(filepath);
+           
       
             var magPath = 'mags/1/' + subdir;
             
             var css = grunt.file.read(abspath).split('/*CSS Generated from InDesign Styles*/')[1] ;
   
-            var parsedCss = css.replace(/images/gi,  'mags/1/' + subdir.split('/')[0] + '/assets/images' ) ;
+            var parsedCss = css.replace(/images/gi,  'mags/1/' + subdir.split('css')[0] + 'images' ) ;
+            console.log( 'mags/1/' + subdir.split('css')[0] + 'images');
             
             grunt.file.write(filepath, parsedCss );
         });

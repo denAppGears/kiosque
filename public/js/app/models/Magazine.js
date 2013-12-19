@@ -13,7 +13,6 @@ function(App, $, Model) {
             localData : null,// Available localData ?
             localVersion : null,
             serverVersion : null,
-            // local data download time
             downloading: false, // idle, downloading
             dlProgress : 0, // % download completion
             thumbSrc :'img/noimage.gif',
@@ -24,7 +23,8 @@ function(App, $, Model) {
             magPath : null,
             cssPaths : null,
             selected:'',
-            inMagList :false
+            inMagList :false,
+            articles :{}
         },
         //set page nb to 1 if : 0 or less is requested; set page nb to nbOfPages if more is requested.
         set : function(attributes, options) {
@@ -41,16 +41,24 @@ function(App, $, Model) {
             Backbone.Model.prototype.set.call(this, attributes, options);
         },
         initialize: function(attributes) {
+             var that = this;         
+             this.get('articles').each(function(article){
+                article.set('magPath',"mags/" + that.get('repo').get('id') + '/' + that.get('id') + '/' + article.get('id')  );
+                article.set('magazine', that );
+            });
             this.loadDatas();
             this.on('change:localData', this.checkDlAvailable, this);
             this.trigger('change:localData');
         },
         //try to load localy saved datas
         loadDatas: function() {
+            
+            
             if(!App.isPhonegap){
                this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id')  );
                return false;
             }
+            
             return App.downloads.loadDatas(this);
         },
         isUpToDate : function(){

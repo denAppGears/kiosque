@@ -1,24 +1,22 @@
-define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'models/Repo','views/composites/Repos', 'views/MobileHeaderView', 'views/composites/MagNav','views/composites/ArticleNav','views/MagazineView'],
+define(['App', 'backbone', 'marionette', 'models/Model', 'collections/Magazines', 'collections/Articles','collections/Downloads', 'collections/Repos', 'views/composites/Magazines', 'models/Repo','views/composites/Repos', 'views/MobileHeaderView', 'views/composites/PageNav','views/composites/ArticleNav','views/ArticleView'],
 
-function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloads, ReposCollection, MagazinesView, RepoModel, ReposView, MobileHeaderView,MagNavView,ArticleNavView, magazineView) {
+function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollection, MagazinesDownloads, ReposCollection, MagazinesView, RepoModel, ReposView, MobileHeaderView,PageNavView,ArticleNavView, ArticleView) {
     return Backbone.Marionette.Controller.extend({
+        
         initialize: function(options) {
-
             var controller = this;
-
-            // init magazine downloads stack collection
+            
             App.downloads = new MagazinesDownloads();
-
+            
             //Goto Controller action
             App.vent.on('goto', function(options) {
                 controller[options.action](options.model);
             });
-
         },
 
         //DEFAULT show repos list as defined in app/router
         'repos': function() {
-            App.magNavRegion.close();
+            App.pageNavRegion.close();
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     pageTitle: "Magazines Repositories"
@@ -46,7 +44,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                     thumbSrc :'mags/1/thumb.png'
                     
             });
-            App.magNavRegion.close();
+            App.pageNavRegion.close();
             App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
                     goBackAction: '',
@@ -58,91 +56,136 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
             }));
             if (!App.collections.magazines) {
                 
-                App.collections.magazines = new MagazinesCollection([
+                var articlesFR = new ArticlesCollection([
                     {
                         id: 'cover',
                         orderId:0,
                         title: 'Les fêtes arrivent',
                         content: 'Les fêtes arrivent !',
-                        downloadUrl: 'https://dl.dropboxusercontent.com/u/2582860/1.zip',
-                        serverVersion: '10-10-2013',
-                        localData:false,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
-                        thumbSrc :'mags/thumbs/coverdef.png',
-                        inMagList :true   
+                        thumbSrc :'mags/thumbs/coverdef.png',  
                     },
                      {
                         id: 'summary',
                         orderId:1,
                         title: 'Sommaire',
-                        content: 'Les fêtes arrivent !',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
                         thumbSrc :'mags/thumbs/sommaire.png'
                     },
                      {
                         id: 3,
                         orderId:2,
                         title: 'Beauté',
-                        content: 'Les fêtes arrivent !',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
                         thumbSrc :'mags/thumbs/beautyfrinteractif.png'
-                    },{
+                    },
+                    {
                         id: 4,
                         orderId:3,
                         title: 'Mode',
-                        content: 'Mode WSC',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
                         thumbSrc :'mags/thumbs/modefrinteractif.png'
-                    },{
+                    },
+                    {
                         id: 6,
                         orderId:4,
                         title: 'Deco',
-                        content: 'Deco WSC',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
                         thumbSrc :'mags/thumbs/decofrinteractif.png'
-                    },{
+                    },
+                    {
                         id: 5,
                         orderId:5,
                         title: 'Cadeaux',
-                        content: 'Cadeaux',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
                         thumbSrc :'mags/thumbs/cadeauxfrinteractif.png'
-                    },{
+                    },
+                    {
                         id: 2,
                         orderId:6,
                         title: 'Nouveautés',
-                        content: 'Nouveautés WSC',
-                        serverVersion: '10-10-2013',
-                        localData:true,
-                        localVersion:'01-09-2013', 
-                        repo : repo,
                         thumbSrc :'mags/thumbs/nouveautesfrinteractif_def.png'
+                    }
+                ]);
+                var articlesNL = new ArticlesCollection([
+                    {
+                        id: 'cover',
+                        orderId:0,
+                        title: 'NL - Les fêtes arrivent',
+                        content: 'Les fêtes arrivent !',
+                        thumbSrc :'mags/thumbs/coverdef.png',  
+                    },
+                     {
+                        id: 'summary',
+                        orderId:1,
+                        title: 'NL - Sommaire',
+                        thumbSrc :'mags/thumbs/sommaire.png'
+                    },
+                     {
+                        id: 3,
+                        orderId:2,
+                        title: 'NL - Beauté',
+                        thumbSrc :'mags/thumbs/beautyfrinteractif.png'
+                    },
+                    {
+                        id: 4,
+                        orderId:3,
+                        title: 'NL - Mode',
+                        thumbSrc :'mags/thumbs/modefrinteractif.png'
+                    },
+                    {
+                        id: 6,
+                        orderId:4,
+                        title: 'NL - Deco',
+                        thumbSrc :'mags/thumbs/decofrinteractif.png'
+                    },
+                    {
+                        id: 5,
+                        orderId:5,
+                        title: 'NL - Cadeaux',
+                        thumbSrc :'mags/thumbs/cadeauxfrinteractif.png'
+                    },
+                    {
+                        id: 2,
+                        orderId:6,
+                        title: 'NL - Nouveautés',
+                        thumbSrc :'mags/thumbs/nouveautesfrinteractif_def.png'
+                    }
+                ]);
+                
+                App.collections.magazines = new MagazinesCollection([
+                    {
+                            id: 'fr',
+                            orderId:0,
+                            title: 'FR - Les fêtes arrivent',
+                            content: 'Les fêtes arrivent !',
+                            downloadUrl: 'https://dl.dropboxusercontent.com/u/2582860/1.zip',
+                            serverVersion: '10-10-2013',
+                            localData:false,
+                            localVersion:'01-09-2013', 
+                            repo : repo,
+                            thumbSrc :'mags/thumbs/coverdef.png',
+                            inMagList :true,
+                            articles:articlesFR
+                    },{
+                            id: 'nl',
+                            orderId:1,
+                            title: 'NL - Les fêtes arrivent',
+                            content: 'NL Les fêtes arrivent !',
+                            downloadUrl: 'https://dl.dropboxusercontent.com/u/2582860/2.zip',
+                            serverVersion: '10-10-2013',
+                            localData:false,
+                            localVersion:'01-09-2013', 
+                            repo : repo,
+                            thumbSrc :'mags/thumbs/coverdef.png',
+                            inMagList :true,
+                            articles:articlesNL
                     }
                                                                     
                 ]);
-
             }
             
             App.mainRegion.show(new MagazinesView({ collection : App.collections.magazines }) );
         },
         // Show magazine reader for the given models/magazine
         'read': function(magazine) {
+            var articles = magazine.get('articles');
+            App.collections.articles = articles;
+            
             //App.headerRegion.currentView.hide();
               App.headerRegion.show(new MobileHeaderView({
                 model: new Model({
@@ -153,22 +196,22 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, MagazinesDownloa
                 })
             }));
             magazine.get('repo').set('navMode',false);
-            App.collections.magazines.setElement( App.collections.magazines.at(0),true );
+            articles.setElement( articles.at(0),true );
             App.articleNavRegion.show(new ArticleNavView({
                 model: magazine.get('repo'),
-                collection:App.collections.magazines
+                collection:articles//App.collections.magazines
             }));
         },
         // Show article  for the given models/article
-        'article' : function(magazine){
-            App.magNavRegion.show(new MagNavView({ model: magazine}));
+        'article' : function(article){
+            App.pageNavRegion.show( new PageNavView({ model: article}));
             // goBackModel : magazine.get('repo'), goBackAction:'magazines', label:'liste',
-            var magView = new magazineView({model: magazine});
-            magView.model.on('change:magContent',function(magazine){
-                App.headerRegion.currentView.model.set({pageTitle:magazine.get('title')});
-                App.mainRegion.show(magView);
+            var articleView = new ArticleView({model: article});
+            articleView.model.on('change:magContent',function(article){
+                App.headerRegion.currentView.model.set({pageTitle:article.get('title')});
+                App.mainRegion.show(articleView);
             });
-            magView.loadMagContent();  
+            articleView.loadMagContent();
         }
     });
 });

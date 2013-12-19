@@ -20,7 +20,7 @@ function($, Backbone, Marionette, _, Handlebars) {
         //Regions can contain views, Layouts, or subregions nested as necessary
         this.addRegions({
             headerRegion: "#header",
-            magNavRegion: "#magNav",
+            pageNavRegion: "#pageNav",
             articleNavRegion:"#articleNav",
             mainRegion: "#content",
             listRegion: "#list"
