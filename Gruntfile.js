@@ -4,43 +4,6 @@ module.exports = function(grunt) {
     
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        recess: {
-          options: {
-            compile: true
-          },
-          bootstrap: {
-            src: ['public/css/less/bootstrap/bootstrap.less'],
-            dest: 'public/css/bootstrap.css'
-          },
-          theme: {
-            src: ['public/css/less/bootstrap/theme.less'],
-            dest: 'public/css/bootstrap-theme.css'
-          },
-          afui :{
-            src: ['public/css/less/afui/afui.less','public/css/less/afui/theme-yp.less'],//,'public/css/less/afui/src/yp.css','public/css/less/afui/src/plugins/*'
-            dest: 'public/css/af.ui.css'
-          },
-        afui_newless:{
-            src: [ 
-                "public/css/less/afui/src/main.css",
-                "public/css/less/afui/src/appframework.css",
-                "public/css/less/afui/src/lists.css",
-                "public/css/less/afui/src/forms.css",
-                "public/css/less/afui/src/buttons.css",
-                "public/css/less/afui/src/badges.css",
-                "public/css/less/afui/src/grid.css",
-                
-                "public/css/less/afui/src/importer.css",
-                
-                "public/css/less/afui/src/plugins/af.actionsheet.css",
-                "public/css/less/afui/src/plugins/af.popup.css",
-                "public/css/less/afui/src/plugins/af.scroller.css",
-                "public/css/less/afui/src/plugins/af.selectbox.css"
-                 ],
-            dest: 'public/css/af.ui.less.new'
-        }
-           
-        },
 
         requirejs: {
             mobileJS: {
@@ -195,13 +158,28 @@ module.exports = function(grunt) {
             phonegap: {
                 files: [{
                     expand: true,
-                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*','public/font/*','public/mags/**', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
+                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*','public/font/SourceSansPro-Regular.otf', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
                     dest: 'dist/tmp',
                     filter: 'isFile'
                 }, {
                     expand: true,
                     flatten: true,
                     src: ['dist/config.xml'],
+                    dest: 'dist/tmp',
+                    filter: 'isFile'
+                }]
+
+            },
+             mags: {
+                files: [{
+                    expand: true,
+                    cwd: 'public',
+                    src: [
+                        'mags/*/*/*/parsed.html',
+                        'mags/*/*/*/assets/css/parsed.css',
+                        'mags/*/*/*/assets/images/item_*',
+                        'mags/*/*/*/book/assets/images/*pagethumb_*'    
+                    ],
                     dest: 'dist/tmp',
                     filter: 'isFile'
                 }]
@@ -228,16 +206,19 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        /*
-        multiresize: {
-                iconsIOS: {
-                  src: 'dist/res/1/ios/icons/icon-76@2x.png',
-                  dest: ['icon.png', 'icon@2x.png','icon-60.png','icon-60@2x.png','icon-72.png','icon-72@2x.png','icon-76.png','icon-76@2x.png'],
-                  destSizes: ['57x57', '114x114','60x60','120x120','72x72','144x144','76x76','152x152']
-                }
-        },
-        */
         responsive_images: {
+            magThumbs: {
+              options: {
+                separator:'',  
+                sizes:[{name:'', width: 102, height:77, quality:0.7 }]
+              },
+              files: [{
+                expand: true,
+                src: ['public/mags/thumbs/*.png'],
+                custom_dest: 'dist/tmp/mags/thumbs/{%= name %}'
+                
+              }]
+            },
             iconsIOS: {
               options: {
                 sizes: 
@@ -366,15 +347,13 @@ module.exports = function(grunt) {
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
     grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
     grunt.registerTask('mobile', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','responsive_images','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
-    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
+    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','mags','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
+    grunt.registerTask('mags', ['parseMag','copy:mags','responsive_images:magThumbs']); //'git_deploy:phonegap'
     
     grunt.registerTask('default', ['test', 'build']);
     grunt.registerTask('template', ['template']);
     
     grunt.registerTask('images', ['responsive_images']);
-    
-    
-    
     
     grunt.registerTask('parseMag', function(){
         grunt.file.defaultEncoding = 'utf8';
@@ -382,8 +361,7 @@ module.exports = function(grunt) {
         grunt.file.recurse('public/mags/1', function(abspath, rootdir, subdir, filename){
       
             if(filename != 'index.html' || abspath.search('book') !== -1  )return;
-            
-            
+     
             var magPath = 'mags/1/' + subdir;
 
             var content = grunt.file.read(abspath);
@@ -439,7 +417,6 @@ module.exports = function(grunt) {
             var css = grunt.file.read(abspath).split('/*CSS Generated from InDesign Styles*/')[1] ;
   
             var parsedCss = css.replace(/images/gi,  'mags/1/' + subdir.split('css')[0] + 'images' ) ;
-            console.log( 'mags/1/' + subdir.split('css')[0] + 'images');
             
             grunt.file.write(filepath, parsedCss );
         });

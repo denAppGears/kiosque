@@ -1,5 +1,5 @@
 /**
- * View of the magazine detailed content
+ * View of the article detailed content
  */
 define(['App', 'backbone', 'marionette', 'jquery', 'models/Article', 'hbs!templates/article','in5','iscroll'],
 
@@ -95,7 +95,7 @@ function(App, Backbone, Marionette, $, Model, template) {
         onShow : function (){ 
            $("#menu").remove();       
            var that = this; 
-           var magazine = article = this.model ;
+           var article = this.model ;
            
            var nextArticle = App.collections.articles.getNext() ;
            var prevArticle = App.collections.articles.getPrev();

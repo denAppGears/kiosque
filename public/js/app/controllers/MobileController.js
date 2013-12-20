@@ -62,7 +62,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollecti
                         orderId:0,
                         title: 'Les fêtes arrivent',
                         content: 'Les fêtes arrivent !',
-                        thumbSrc :'mags/thumbs/coverdef.png',  
+                        thumbSrc :'mags/thumbs/coverdef.png'
                     },
                      {
                         id: 'summary',
@@ -107,7 +107,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollecti
                         orderId:0,
                         title: 'NL - Les fêtes arrivent',
                         content: 'Les fêtes arrivent !',
-                        thumbSrc :'mags/thumbs/coverdef.png',  
+                        thumbSrc :'mags/thumbs/coverdef.png'
                     },
                      {
                         id: 'summary',
