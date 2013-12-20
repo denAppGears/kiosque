@@ -41,6 +41,9 @@
         "grunt-image-resize":">=0",
         "grunt-multiresize":">=0",
         "grunt-responsive-images":">=0",
+        "grunt-contrib-imagemin":">=0",
+        "grunt-imagemagick":">=0",
+        
         "uglify-js":">=0"
     },
     "main":"./server/server",

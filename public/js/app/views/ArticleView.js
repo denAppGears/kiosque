@@ -185,12 +185,6 @@ function(App, Backbone, Marionette, $, Model, template) {
                 //handling In5 onClicks Buttons actions:
                 console.log('overrideIn5');
                 
-                /*
-                $('video').parent().each(function(){
-                    $(this).appendTo( $(this).parent('li.page') );
-                });
-                */
-                
                 $('video').on('play',function(){
                     $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
                     var videoEl = $(this)[0];

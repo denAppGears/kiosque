@@ -60,7 +60,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollecti
                     {
                         id: 'cover',
                         orderId:0,
-                        title: 'Les fêtes arrivent',
+                        title: 'Cover',
                         content: 'Les fêtes arrivent !',
                         thumbSrc :'mags/thumbs/coverdef.png'
                     },
@@ -105,44 +105,43 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollecti
                     {
                         id: 'cover',
                         orderId:0,
-                        title: 'NL - Les fêtes arrivent',
-                        content: 'Les fêtes arrivent !',
+                        title: 'Cover',
                         thumbSrc :'mags/thumbs/coverdef.png'
                     },
                      {
                         id: 'summary',
                         orderId:1,
-                        title: 'NL - Sommaire',
+                        title: 'Edito Inhoud',
                         thumbSrc :'mags/thumbs/sommaire.png'
                     },
                      {
                         id: 3,
                         orderId:2,
-                        title: 'NL - Beauté',
+                        title: 'Beauty',
                         thumbSrc :'mags/thumbs/beautyfrinteractif.png'
                     },
                     {
                         id: 4,
                         orderId:3,
-                        title: 'NL - Mode',
+                        title: 'Mode',
                         thumbSrc :'mags/thumbs/modefrinteractif.png'
                     },
                     {
                         id: 6,
                         orderId:4,
-                        title: 'NL - Deco',
+                        title: 'Home',
                         thumbSrc :'mags/thumbs/decofrinteractif.png'
                     },
                     {
                         id: 5,
                         orderId:5,
-                        title: 'NL - Cadeaux',
+                        title: 'Cadeaus',
                         thumbSrc :'mags/thumbs/cadeauxfrinteractif.png'
                     },
                     {
                         id: 2,
                         orderId:6,
-                        title: 'NL - Nouveautés',
+                        title: 'Nieuwigheden',
                         thumbSrc :'mags/thumbs/nouveautesfrinteractif_def.png'
                     }
                 ]);
@@ -164,7 +163,7 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollecti
                     },{
                             id: 'nl',
                             orderId:1,
-                            title: 'NL - Les fêtes arrivent',
+                            title: 'NL - De feesten',
                             content: 'NL Les fêtes arrivent !',
                             downloadUrl: 'https://dl.dropboxusercontent.com/u/2582860/2.zip',
                             serverVersion: '10-10-2013',
@@ -199,13 +198,12 @@ function(App, Backbone, Marionette, Model, MagazinesCollection, ArticlesCollecti
             articles.setElement( articles.at(0),true );
             App.articleNavRegion.show(new ArticleNavView({
                 model: magazine.get('repo'),
-                collection:articles//App.collections.magazines
+                collection:articles
             }));
         },
         // Show article  for the given models/article
         'article' : function(article){
             App.pageNavRegion.show( new PageNavView({ model: article}));
-            // goBackModel : magazine.get('repo'), goBackAction:'magazines', label:'liste',
             var articleView = new ArticleView({model: article});
             articleView.model.on('change:magContent',function(article){
                 App.headerRegion.currentView.model.set({pageTitle:article.get('title')});

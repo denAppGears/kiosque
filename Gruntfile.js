@@ -158,7 +158,11 @@ module.exports = function(grunt) {
             phonegap: {
                 files: [{
                     expand: true,
-                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*','public/font/SourceSansPro-Regular.otf', '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
+                    src: ['public/js/libs/require.js','<%=requirejs.mobileJS.options.mainConfigFile%>', 'public/img/*',
+                    'public/font/SourceSansPro-Regular.otf',
+                    'public/font/SourceSansPro-Light.otf',
+                    'public/font/SourceSansPro-Semibold.otf',
+                    '<%=requirejs.mobileJS.options.out%>', '<%=requirejs.mobileCSS.options.out%>'],
                     dest: 'dist/tmp',
                     filter: 'isFile'
                 }, {
@@ -177,8 +181,8 @@ module.exports = function(grunt) {
                     src: [
                         'mags/*/*/*/parsed.html',
                         'mags/*/*/*/assets/css/parsed.css',
-                        'mags/*/*/*/assets/images/item_*',
-                        'mags/*/*/*/book/assets/images/*pagethumb_*'    
+                        'mags/*/*/*/assets/images/item*',
+                        'mags/*/*/*/book/assets/images/*pagethumb*'    
                     ],
                     dest: 'dist/tmp',
                     filter: 'isFile'
@@ -210,7 +214,7 @@ module.exports = function(grunt) {
             magThumbs: {
               options: {
                 separator:'',  
-                sizes:[{name:'', width: 102, height:77, quality:0.7 }]
+                sizes:[{name:'', width: 102, height:77 }]
               },
               files: [{
                 expand: true,
@@ -291,6 +295,33 @@ module.exports = function(grunt) {
               }]
             }
         },
+        imagemin:{                          // Task
+            mags: {
+              options: {
+                pngquant:true,
+                optimizationLevel: 4
+              },                             // Another target
+              files: [{
+                expand: true,                // Enable dynamic expansion
+                cwd: 'dist/tmp/mags/1',      // Src matches are relative to this path
+                src: ['**/*.{png,jpg,gif}']  // Actual patterns to match
+                //dest: 'dist/'              // Destination path prefix
+              }]
+            }
+            -format jpg
+        },
+        "imagemagick-convert":{
+          mags:{
+              files: [{
+                expand: true,                // Enable dynamic expansion
+                cwd: 'dist/tmp/mags/1',      // Src matches are relative to this path
+                src: ['**/*.{png,jpg,gif}']  // Actual patterns to match
+                
+              }]
+            args:['-format jpg'],
+            fatals: true
+          }
+        },
         git_deploy: {
             phonegap: {
                 options: {
@@ -341,13 +372,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     /*grunt.loadNpmTasks('grunt-image-resize');*/
     grunt.loadNpmTasks('grunt-responsive-images');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-imagemagick');
     /*grunt.loadNpmTasks('grunt-multiresize');*/
     
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('build', ['requirejs:desktopJS', 'requirejs:mobileJS', 'requirejs:desktopCSS', 'requirejs:mobileCSS']);
-    grunt.registerTask('mobile-prod', ['test', 'recess','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
+    grunt.registerTask('mobile-prod', ['test','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','mags','imagemin:mags','preprocess:phonegap', 'clean:rmpublic']);
     grunt.registerTask('mobile', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','responsive_images','copy:phonegap', 'copy:root','preprocess:phonegap', 'clean:rmpublic', 'git_deploy:phonegap']);
-    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','mags','preprocess:phonegap', 'clean:rmpublic']); //'git_deploy:phonegap'
+    grunt.registerTask('mobile-nopush', ['test','requirejs:mobileDevJS', 'requirejs:mobileCSS', 'clean:phonegap','copy:phonegap', 'copy:root','mags','preprocess:phonegap', 'clean:rmpublic']);
     grunt.registerTask('mags', ['parseMag','copy:mags','responsive_images:magThumbs']); //'git_deploy:phonegap'
     
     grunt.registerTask('default', ['test', 'build']);

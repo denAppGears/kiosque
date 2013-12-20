@@ -54,12 +54,12 @@ function(App, $, Model) {
         loadDatas: function() {
             
             
-            if(!App.isPhonegap){
+            //if(!App.isPhonegap){
                this.set('magPath',"mags/" + this.get('repo').get('id') + '/' + this.get('id')  );
                return false;
-            }
+            //}
             
-            return App.downloads.loadDatas(this);
+            //return App.downloads.loadDatas(this);
         },
         isUpToDate : function(){
             if( this.get('localVersion') && this.get('localData') ){
