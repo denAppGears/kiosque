@@ -1,7 +1,7 @@
 /**
  * View of the article detailed content
  */
-define(['App', 'backbone', 'marionette', 'jquery', 'models/Article', 'hbs!templates/article','in5','iscroll'],
+define(['App', 'backbone', 'marionette', 'jquery', 'models/Article', 'hbs!templates/article','iscroll'], //'in5',
 
 function(App, Backbone, Marionette, $, Model, template) {
 
@@ -45,53 +45,14 @@ function(App, Backbone, Marionette, $, Model, template) {
         loadPage : function (pageId){
             console.log('loadPage ' + pageId);
             var transition = (pageId > this.model.get('backPage'))? 'up' : 'down' ;  
-            viewSwiper.scrollToPage(0,pageId-1,0);           
-        },
-        parseLinks : function (html){
-            console.log('parseLinks');
-            var that = this;
-            var $parsed = $(html);
-            var pageCount = 0;
-            
-            $parsed.find('img').each(function(index,el){
-                $(this).attr('src', that.model.get('magPath') + '/' + $(this).attr('src') );
-            });
-            
-            var magCsss = [];
-            $parsed.filter('link[rel="stylesheet"]').each(function(index){      
-              magCsss.push( $(this).attr('href') );
-            });
-            that.model.set('cssPaths', magCsss);
-            
-            $parsed.find('video').each(function(index,el){
-                $(this).attr('poster', that.model.get('magPath') + '/' + $(this).attr('poster'));
-                $('object',this).remove();
-            });
-            
-            $parsed.find('.mso.slideshow').each(function(index,el){
-                $(this).attr('data-useswipe',0);
-            });
-            
-            $parsed.find('source').each(function(index,el){
-                $(this).attr('src',$(this).attr('src') );
-            });
-            
-            $parsed.filter('script').each(function(index,el){
-                $(this).removeAttr('src');
-            });
-            
-            $parsed.find('.page').each(function(index,el){
-               $(this).addClass('slide');
-               pageCount++;
-            });
-            this.model.set('pageCount',pageCount);
-  
-            return $parsed.find('.pages').html();
+            viewSwiper.scrollToPage(0,pageId-1,0);
    
         },
         onCurrentPageChanged : function(article){
             this.loadPage( article.get('currentPage') );
+            App.vent.trigger('currentPageChange');
         },
+       
         onShow : function (){ 
            $("#menu").remove();       
            var that = this; 
@@ -107,6 +68,7 @@ function(App, Backbone, Marionette, $, Model, template) {
             if( prevArticle ){
                 $('button.prev div').first().css('background-image','url("' + App.collections.articles.getPrev().get('thumbSrc') + '")');
             }
+            
                 
             // init Iscroller
         
@@ -124,7 +86,10 @@ function(App, Backbone, Marionette, $, Model, template) {
                         hScrollbar: false,
                         vScrollbar: false,
                         hScroll:false,
+                        bounce: false,
+                        bounceLock: false,
                         onScrollEnd: function () {
+                             
                             if(viewSwiper.currPageY != (article.get('currentPage') - 1) ){
                                 article.set('currentPage', viewSwiper.currPageY + 1);
                             }
@@ -141,7 +106,7 @@ function(App, Backbone, Marionette, $, Model, template) {
                             $('button','#articleNav').removeClass('sugested');
                             $('button','#articleNav').removeClass('confirmed');
                             
-                            console.log(viewSwiper);
+                            //console.log(viewSwiper);
                             
                         },
                         onScrollMove : function(){
@@ -170,40 +135,168 @@ function(App, Backbone, Marionette, $, Model, template) {
                         }
                    });
                    
-                   article.set('currentPage', 1); 
-                   //magazine.trigger('change:currentPage',magazine);
+                   article.set('currentPage', 1);
+                   console.log('show mag Container');
+                   $('#magContainer',that.$el).addClass('active');
            
                 }, 100);
+         
                 
-                console.log('show mag Container');
-                $('#magContainer',that.$el).css('left','0');
-                
-                clickEv = 'click';
-                
-                $(document).trigger('assignIn5');
+                //$(document).trigger('assignIn5');
              
                 //handling In5 onClicks Buttons actions:
-                console.log('overrideIn5');
+                console.log('assignIn5');
+                clickEv = 'click';
+                var nav = {};
                 
-                $('video').on('play',function(){
-                    $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() );
-                    var videoEl = $(this)[0];
-                    var random = new Date().getMilliseconds();
-                    $('source',this).attr('src',$('source',this).attr('src') + '?' + random);
-                    $( '<div class="video-mask"></div>' ).insertBefore( $(this).parent() ); //
-                    
-                    $('.video-mask').not('video').on(clickEv,function(event){
-                        //event.stopImmediatePropagation();
-                        videoEl.pause();
-                    });
-                    $(this).show();
+                /*
+                 *  VIDEO CLICK PLAY
+                 */
+                _.each($('video'),function(videoEl){
+                        
+                        var $spinner = $('.video-spinner', $(videoEl).parent());
+                        var $mask = $('.video-mask',$(videoEl).parent().parent() );
+                        var $videoEl = $(videoEl);
+                        
+                        $videoEl.on('error',function(error){
+                           console.log('error while loading video src : ' + error.currentTarget.currentSrc);
+                           $videoEl.trigger('pause');
+                          
+                        });
+                        
+                        $videoEl.on('timeupdate',function(event){
+                               console.log('timeupdate : ' + videoEl.currentTime + ' paused : ' + videoEl.paused + ' show :' + $videoEl.hasClass('active') );  
+                               if( !$videoEl.hasClass('active') && videoEl.currentTime > 0 && !videoEl.paused ) {
+                                      $videoEl.trigger('isPlaying');         
+                               }
+                        });
+                        
+                        $videoEl.on('isPlaying',function(event){
+                               $(videoEl).addClass('active');
+                               $spinner.removeClass('active');
+                        });
+                        
+                        /*
+                        $videoEl.on('progress',function(event){
+                                console.log('progress : ' + videoEl.duration );
+                        });
+                        */
+                        
+                        /*
+                        $videoEl.on('canplaythrough canplay',function(event){
+                                console.log('can play through now..');
+                               videoEl.play();
+                        });
+                        */
+ 
+                        $mask.not('video').on(clickEv,function(event){
+                               console.log('mask has been clicked !');
+                               if( $videoEl.hasClass('active') && $mask.hasClass('active') && !videoEl.paused ){
+                                 $videoEl.trigger('rewind');
+                               }
+                              
+                        });
+                        
+                        /* 
+                        $videoEl.on('loadstart',function(event){                  
+                            $spinner.addClass('active');
+                            console.log('start loading : ' + event.currentTarget.currentSrc );
+                            console.log('is video format supported for : ' + event.currentTarget.currentSrc + ' : ' + videoEl.canPlayType($('source',videoEl).attr('type')) );   
+                            
+                        });
+                        */
+
+                        $videoEl.on('onstalled ended',function(){
+                                console.log('video Stalled or Ended');
+                                videoEl.pause();
+                        }); 
+                       
+                        $videoEl.on('rewind',function(){
+                           console.log('rewind and pause .. Standing by.')     
+                           videoEl.pause(); 
+                           videoEl.currentTime = 0;
+                        });
+                        
+                                           
+                        $videoEl.on('pause',function(){
+                           console.log('video paused');     
+                           $(this).removeClass('active');
+                           $spinner.removeClass('active');
+                           $mask.removeClass('active');
+                        });
+      
+                        App.vent.on('currentPageChange',function(){
+                            videoEl.pause();    
+                        });
+                        
+                        $videoEl.on('playing',function(event){ 
+                               console.log('playing showtime !');
+                        });
+                        
+                        $videoEl.on('playRequest',function(event){ 
+                               console.log('play request : ' + videoEl.currentSrc);
+                               $mask.addClass('active'); 
+                               $spinner.addClass('active'); 
+                               videoEl.play();
+                        });
                 });
                 
-                $('video').on('pause',function(){
-                    $(this).hide();
-                    $('.video-mask').hide();
+                /* bind video play buttons */
+                $('[data-click-play]').each(function(index,el) {
+                    $(el).on(clickEv, function(e){  $.each($(this).attr('data-click-play').split(','), function(i,val){ 
+                                var targData = val.split(':');
+                                var $videoEl = $('[data-id=' + targData[0] + ']'); 
+                                $videoEl.trigger('playRequest');
+                       });
+                    }); 
                 });
+                
+                /*
+                   SlIDESHOW CLICK
+                */
+                
+                function nextState(dataID, loop) {
             
+                    var mso = $('[data-id=' + dataID + ']');
+                    
+                    var states = mso.first().children('.state');
+                    
+                    var current = states.siblings('.active').index();
+                    
+                    if(current+1 < states.length) {
+                        mso.each(function(index,elem) {	
+                                $(elem).removeClass('hidden').children('.state').removeClass('active').eq(current+1).addClass('active');
+                                return;
+                        });
+                    } else if(loop) {
+                        
+                        mso.each(function(index,elem) {
+                                $(elem).removeClass('hidden').children('.state').removeClass('active').first().addClass('active');
+                                return;
+                        });
+                    }
+                }
+
+
+                $('[data-click-next]').each(function(index,el) {
+                    $(el).on(clickEv, function(e){  
+                        var loop = ($(this).attr('data-loop') == '1');
+                        $.each($(this).attr('data-click-next').split(','), function(i,val){ nextState(val, loop); });
+                }); });
+                
+                /*
+                  NEXT STATE CLICK
+                */
+                $('[data-click-state]').each(function(index,el) {
+                    $(el).on(clickEv, function(e){  $.each($(this).attr('data-click-state').split(','), function(i,val){ 
+                        var targData = val.split(':');
+                        $('[data-id=' + targData[0] + ']').each(function(index,elem) {
+                                $ (elem).children('.state').removeClass('active').hide().eq(targData[1]).addClass('active').show().parent('.mso').removeClass('hidden');
+                        });
+                        //toState(targData[0], targData[1]); 
+                    });
+                  }); 
+                });
                 
                 $('button[data-gotoarticle]').on('click',function(){
                     var article = App.collections.articles.setElement( App.collections.articles.get( $(this).data('gotoarticle') ) );
@@ -231,9 +324,10 @@ function(App, Backbone, Marionette, $, Model, template) {
             }
             
             //waiting for images to be loaded
-            var total = $(this.$el).find('img').length;
+            var $visuals =  $( "img",this.$el );
+            var total = $visuals.length;
             var loaded = 0;
-            $( "img",this.$el ).load(function(){
+            $visuals.load(function(){
                 loaded++;
                 if( total == loaded ){
                     onImagesLoaded();

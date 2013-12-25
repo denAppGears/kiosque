@@ -266,6 +266,7 @@ $(function(){
         $(document).on('newPage', function(e, data) { onNewPage(e, data); });
         if(!multifile && pageMode.substr(0,2) === 'cs') $(document).on('scroll', function(e){ checkScroll(e, pageMode.substr(2)); });
         if($('ul.thumbs').length) $('#in5footer').hide();
+		
         $('[data-click-show]').each(function(index,el) {
             $(el).on(clickEv, function(e){ 
                 e.preventDefault();
@@ -286,17 +287,21 @@ $(function(){
                 var loop = ($(this).attr('data-loop') == '1');
                 $.each($(this).attr('data-click-prev').split(','), function(i,val){ prevState(val, loop); });
         }); });
-       
-        $('[data-click-state]').each(function(index,el) {
-            $(el).on(clickEv, function(e){  $.each($(this).attr('data-click-state').split(','), function(i,val){ 
-                var targData = val.split(':');
-                toState(targData[0], targData[1]); });
-        }); });
-        $('[data-click-play]').each(function(index,el) {
-            $(el).on(clickEv, function(e){  $.each($(this).attr('data-click-play').split(','), function(i,val){ 
-                var targData = val.split(':');
-                playMedia(targData[0], targData[1]); });
-        }); });
+       	/*
+			$('[data-click-state]').each(function(index,el) {
+				$(el).on(clickEv, function(e){  $.each($(this).attr('data-click-state').split(','), function(i,val){ 
+					var targData = val.split(':');
+					toState(targData[0], targData[1]); });
+			}); });
+		*/
+		/*changed*/
+		/*
+			$('[data-click-play]').each(function(index,el) {
+				$(el).on(clickEv, function(e){  $.each($(this).attr('data-click-play').split(','), function(i,val){ 
+					var targData = val.split(':');
+					playMedia(targData[0], targData[1]); });
+			}); });
+		*/
         $('[data-click-pause]').each(function(index,el) {
             $(el).on(clickEv, function(e){  $.each($(this).attr('data-click-pause').split(','), function(i,val){ 
                 pauseMedia(val); });

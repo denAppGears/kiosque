@@ -27,6 +27,10 @@ button { border:none; cursor:pointer; }
     -webkit-transform: translate3d(0,0,0);
 }
 
+#magContainer.active{
+   left:0;
+}
+
 #paper-vertical li{
   list-style:none;
 }
@@ -241,18 +245,27 @@ div.paper-vertical li.page, .paper-horizontal li.page{
 
 
 video{
-    display:none;
-   /* z-index:55;*/
+    position:absolute;
+    left:1000000px;
+    z-index:55;
+}
+
+video.active{
+    left:0;
 }
 
 .video-mask{
     position:absolute;
     top:0;
-    left:0;
+    left:-100%;
     width:100%;
     height:100%;
     background-color:#000;
     opacity: 0.5;
+    
+}
+.video-mask.active{
+    left:0;
 }
 
 /* IN5 Slideshow transitions */
@@ -412,4 +425,49 @@ div#content {
   box-shadow: inset 0 0px #fff;
   border: 1px solid #bdbdbd;
   border-radius: 3px;
+}
+
+/*
+  Topcoat loading spinner
+  ---------------------------------
+
+  <div class='topcoat-spinner'></div>
+
+*/
+.topcoat-spinner {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin: 5px;
+  background: url("../img/spinner.png") no-repeat;
+  -webkit-animation: spinner 1s infinite linear;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (min-resolution: 192dpi) {
+  .spinner {
+    background: url("../img/spinner2x.png") no-repeat;
+    background-size: 36px;
+  }
+}
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.video-spinner{
+  position : absolute;
+  left: -10000px;
+  top:150px;
+}
+
+.video-spinner.active{
+  left: 300px;
 }

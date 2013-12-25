@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
-id="com.yellowpimento.kiosque" versionCode="10" version="1.0.8">
+id="com.yellowpimento.kiosque" versionCode="4" version="1.0.9">
     <name>Woluwe Shopping Magazine</name>
     <description>A HTML5 Magazine Reader WSC</description>
     <author href="http://yellowpimento.com"
     email="denis@yellowpimento.com">Yellow Pimento</author>
     
-    <preference name="phonegap-version" value="3.2.0" />
+    <preference name="phonegap-version" value="3.3.0" />
     <preference name="stay-in-webview" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="fullscreen" value="true" />
     <preference name="orientation" value="landscape" />
     <preference name="SplashScreen" value="splash"/>
+    
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="MediaPlaybackRequiresUserAction" value="true" />
+    
     <access origin="*" />
     
     <gap:platform name="ios" />

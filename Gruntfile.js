@@ -308,7 +308,6 @@ module.exports = function(grunt) {
                 //dest: 'dist/'              // Destination path prefix
               }]
             }
-            -format jpg
         },
         "imagemagick-convert":{
           mags:{
@@ -317,7 +316,7 @@ module.exports = function(grunt) {
                 cwd: 'dist/tmp/mags/1',      // Src matches are relative to this path
                 src: ['**/*.{png,jpg,gif}']  // Actual patterns to match
                 
-              }]
+              }],
             args:['-format jpg'],
             fatals: true
           }
@@ -390,7 +389,9 @@ module.exports = function(grunt) {
     
     grunt.registerTask('parseMag', function(){
         grunt.file.defaultEncoding = 'utf8';
+        
         console.log('---- Html Parse ----');
+        
         grunt.file.recurse('public/mags/1', function(abspath, rootdir, subdir, filename){
       
             if(filename != 'index.html' || abspath.search('book') !== -1  )return;
@@ -406,9 +407,15 @@ module.exports = function(grunt) {
             });
    
             $parsed.find('video').each(function(index,el){
+                var $source = $('source',this);
                 $(this).attr('poster', magPath + '/' + $(this).attr('poster'));
-                $('object',this).remove();
+                $(this).attr('preload', 'none');
+                $(this).attr('webkit-playsinline', 'webkit-playsinline');
+                $(this).removeAttr('controls');              
+                $(this).parent().append('<div class="topcoat-spinner video-spinner"></div>');              
+                $('object',this).remove();              
                 $(this).parent().appendTo( $(this).parents('li.page') );
+                $(this).parent().before('<div class="video-mask"></div>');
             });
             
             $parsed.find('.mso.slideshow').each(function(index,el){
@@ -433,9 +440,9 @@ module.exports = function(grunt) {
             
             grunt.file.write(filepath, $parsed.find('.pages').html() );
         });
-        
-        
+  
         console.log('---- Css Parse ----');
+        
         grunt.file.recurse('public/mags/1', function(abspath, rootdir, subdir, filename){
       
             if(filename != 'pages.css' || abspath.search('book') !== -1  )return;
@@ -443,12 +450,10 @@ module.exports = function(grunt) {
             var filepath = rootdir + '/' + subdir + '/parsed.css' ;
             
             console.log(filepath);
-           
       
             var magPath = 'mags/1/' + subdir;
             
             var css = grunt.file.read(abspath).split('/*CSS Generated from InDesign Styles*/')[1] ;
-  
             var parsedCss = css.replace(/images/gi,  'mags/1/' + subdir.split('css')[0] + 'images' ) ;
             
             grunt.file.write(filepath, parsedCss );
