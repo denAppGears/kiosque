@@ -88,7 +88,7 @@ function(App, Backbone, Marionette, $, Model, template) {
                         hScroll:false,
                         bounce: false,
                         bounceLock: false,
-                        onScrollEnd: function () {
+                        onScrollEnd: function (event) {
                              
                             if(viewSwiper.currPageY != (article.get('currentPage') - 1) ){
                                 article.set('currentPage', viewSwiper.currPageY + 1);
@@ -109,7 +109,11 @@ function(App, Backbone, Marionette, $, Model, template) {
                             //console.log(viewSwiper);
                             
                         },
-                        onScrollMove : function(){
+                        onScrollMove : function(event){
+                            
+                            //console.log(event);
+                            event.preventDefault();
+                            
                             if( viewSwiper.absDistX > confirmDist && viewSwiper.distX < 0){
                                 $('button.next','#articleNav').addClass('confirmed');
                                 $('button.prev','#articleNav').removeClass('confirmed');
@@ -212,7 +216,7 @@ function(App, Backbone, Marionette, $, Model, template) {
                         }); 
                        
                         $videoEl.on('rewind',function(){
-                           console.log('rewind and pause .. Standing by.')     
+                           console.log('rewind and pause .. Standing by.');    
                            videoEl.pause(); 
                            videoEl.currentTime = 0;
                         });

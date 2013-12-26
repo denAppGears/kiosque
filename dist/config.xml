@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
-id="com.yellowpimento.kiosque" versionCode="4" version="1.0.9">
+id="com.yellowpimento.kiosque" versionCode="5" version="1.0.10">
     <name>Woluwe Shopping Magazine</name>
     <description>A HTML5 Magazine Reader WSC</description>
     <author href="http://yellowpimento.com"
